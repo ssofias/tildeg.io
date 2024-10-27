@@ -3,22 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secret Code Page</title>
+    <title>Night Sky with Northern Lights</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <div id="code-entry">
-            <h1>Enter the Secret Code</h1>
-            <input type="text" id="code-input" placeholder="Enter your code here" />
-            <button onclick="checkCode()">Submit</button>
-            <p id="message"></p>
-        </div>
-        <div id="content" style="display: none;">
-            <h1>Welcome to the Secret Content!</h1>
-            <p>This is the content that only authorized users can see.</p>
-        </div>
+    <div class="northern-lights"></div>
+    <div class="stars"></div>
+    <div class="background-container">
+        <img src="../tildeg.io/images/trees.png" alt="Trees overlay" class="overlay-image">
     </div>
+    
+
+
+    <div class="password-container" id="password-container">
+        <h2>Skriv inn den hemmelige koden</h2>
+        <input type="password" id="password-input" placeholder="Kode">
+        <button id="submit-password">Bekreft</button>
+        <p id="error-message" style="color: rgb(255, 228, 51);"></p>
+    </div>
+    
+    
     <script src="script.js"></script>
 </body>
 </html>
