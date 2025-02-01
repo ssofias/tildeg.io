@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-});*/
+});
 
 // Password (change this to your desired password)
 const correctPassword = "ILoveYou";
@@ -116,4 +116,32 @@ function startTimer() {
     document.getElementById("minutes").innerText = minutes;
     document.getElementById("seconds").innerText = seconds;
   }, 1000);
-}
+}*/
+
+
+$(document).ready(function() {
+    var envelope = $("#envelope");
+    var btn_open = $("#open");
+    var btn_reset = $("#reset");
+
+    envelope.click(function() {
+        open();
+    });
+    btn_open.click(function() {
+        open();
+    });
+    btn_reset.click(function() {
+        close();
+    });
+
+    function open() {
+        envelope.addClass("open")
+            .removeClass("close");
+    }
+
+    function close() {
+        envelope.addClass("close")
+            .removeClass("open");
+    }
+
+})
