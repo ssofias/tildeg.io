@@ -208,36 +208,36 @@ button {
 */
 
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #ffebee;
-    color: #c62828;
-    padding: 20px;
-  }
-  
-  #password-page, #content-page {
-    margin-top: 50px;
-  }
-  
-  input[type="password"] {
-    padding: 10px;
-    font-size: 16px;
-    margin: 50px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #a32733;
-    border: none;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #ffb2b2;
-  }
-  
-  #timer {
-    font-size: 24px;
-    margin-top: 20px;
-  }
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 20px;
+}
+
+#password-page, #content-page {
+  margin-top: 50px;
+}
+
+input[type="password"] {
+  padding: 10px;
+  font-size: 16px;
+  margin: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #ffcdd2;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #ffb2b2;
+}
+
+#timer {
+  font-size: 24px;
+  margin-top: 20px;
+}
