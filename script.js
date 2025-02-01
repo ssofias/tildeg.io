@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+/*document.addEventListener("DOMContentLoaded", () => {
     // Star settings
     const starCount = 3000;
     const starsContainer = document.querySelector('.stars');
@@ -78,4 +78,42 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
-});
+});*/
+
+// Password (change this to your desired password)
+const correctPassword = "ILoveYou";
+
+// Date you met (change this to your actual date)
+const metDate = new Date("2020-01-01T00:00:00");
+
+function checkPassword() {
+  const passwordInput = document.getElementById("password-input").value;
+  const errorMessage = document.getElementById("error-message");
+
+  if (passwordInput === correctPassword) {
+    document.getElementById("password-page").style.display = "none";
+    document.getElementById("content-page").style.display = "block";
+    startTimer();
+  } else {
+    errorMessage.style.display = "block";
+  }
+}
+
+function startTimer() {
+  setInterval(() => {
+    const now = new Date();
+    const timeDiff = now - metDate;
+
+    const years = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365));
+    const days = Math.floor((timeDiff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+    document.getElementById("years").innerText = years;
+    document.getElementById("days").innerText = days;
+    document.getElementById("hours").innerText = hours;
+    document.getElementById("minutes").innerText = minutes;
+    document.getElementById("seconds").innerText = seconds;
+  }, 1000);
+}

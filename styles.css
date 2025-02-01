@@ -1,4 +1,4 @@
-/* Body background with gradient */
+/* Body background with gradient 
 body {
     margin: 0;
     height: 100vh;
@@ -6,34 +6,34 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    background: linear-gradient(to bottom, #001f3f, #005f9c); /* Night sky background */
+    background: linear-gradient(to bottom, #001f3f, #005f9c); Night sky background 
 }
 
-/* Container for background */
+Container for background 
 .background-container {
-    width: 100vw; /* Full viewport width */
-    height: 100vh; /* Full viewport height */
+    width: 100vw;  Full viewport width 
+    height: 100vh; /* Full viewport height 
     display: flex;
-    justify-content: center; /* Center the image horizontally */
-    align-items: center; /* Center the image vertically */
+    justify-content: center; /* Center the image horizontally 
+    align-items: center; /* Center the image vertically 
     position: relative;
-    background-color: transparent; /* Make sure background is transparent */
-    z-index: 1; /* Stack trees above background elements */
+    background-color: transparent; /* Make sure background is transparent 
+    z-index: 1; /* Stack trees above background elements 
 }
 
-/* Image overlay */
+/* Image overlay 
 .overlay-image {
     position: absolute;
-    width: 70%; /* Adjust to fit better within viewport */
-    height: 40%; /* Maintain aspect ratio */
-    bottom: 0; /* Position at the bottom of the viewport */
-    left: 0; /* Position completely to the left */
-    opacity: 0.9; /* Slight transparency if desired */
-    pointer-events: none; /* Prevent interaction with the image */
+    width: 70%; /* Adjust to fit better within viewport 
+    height: 40%; /* Maintain aspect ratio 
+    bottom: 0; /* Position at the bottom of the viewport 
+    left: 0; /* Position completely to the left 
+    opacity: 0.9; /* Slight transparency if desired 
+    pointer-events: none; /* Prevent interaction with the image 
 }
 
 
-/* Other existing CSS styles remain the same */
+/* Other existing CSS styles remain the same 
 
 .northern-lights {
     position: absolute;
@@ -42,17 +42,17 @@ body {
     top: 0;
     left: 0;
     background: linear-gradient(90deg, 
-        rgba(9, 254, 205, 0.5),  /* Aqua */
-        rgba(191, 0, 255, 0.5), /* Purple */
-        rgba(237, 4, 191, 0.5), /* Pink */
-        rgba(5, 196, 244, 0.5), /* Light Blue */
-        rgba(1, 252, 76, 0.712),  /* Green */
-        rgba(0, 255, 0, 0.96),    /* Dark Green */
-        rgba(247, 133, 19, 0.929) /* Orange */
+        rgba(9, 254, 205, 0.5),  /* Aqua 
+        rgba(191, 0, 255, 0.5), /* Purple 
+        rgba(237, 4, 191, 0.5), /* Pink 
+        rgba(5, 196, 244, 0.5), /* Light Blue 
+        rgba(1, 252, 76, 0.712),  /* Green 
+        rgba(0, 255, 0, 0.96),    /* Dark Green 
+        rgba(247, 133, 19, 0.929) /* Orange 
     );
     background-size: 400% 400%;
-    animation: pulse 5s ease-in-out infinite; /* Only pulsating animation */
-    opacity: 0.8; /* Adjust opacity for visibility */
+    animation: pulse 5s ease-in-out infinite; /* Only pulsating animation 
+    opacity: 0.8; /* Adjust opacity for visibility 
 }
 
 @keyframes pulse {
@@ -60,7 +60,7 @@ body {
         transform: scale(1);
     }
     50% {
-        transform: scale(1.25); /* Slightly scale up */
+        transform: scale(1.25); /* Slightly scale up 
     }
 }
 
@@ -92,8 +92,8 @@ body {
 
 .shooting-star {
     position: absolute;
-    width: 2px; /* Adjust the width for shooting star size */
-    height: 2px; /* Adjust the height for shooting star size */
+    width: 2px; /* Adjust the width for shooting star size 
+    height: 2px; /* Adjust the height for shooting star size 
     background: white;
     border-radius: 50%;
     box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
@@ -101,12 +101,12 @@ body {
 
 @keyframes shootingStar {
     0% {
-        transform: translate(-50%, -50%) translateY(0); /* Start from the top */
-        opacity: 1; /* Fully visible */
+        transform: translate(-50%, -50%) translateY(0); /* Start from the top 
+        opacity: 1; /* Fully visible 
     }
     100% {
-        transform: translate(-50%, -50%) translate(calc(100vw), vh); /* Move to the bottom right */
-        opacity: 0; /* Fade out */
+        transform: translate(-50%, -50%) translate(calc(100vw), vh); /* Move to the bottom right 
+        opacity: 0; /* Fade out 
     }
 }
 
@@ -116,8 +116,8 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    z-index: 10; /* Make sure it appears above other elements */
-    color: white; /* Change this to match your design */
+    z-index: 10; /* Make sure it appears above other elements 
+    color: white; /* Change this to match your design 
 }
 
 input {
@@ -137,17 +137,16 @@ button {
 }
 
 .content {
-    display: none; /* Hide content by default */
-    opacity: 0; /* Start with 0 opacity */
-    transition: opacity 1s ease-in-out; /* Smooth transition for opacity */
-    color: white; /* Change this to match your design */
-    position: absolute; /* Position above other elements */
-    top: 20%; /* Adjust vertical position as needed */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Center alignment */
-}
+    display: none; /* Hide content by default 
+    opacity: 0; /* Start with 0 opacity 
+    transition: opacity 1s ease-in-out; /* Smooth transition for opacity 
+    color: white; /* Change this to match your design 
+    position: absolute; /* Position above other elements 
+    top: 20%; /* Adjust vertical position as needed 
+    left: 50%; /* Center horizontally 
+    transform: translateX(-50%); /* Center alignment 
 
-/* Letter container styling */
+/* Letter container styling 
 .letter-container {
     display: flex;
     justify-content: center;
@@ -155,7 +154,7 @@ button {
     height: 1000vh;
 }
 
-/* Letter styling */
+/* Letter styling 
 .letter {
     width: 300px;
     background-color: #fff8dc;
@@ -163,15 +162,15 @@ button {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     border-radius: 8px;
     overflow: hidden;
-    transition: max-height 0.6s ease, padding 0.6s ease; /* Added padding transition */
-    max-height: 80px; /* Initial closed height */
+    transition: max-height 0.6s ease, padding 0.6s ease; /* Added padding transition 
+    max-height: 80px; /* Initial closed height 
     position: relative;
-    padding: 15px; /* Padding for the content */
+    padding: 15px; /* Padding for the content 
 }
 
 .letter.open {
-    max-height: 400px; /* Height when opened */
-    padding-bottom: 20px; /* Extra padding when opened */
+    max-height: 400px; /* Height when opened 
+    padding-bottom: 20px; /* Extra padding when opened 
 }
 
 .letter-front {
@@ -184,17 +183,17 @@ button {
     color: #d4af37;
 }
 
-/* Letter content styling */
+/* Letter content styling 
 .letter-content {
-    display: none; /* Hide content by default */
+    display: none; /* Hide content by default 
     color: #333;
 }
 
 .letter.open .letter-content {
-    display: block; /* Show content when opened */
+    display: block; /* Show content when opened 
 }
 
-/* Open button styling */
+/* Open button styling 
 .open-button {
     margin-top: 10px;
     padding: 5px 10px;
@@ -204,5 +203,41 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 0.9em;
-    width: 100%; /* Make button full width */
+    width: 100%; /* Make button full width 
 }
+*/
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 20px;
+  }
+  
+  #password-page, #content-page {
+    margin-top: 50px;
+  }
+  
+  input[type="password"] {
+    padding: 10px;
+    font-size: 16px;
+    margin: 10px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ffcdd2;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #ffb2b2;
+  }
+  
+  #timer {
+    font-size: 24px;
+    margin-top: 20px;
+  }
