@@ -117,3 +117,9 @@ function startTimer() {
     document.getElementById("seconds").innerText = seconds;
   }, 1000);
 }
+
+function openEnvelope() {
+    const envelope = document.querySelector(".envelope");
+    envelope.classList.add("open");
+    document.getElementById("open-button").style.display = "none";
+  }

@@ -241,3 +241,93 @@ button:hover {
   font-size: 24px;
   margin-top: 20px;
 }
+
+/* General Styles */
+body {
+    font-family: 'Georgia', serif;
+    text-align: center;
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 20px;
+  }
+  
+  #password-page, #content-page {
+    margin-top: 50px;
+  }
+  
+  input[type="password"] {
+    padding: 10px;
+    font-size: 16px;
+    margin: 10px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ffcdd2;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #ffb2b2;
+  }
+  
+  #timer {
+    font-size: 24px;
+    margin-top: 20px;
+  }
+  
+  /* Envelope Styles */
+  #envelope-container {
+    margin-top: 50px;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .envelope {
+    width: 200px;
+    height: 120px;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.5s ease;
+  }
+  
+  .envelope .front,
+  .envelope .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #f4c2c2;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 50% 100%, 0% 75%);
+  }
+  
+  .envelope .back {
+    background-color: #e6a8a8;
+    transform: rotate(180deg);
+    top: -50%;
+  }
+  
+  .envelope .letter {
+    position: absolute;
+    width: 90%;
+    height: 80%;
+    background-color: white;
+    top: 50%;
+    left: 5%;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(-100%);
+    transition: transform 0.5s ease;
+    display: none;
+  }
+  
+  .envelope.open .letter {
+    transform: translateY(0);
+    display: block;
+  }
+  
+  #open-button {
+    margin-top: 20px;
+    display: none;
+  }
