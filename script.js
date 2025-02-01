@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
 const correctPassword = "ILoveYou";
 
 // Date you met (change this to your actual date)
-const metDate = new Date("2020-01-01T00:00:00");
+const metDate = new Date("2024-08-14T00:25:00");
 
 function checkPassword() {
   const passwordInput = document.getElementById("password-input").value;
