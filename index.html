@@ -3,89 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Love</title>
+    <title>A Special Message for You ❤️</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Floating hearts -->
-    <div class="heart" style="top: 10%; left: 10%; animation-delay: 0s;">💖</div>
-    <div class="heart" style="top: 20%; right: 10%; animation-delay: 1s;">💕</div>
-    <div class="heart" style="top: 70%; left: 5%; animation-delay: 2s;">💗</div>
-    <div class="heart" style="top: 60%; right: 15%; animation-delay: 3s;">💝</div>
-    <div class="heart" style="top: 30%; left: 70%; animation-delay: 4s;">💖</div>
-
-    <!-- Lock Screen -->
-    <div class="lock-screen" id="lockScreen">
-        <h1>💝 Secret Message 💝</h1>
-        <p>Enter the secret code to unlock your surprise...</p>
-        <input type="password" class="code-input" id="codeInput" placeholder="Enter secret code">
-        <br>
-        <button class="unlock-btn" onclick="checkCode()">Unlock</button>
-        <div class="error-message" id="errorMessage"></div>
+    <!-- Login Screen -->
+    <div id="login-screen" class="screen active">
+        <div class="login-container">
+            <h1 class="title">💕 A Special Message Awaits 💕</h1>
+            <p class="subtitle">Enter our secret code to unlock your surprise</p>
+            <div class="input-container">
+                <input type="password" id="secret-code" placeholder="Secret code..." maxlength="20">
+                <button id="unlock-btn" onclick="checkCode()">Unlock ❤️</button>
+            </div>
+            <div id="error-message" class="error-message"></div>
+        </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="main-content" id="mainContent">
-        <!-- Interactive Elements -->
-        <div class="interactive-element rose" style="top: 15%; left: 10%;" onclick="showMessage('🌹 You make my heart bloom like the most beautiful rose 🌹')">🌹</div>
-        <div class="interactive-element rose" style="top: 20%; right: 12%;" onclick="showMessage('🌹 Every moment with you is a garden of love 🌹')">🌹</div>
-        
-        <div class="interactive-element music-note" style="top: 30%; left: 5%;" onclick="showMessage('🎵 You are the melody that makes my heart sing 🎵')">🎵</div>
-        <div class="interactive-element music-note" style="bottom: 25%; right: 8%;" onclick="showMessage('🎶 Our love story is my favorite song 🎶')">🎶</div>
-        
-        <div class="interactive-element shooting-star" style="top: 10%; left: 60%;" onclick="showMessage('✨ You are my wish come true ✨')">✨</div>
-        <div class="interactive-element shooting-star" style="bottom: 15%; left: 15%;" onclick="showMessage('🌟 You light up my entire universe 🌟')">🌟</div>
-        
-        <div class="interactive-element butterfly" style="top: 40%; right: 20%;" onclick="showMessage('🦋 You give me butterflies every single day 🦋')">🦋</div>
-        <div class="interactive-element butterfly" style="bottom: 40%; left: 25%;" onclick="showMessage('🦋 My heart flutters whenever I see you 🦋')">🦋</div>
-        
-        <!-- Constellation -->
-        <div class="constellation interactive-element" style="top: 5%; right: 30%;" onclick="showMessage('⭐ You and I are written in the stars ⭐')">
-            <div class="star" style="top: 10px; left: 20px; animation-delay: 0s;"></div>
-            <div class="star" style="top: 30px; left: 40px; animation-delay: 0.5s;"></div>
-            <div class="star" style="top: 50px; left: 15px; animation-delay: 1s;"></div>
-            <div class="star" style="top: 20px; left: 60px; animation-delay: 1.5s;"></div>
-            <div class="star" style="top: 70px; left: 50px; animation-delay: 2s;"></div>
+    <!-- Main Screen with Envelope -->
+    <div id="main-screen" class="screen">
+        <div class="main-container">
+            <h2 class="welcome-message">Welcome to your special place ✨</h2>
+            <p class="instruction">Click the envelope to read your letter</p>
+            
+            <div class="envelope-container">
+                <div id="envelope" class="envelope" onclick="openEnvelope()">
+                    <div class="envelope-flap"></div>
+                    <div class="envelope-body"></div>
+                    <div class="heart">💌</div>
+                </div>
+            </div>
         </div>
-        
-        <!-- Memory Photos (you can replace these with actual photos) -->
-        <div class="interactive-element memory-photo" style="top: 60%; right: 5%; background: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23ffb6c1%22/><text x=%2250%22 y=%2250%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2220%22>📸</text></svg>') center/cover;" onclick="showMessage('📸 Remember our first date? Best day ever! 📸')"></div>
-        
-        <div class="interactive-element memory-photo" style="bottom: 35%; right: 25%; background: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%23ffd1dc%22/><text x=%2250%22 y=%2250%22 text-anchor=%22middle%22 dy=%22.3em%22 font-size=%2220%22>💕</text></svg>') center/cover;" onclick="showMessage('💕 Every photo with you is a treasure 💕')"></div>
+    </div>
 
-        <!-- Main envelope -->
-        <div class="envelope-container" onclick="openEnvelope()">
-            <div class="envelope" id="envelope"></div>
-        </div>
-        <div class="instruction">Click the envelope to read your letter 💕</div>
-        
-        <!-- Letter -->
-        <div class="letter" id="letter" onclick="closeLetter()">
-            <button class="close-letter" onclick="event.stopPropagation(); closeLetter()">×</button>
-            <div class="letter-header">My Dearest Love</div>
-            <div class="letter-content">
-                <p>My darling,</p>
+    <!-- Letter Screen -->
+    <div id="letter-screen" class="screen">
+        <div class="letter-container">
+            <div class="letter">
+                <div class="letter-header">
+                    <h3>My Dearest Love,</h3>
+                    <span class="date">Valentine's Day 2025</span>
+                </div>
                 
-                <p>Every day with you feels like a dream I never want to wake up from. You are the sunshine that brightens my mornings, the gentle breeze that calms my evenings, and the warm embrace that makes everything feel right in the world.</p>
+                <div class="letter-content">
+                    <p>Every day with you feels like a beautiful dream that I never want to wake up from. You are my sunshine on cloudy days, my comfort in difficult times, and my greatest joy in life.</p>
+                    
+                    <p>I created this little secret space for us because I wanted to give you something as unique and special as you are to me. You deserve to be celebrated not just today, but every single day.</p>
+                    
+                    <p>Thank you for being you - for your beautiful smile, your kind heart, your amazing sense of humor, and for loving me just as I am. You make my world brighter in ways I never thought possible.</p>
+                    
+                    <p>I can't wait to create more wonderful memories together and to see what adventures await us. You are my person, my partner, and my best friend all rolled into one amazing human being.</p>
+                    
+                    <p class="signature">Forever yours,<br>
+                    <span class="name">[Your Name Here]</span></p>
+                </div>
                 
-                <p>I love the way you laugh at my silly jokes, how you make even the most ordinary moments feel magical, and how you see the beauty in everything around us. Your kindness, your strength, and your beautiful heart inspire me every single day.</p>
-                
-                <p>Thank you for being my partner, my best friend, and my greatest love. I can't wait to create more beautiful memories with you, to explore new adventures together, and to love you more with each passing day.</p>
-                
-                <p>You are my everything, my forever, my home.</p>
-                
-                <p>Happy Valentine's Day, my love. 💕</p>
-                
-                <p><em>Click anywhere on this letter to put it back in the envelope!</em></p>
-            </div>
-            <div class="letter-signature">
-                All my love,<br>
-                Your devoted partner ❤️
+                <button class="back-btn" onclick="goBack()">Back to Envelope</button>
             </div>
         </div>
-        
-        <!-- Love Message Popup -->
-        <div class="love-message" id="loveMessage"></div>
     </div>
 
     <script src="script.js"></script>
