@@ -1,342 +1,358 @@
-/* Body background with gradient 
-body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    background: linear-gradient(to bottom, #001f3f, #005f9c); Night sky background 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
-Container for background 
-.background-container {
-    width: 100vw;  Full viewport width 
-    height: 100vh; /* Full viewport height 
-    display: flex;
-    justify-content: center; /* Center the image horizontally 
-    align-items: center; /* Center the image vertically 
-    position: relative;
-    background-color: transparent; /* Make sure background is transparent 
-    z-index: 1; /* Stack trees above background elements 
-}
-
-/* Image overlay 
-.overlay-image {
-    position: absolute;
-    width: 70%; /* Adjust to fit better within viewport 
-    height: 40%; /* Maintain aspect ratio 
-    bottom: 0; /* Position at the bottom of the viewport 
-    left: 0; /* Position completely to the left 
-    opacity: 0.9; /* Slight transparency if desired 
-    pointer-events: none; /* Prevent interaction with the image 
-}
-
-
-/* Other existing CSS styles remain the same 
-
-.northern-lights {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: linear-gradient(90deg, 
-        rgba(9, 254, 205, 0.5),  /* Aqua 
-        rgba(191, 0, 255, 0.5), /* Purple 
-        rgba(237, 4, 191, 0.5), /* Pink 
-        rgba(5, 196, 244, 0.5), /* Light Blue 
-        rgba(1, 252, 76, 0.712),  /* Green 
-        rgba(0, 255, 0, 0.96),    /* Dark Green 
-        rgba(247, 133, 19, 0.929) /* Orange 
-    );
-    background-size: 400% 400%;
-    animation: pulse 5s ease-in-out infinite; /* Only pulsating animation 
-    opacity: 0.8; /* Adjust opacity for visibility 
-}
-
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.25); /* Slightly scale up 
-    }
-}
-
-.stars {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-}
-
-.star {
-    position: absolute;
-    background: white;
-    border-radius: 60%;
-    animation: twinkle 1.5s infinite alternate, moveStars 10s infinite linear;
-}
-
-@keyframes twinkle {
-    0% {
-        opacity: 0.5;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-
-
-
-.shooting-star {
-    position: absolute;
-    width: 2px; /* Adjust the width for shooting star size 
-    height: 2px; /* Adjust the height for shooting star size 
-    background: white;
-    border-radius: 50%;
-    box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
-}
-
-@keyframes shootingStar {
-    0% {
-        transform: translate(-50%, -50%) translateY(0); /* Start from the top 
-        opacity: 1; /* Fully visible 
-    }
-    100% {
-        transform: translate(-50%, -50%) translate(calc(100vw), vh); /* Move to the bottom right 
-        opacity: 0; /* Fade out 
-    }
-}
-
-.password-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 10; /* Make sure it appears above other elements 
-    color: white; /* Change this to match your design 
-}
-
-input {
-    padding: 10px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 5px;
-}
-
-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: rgb(41, 11, 109);
-    color: white;
-}
-
-.content {
-    display: none; /* Hide content by default 
-    opacity: 0; /* Start with 0 opacity 
-    transition: opacity 1s ease-in-out; /* Smooth transition for opacity 
-    color: white; /* Change this to match your design 
-    position: absolute; /* Position above other elements 
-    top: 20%; /* Adjust vertical position as needed 
-    left: 50%; /* Center horizontally 
-    transform: translateX(-50%); /* Center alignment 
-
-/* Letter container styling 
-.letter-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 1000vh;
-}
-
-/* Letter styling 
-.letter {
-    width: 300px;
-    background-color: #fff8dc;
-    border: 2px solid #d4af37;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-    overflow: hidden;
-    transition: max-height 0.6s ease, padding 0.6s ease; /* Added padding transition 
-    max-height: 80px; /* Initial closed height 
-    position: relative;
-    padding: 15px; /* Padding for the content 
-}
-
-.letter.open {
-    max-height: 400px; /* Height when opened 
-    padding-bottom: 20px; /* Extra padding when opened 
-}
-
-.letter-front {
-    text-align: center;
-}
-
-.letter-title {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #d4af37;
-}
-
-/* Letter content styling 
-.letter-content {
-    display: none; /* Hide content by default 
-    color: #333;
-}
-
-.letter.open .letter-content {
-    display: block; /* Show content when opened 
-}
-
-/* Open button styling 
-.open-button {
-    margin-top: 10px;
-    padding: 5px 10px;
-    background-color: #d4af37;
-    border: none;
-    color: #fff;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.9em;
-    width: 100%; /* Make button full width 
-}
-*/
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Georgia', serif;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Floating hearts animation */
+.heart {
+  position: absolute;
+  color: rgba(255, 182, 193, 0.7);
+  font-size: 20px;
+  animation: float 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+/* Lock Screen */
+.lock-screen {
   text-align: center;
-  background-color: #ffebee;
-  color: #c62828;
-  padding: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  max-width: 400px;
+  width: 90%;
 }
 
-#password-page, #content-page {
-  margin-top: 50px;
+.lock-screen h1 {
+  color: #d63384;
+  margin-bottom: 20px;
+  font-size: 2.5em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-input[type="password"] {
-  padding: 10px;
-  font-size: 16px;
-  margin: 10px;
+.lock-screen p {
+  color: #666;
+  margin-bottom: 30px;
+  font-size: 1.1em;
 }
 
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #ffcdd2;
+.code-input {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2em;
+  border: 2px solid #ff9a9e;
+  border-radius: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.code-input:focus {
+  border-color: #d63384;
+  box-shadow: 0 0 15px rgba(214, 51, 132, 0.3);
+}
+
+.unlock-btn {
+  background: linear-gradient(45deg, #ff9a9e, #d63384);
+  color: white;
   border: none;
+  padding: 15px 30px;
+  font-size: 1.1em;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.unlock-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(214, 51, 132, 0.3);
+}
+
+.error-message {
+  color: #dc3545;
+  margin-top: 15px;
+  font-size: 0.9em;
+}
+
+/* Main Content */
+.main-content {
+  display: none;
+  text-align: center;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-content.show {
+  display: flex;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Envelope */
+.envelope-container {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.envelope-container:hover {
+  transform: scale(1.05);
+}
+
+.envelope {
+  width: 300px;
+  height: 200px;
+  background: #f8f9fa;
+  border: 3px solid #d63384;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.envelope::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  height: 100px;
+  background: #fff;
+  border: 3px solid #d63384;
+  border-bottom: none;
+  transform-origin: bottom;
+  transform: rotateX(0deg);
+  transition: transform 0.6s ease;
+  border-radius: 10px 10px 0 0;
+}
+
+.envelope::after {
+  content: '💕';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3em;
+  z-index: 2;
+}
+
+.envelope.opening::before {
+  transform: rotateX(-180deg);
+}
+
+/* Letter */
+.letter {
+  position: absolute;
+  bottom: -400px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 350px;
+  min-height: 500px;
+  background: #fffef7;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  padding: 40px;
+  z-index: 10;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #ffb2b2;
+.letter.show {
+  bottom: 50px;
 }
 
-#timer {
-  font-size: 24px;
-  margin-top: 20px;
+.letter-content {
+  font-size: 1.1em;
+  line-height: 1.8;
+  color: #333;
+  text-align: left;
 }
 
-/* General Styles */
-body {
-    font-family: 'Georgia', serif;
-    text-align: center;
-    background-color: #ffebee;
-    color: #c62828;
-    padding: 20px;
-  }
-  
-  #password-page, #content-page {
-    margin-top: 50px;
-  }
-  
-  input[type="password"] {
-    padding: 10px;
-    font-size: 16px;
-    margin: 10px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #ffcdd2;
-    border: none;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #ffb2b2;
-  }
-  
-  #timer {
-    font-size: 24px;
-    margin-top: 20px;
-  }
-  
-  /* Envelope Styles */
-#envelope-container {
-    margin-top: 50px;
-    position: relative;
-    display: inline-block;
-  }
-  
-  .envelope {
-    width: 300px;
-    height: 200px;
-    position: relative;
-    cursor: pointer;
-    perspective: 1000px;
-  }
-  
-  .envelope .flap {
-    width: 100%;
-    height: 100%;
-    background-color: #f4c2c2;
-    clip-path: polygon(0% 0%, 100% 0%, 50% 50%);
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform-origin: top;
-    transition: transform 0.8s ease;
-  }
-  
-  .envelope .body {
-    width: 100%;
-    height: 100%;
-    background-color: #e6a8a8;
-    position: absolute;
-    top: 0;
-    left: 0;
-    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-  }
-  
-  .envelope .letter {
-    width: 90%;
-    height: 80%;
-    background-color: white;
-    position: absolute;
-    top: 50%;
-    left: 5%;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transform: translateY(-100%);
-    transition: transform 0.8s ease;
-    display: none;
-    font-family: 'Dancing Script', cursive;
-    font-size: 18px;
-    color: #333;
-  }
-  
-  .envelope.open .flap {
-    transform: rotateX(180deg);
-  }
-  
-  .envelope.open .letter {
-    transform: translateY(-50%);
-    display: block;
-  }
+.letter-header {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #d63384;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.letter-signature {
+  text-align: right;
+  margin-top: 40px;
+  font-style: italic;
+  color: #666;
+}
+
+.close-letter {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #999;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.close-letter:hover {
+  background: #f0f0f0;
+  color: #d63384;
+}
+
+/* Interactive Elements */
+.interactive-element {
+  position: absolute;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.interactive-element:hover {
+  transform: scale(1.1);
+}
+
+.rose {
+  font-size: 2.5em;
+  animation: sway 3s ease-in-out infinite;
+}
+
+@keyframes sway {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+.music-note {
+  font-size: 2em;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.shooting-star {
+  font-size: 1.8em;
+  animation: twinkle 1.5s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.love-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px 30px;
+  border-radius: 15px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  font-size: 1.2em;
+  color: #d63384;
+  text-align: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: all 0.5s ease;
+  backdrop-filter: blur(10px);
+}
+
+.love-message.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.memory-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid #ff9a9e;
+  object-fit: cover;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  animation: float 4s ease-in-out infinite;
+}
+
+.butterfly {
+  font-size: 2em;
+  animation: flutter 4s ease-in-out infinite;
+}
+
+@keyframes flutter {
+  0%, 100% { transform: translateX(0px) translateY(0px) rotate(0deg); }
+  25% { transform: translateX(20px) translateY(-15px) rotate(5deg); }
+  50% { transform: translateX(-10px) translateY(-25px) rotate(-3deg); }
+  75% { transform: translateX(15px) translateY(-10px) rotate(3deg); }
+}
+
+.constellation {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+}
+
+.star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #ffd700;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ffd700;
+  animation: starTwinkle 2s ease-in-out infinite;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* Instruction text */
+.instruction {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1em;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}

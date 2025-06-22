@@ -1,124 +1,78 @@
-/*document.addEventListener("DOMContentLoaded", () => {
-    // Star settings
-    const starCount = 3000;
-    const starsContainer = document.querySelector('.stars');
-    const passwordContainer = document.getElementById("password-container");
-    const content = document.getElementById("content");
+// Set your secret code here
+const SECRET_CODE = "143"; // Change this to your desired code
 
-    // Create static stars in the background
-    for (let i = 0; i < starCount; i++) {
-        const star = document.createElement('div');
-        star.classList.add('star');
-        star.style.top = Math.random() * 100 + 'vh';
-        star.style.left = Math.random() * 100 + 'vw';
-        const size = Math.random() * 2; // Adjust size for visibility
-        star.style.width = size + 'px';
-        star.style.height = size + 'px';
-        star.style.opacity = Math.random() * 0.7 + 0.3;
-        starsContainer.appendChild(star);
+function checkCode() {
+    const input = document.getElementById('codeInput').value;
+    const errorMessage = document.getElementById('errorMessage');
+    
+    if (input === SECRET_CODE) {
+        document.getElementById('lockScreen').style.display = 'none';
+        document.getElementById('mainContent').classList.add('show');
+        errorMessage.textContent = '';
+    } else {
+        errorMessage.textContent = 'Incorrect code. Try again! 💔';
+        document.getElementById('codeInput').value = '';
     }
-
-    // Shooting star functionality
-    let shootingStarActive = false;
-
-    function createShootingStar() {
-        if (!shootingStarActive) {
-            shootingStarActive = true;
-
-            const shootingStar = document.createElement('div');
-            shootingStar.classList.add('shooting-star');
-
-            // Random start position at top
-            shootingStar.style.top = '0';
-            shootingStar.style.left = Math.random() * 100 + 'vw';
-
-            // Set random animation duration
-            shootingStar.style.animationDuration = Math.random() * 3 + 7 + 's';
-            shootingStar.style.animationName = 'shootingStar';
-            starsContainer.appendChild(shootingStar);
-
-            shootingStar.addEventListener('animationend', () => {
-                shootingStar.remove();
-                shootingStarActive = false;
-            });
-        }
-    }
-
-    setInterval(createShootingStar, 3000); // Interval for shooting stars
-
-    // Password functionality
-    const correctPassword = "seb";
-    const passwordInput = document.getElementById("password-input");
-    const submitButton = document.getElementById("submit-password");
-    const errorMessage = document.getElementById("error-message");
-
-    submitButton.addEventListener("click", () => {
-        const enteredPassword = passwordInput.value;
-        if (enteredPassword === correctPassword) {
-            passwordContainer.style.transition = "opacity 1s ease-in-out";
-            passwordContainer.style.opacity = "0"; // Fade out password container
-
-            // Redirect after fade-out
-            setTimeout(() => {
-                window.location.href = "content.html"; // Redirect to content page
-            }, 1000); // Match fade-out duration
-        } else {
-            errorMessage.textContent = "Feil kode. Prøv igjen.";
-        }
-    });
-// script.js
-document.addEventListener("DOMContentLoaded", function() {
-    const openButton = document.getElementById("openButton");
-    const letter = document.getElementById("letter");
-
-    openButton.addEventListener("click", function() {
-        letter.classList.toggle("open");
-    });
-});
-
-
-
-});*/
-
-// Password (change this to your desired password)
-const correctPassword = "ILoveYou";
-
-// Date you met (change this to your actual date)
-const metDate = new Date("2024-08-14T00:25:00");
-
-function checkPassword() {
-  const passwordInput = document.getElementById("password-input").value;
-  const errorMessage = document.getElementById("error-message");
-
-  if (passwordInput === correctPassword) {
-    document.getElementById("password-page").style.display = "none";
-    document.getElementById("content-page").style.display = "block";
-    startTimer();
-  } else {
-    errorMessage.style.display = "block";
-  }
-}
-
-function startTimer() {
-  setInterval(() => {
-    const now = new Date();
-    const timeDiff = now - metDate;
-
-    const years = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365));
-    const days = Math.floor((timeDiff % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-
-    document.getElementById("years").innerText = years;
-    document.getElementById("days").innerText = days;
-    document.getElementById("hours").innerText = hours;
-    document.getElementById("minutes").innerText = minutes;
-    document.getElementById("seconds").innerText = seconds;
-  }, 1000);
 }
 
 function openEnvelope() {
-    const envelope = document.querySelector(".envelope");
-    envelope.classList.add("open");
-  }
+    const envelope = document.getElementById('envelope');
+    const letter = document.getElementById('letter');
+    
+    envelope.classList.add('opening');
+    
+    setTimeout(() => {
+        letter.classList.add('show');
+    }, 600);
+}
+
+function closeLetter() {
+    const envelope = document.getElementById('envelope');
+    const letter = document.getElementById('letter');
+    
+    letter.classList.remove('show');
+    
+    setTimeout(() => {
+        envelope.classList.remove('opening');
+    }, 300);
+}
+
+function showMessage(message) {
+    const messageDiv = document.getElementById('loveMessage');
+    messageDiv.textContent = message;
+    messageDiv.classList.add('show');
+    
+    setTimeout(() => {
+        messageDiv.classList.remove('show');
+    }, 3000);
+}
+
+// Allow Enter key to submit code
+document.addEventListener('DOMContentLoaded', function() {
+    const codeInput = document.getElementById('codeInput');
+    if (codeInput) {
+        codeInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkCode();
+            }
+        });
+    }
+});
+
+// Add some random floating hearts
+function createFloatingHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = ['💖', '💕', '💗', '💝'][Math.floor(Math.random() * 4)];
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.top = Math.random() * 100 + '%';
+    heart.style.animationDelay = Math.random() * 6 + 's';
+    document.body.appendChild(heart);
+    
+    setTimeout(() => {
+        heart.remove();
+    }, 6000);
+}
+
+// Create floating hearts periodically
+setInterval(createFloatingHeart, 3000);
