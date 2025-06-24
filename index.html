@@ -1,65 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Message for You ❤️</title>
+    <title>Til Sebastian ♥</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Login Screen -->
-    <div id="login-screen" class="screen active">
-        <div class="login-container">
-            <h1 class="title">💕 A Special Message Awaits 💕</h1>
-            <p class="subtitle">Enter our secret code to unlock your surprise</p>
-            <div class="input-container">
-                <input type="password" id="secret-code" placeholder="Secret code..." maxlength="20">
-                <button id="unlock-btn" onclick="checkCode()">Unlock ❤️</button>
-            </div>
-            <div id="error-message" class="error-message"></div>
+    <div class="floating-hearts" id="heartsContainer"></div>
+
+    <!-- Login Page -->
+    <div class="container" id="loginPage">
+        <h1 class="title">Til Sebastian ♥</h1>
+        <h2 class="subtitle">Skriv inn koden</h2>
+        <div style="font-size: 2rem; margin-bottom: 20px;">❤️</div>
+        
+        <input type="password" class="code-input" id="codeInput" placeholder="Passord" maxlength="20">
+        <br>
+        <button class="enter-btn" onclick="checkCode()">→</button>
+        
+        <div class="error-message" id="errorMessage">
+            Feil kode! Prøv igjen ❤️
         </div>
     </div>
 
-    <!-- Main Screen with Envelope -->
-    <div id="main-screen" class="screen">
-        <div class="main-container">
-            <h2 class="welcome-message">Welcome to your special place ✨</h2>
-            <p class="instruction">Click the envelope to read your letter</p>
-            
-            <div class="envelope-container">
-                <div id="envelope" class="envelope" onclick="openEnvelope()">
-                    <div class="envelope-flap"></div>
-                    <div class="envelope-body"></div>
-                    <div class="heart">💌</div>
-                </div>
+    <!-- Valentine's Features Page -->
+    <div class="valentine-page" id="valentinePage">
+        <h1 class="valentine-title">Kjære Sebastian ❤️</h1>
+        
+        <div class="love-message">
+            "Du er min solskinn på regnfulle dager, mitt hjertets melodi, og grunnen til at jeg smiler hver dag. ❤️"
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card" onclick="showModal('loveLetters')">
+                <div class="feature-icon">💌</div>
+                <div class="feature-title">Kjærlighetsbrev</div>
+                <div class="feature-desc">Personlige meldinger bare for deg</div>
+            </div>
+
+            <div class="feature-card" onclick="showModal('memories')">
+                <div class="feature-icon">📸</div>
+                <div class="feature-title">Mine Minner</div>
+                <div class="feature-desc">Våre vakre øyeblikk sammen</div>
+            </div>
+
+            <div class="feature-card" onclick="showModal('playlist')">
+                <div class="feature-icon">🎵</div>
+                <div class="feature-title">Vår Spilleliste</div>
+                <div class="feature-desc">Sanger som minner meg om deg</div>
+            </div>
+
+            <div class="feature-card" onclick="showModal('promises')">
+                <div class="feature-icon">💝</div>
+                <div class="feature-title">Mine Løfter</div>
+                <div class="feature-desc">Alt jeg vil gi deg</div>
+            </div>
+
+            <div class="feature-card" onclick="showModal('future')">
+                <div class="feature-icon">🌟</div>
+                <div class="feature-title">Vår Fremtid</div>
+                <div class="feature-desc">Drømmer vi skal leve sammen</div>
+            </div>
+
+            <div class="feature-card" onclick="showModal('reasons')">
+                <div class="feature-icon">💖</div>
+                <div class="feature-title">Hvorfor Jeg Elsker Deg</div>
+                <div class="feature-desc">Uendelige grunner til min kjærlighet</div>
             </div>
         </div>
+
+        <button class="back-btn" onclick="goBack()">← Tilbake</button>
     </div>
 
-    <!-- Letter Screen -->
-    <div id="letter-screen" class="screen">
-        <div class="letter-container">
-            <div class="letter">
-                <div class="letter-header">
-                    <h3>My Dearest Love,</h3>
-                    <span class="date">Valentine's Day 2025</span>
-                </div>
-                
-                <div class="letter-content">
-                    <p>Every day with you feels like a beautiful dream that I never want to wake up from. You are my sunshine on cloudy days, my comfort in difficult times, and my greatest joy in life.</p>
-                    
-                    <p>I created this little secret space for us because I wanted to give you something as unique and special as you are to me. You deserve to be celebrated not just today, but every single day.</p>
-                    
-                    <p>Thank you for being you - for your beautiful smile, your kind heart, your amazing sense of humor, and for loving me just as I am. You make my world brighter in ways I never thought possible.</p>
-                    
-                    <p>I can't wait to create more wonderful memories together and to see what adventures await us. You are my person, my partner, and my best friend all rolled into one amazing human being.</p>
-                    
-                    <p class="signature">Forever yours,<br>
-                    <span class="name">[Your Name Here]</span></p>
-                </div>
-                
-                <button class="back-btn" onclick="goBack()">Back to Envelope</button>
-            </div>
+    <!-- Modal for feature details -->
+    <div class="modal" id="featureModal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">×</button>
+            <div id="modalContent"></div>
         </div>
     </div>
 

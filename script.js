@@ -1,182 +1,187 @@
-// Secret code - change this to your desired code
-const SECRET_CODE = "iloveyou";
+// Configuration
+const CONFIG = {
+    correctCodes: ['love', 'kjærlighet', 'sebastian'],
+    heartInterval: 800,
+    heartLifetime: 8000,
+    errorDisplayTime: 3000
+};
 
-// Screen elements
-const loginScreen = document.getElementById('login-screen');
-const mainScreen = document.getElementById('main-screen');
-const letterScreen = document.getElementById('letter-screen');
-const secretCodeInput = document.getElementById('secret-code');
-const errorMessage = document.getElementById('error-message');
+// Modal content for each feature
+const modalContents = {
+    loveLetters: `
+        <h2>💌 Kjærlighetsbrev</h2>
+        <p>Min kjære Sebastian,</p>
+        <p>Hver dag med deg er som en ny side i vår kjærlighetshistorie. Du gjør livet mitt komplett med ditt smil, din latter, og din kjærlighet.</p>
+        <p>Du er ikke bare min kjæreste, du er min beste venn og min fremtid. ❤️</p>
+    `,
+    memories: `
+        <h2>📸 Våre Minner</h2>
+        <p>🌅 Vår første date - magisk</p>
+        <p>🎭 Da vi lo til vi gråt</p>
+        <p>🌙 Sene netter med dype samtaler</p>
+        <p>🎉 Feiringer av små og store øyeblikk</p>
+        <p>Hvert minne med deg er en skatt jeg bærer i hjertet.</p>
+    `,
+    playlist: `
+        <h2>🎵 Vår Spilleliste</h2>
+        <p>🎶 Sanger som får meg til å tenke på deg:</p>
+        <p>💕 "Perfect" - Ed Sheeran</p>
+        <p>💕 "All of Me" - John Legend</p>
+        <p>💕 "Thinking Out Loud" - Ed Sheeran</p>
+        <p>💕 "A Thousand Years" - Christina Perri</p>
+        <p>Hver melodi blir vakkere når jeg tenker på deg.</p>
+    `,
+    promises: `
+        <h2>💝 Mine Løfter Til Deg</h2>
+        <p>💖 Jeg lover å elske deg hver dag</p>
+        <p>🤗 Jeg lover å støtte deg i alt</p>
+        <p>😊 Jeg lover å få deg til å smile</p>
+        <p>🛡️ Jeg lover å beskytte hjertet ditt</p>
+        <p>🌟 Jeg lover å gjøre drømmene dine til virkelighet</p>
+        <p>Du fortjener alt det beste i verden, og det vil jeg gi deg.</p>
+    `,
+    future: `
+        <h2>🌟 Vår Fremtid</h2>
+        <p>🏠 Et koselig hjem fylt med kjærlighet</p>
+        <p>✈️ Reiser til nye steder sammen</p>
+        <p>🎊 Å feire alle livets milepæler</p>
+        <p>👨‍👩‍👧‍👦 Kanskje en familie en dag</p>
+        <p>🌅 Å bli gamle sammen</p>
+        <p>Med deg ser fremtiden bare lysere og lysere ut.</p>
+    `,
+    reasons: `
+        <h2>💖 Hvorfor Jeg Elsker Deg</h2>
+        <p>😊 Ditt vakre smil lyser opp dagen min</p>
+        <p>🧠 Din intelligens og visdom</p>
+        <p>❤️ Ditt snille og omsorgsfulle hjerte</p>
+        <p>😂 Måten du får meg til å le på</p>
+        <p>🤗 Hvordan du alltid er der for meg</p>
+        <p>🌟 Du gjør meg til en bedre person</p>
+        <p>Listen er uendelig, for min kjærlighet til deg er det også.</p>
+    `
+};
 
-// Add enter key functionality to the input
-secretCodeInput.addEventListener('keypress', function(event) {
-    if (event.key === 'Enter') {
-        checkCode();
-    }
-});
-
-// Focus on input when page loads
-window.addEventListener('load', function() {
-    secretCodeInput.focus();
-});
-
-function checkCode() {
-    const enteredCode = secretCodeInput.value.toLowerCase().trim();
-    
-    if (enteredCode === '') {
-        showError('Please enter the secret code');
-        return;
-    }
-    
-    if (enteredCode === SECRET_CODE.toLowerCase()) {
-        // Correct code - transition to main screen
-        hideError();
-        transitionToScreen(mainScreen);
-    } else {
-        // Wrong code
-        showError('Wrong code! Try again ❤️');
-        secretCodeInput.value = '';
-        secretCodeInput.focus();
-        
-        // Add shake animation to input
-        secretCodeInput.style.animation = 'shake 0.5s ease-in-out';
-        setTimeout(() => {
-            secretCodeInput.style.animation = '';
-        }, 500);
-    }
-}
-
-function showError(message) {
-    errorMessage.textContent = message;
-    errorMessage.style.opacity = '1';
-}
-
-function hideError() {
-    errorMessage.style.opacity = '0';
-}
-
-function transitionToScreen(targetScreen) {
-    // Hide current active screen
-    const currentScreen = document.querySelector('.screen.active');
-    currentScreen.classList.remove('active');
-    
-    // Show target screen after a short delay
-    setTimeout(() => {
-        targetScreen.classList.add('active');
-    }, 300);
-}
-
-function openEnvelope() {
-    // Add opening animation to envelope
-    const envelope = document.getElementById('envelope');
-    envelope.style.transform = 'scale(1.2) rotateY(180deg)';
-    envelope.style.opacity = '0.5';
-    
-    // Transition to letter screen after animation
-    setTimeout(() => {
-        transitionToScreen(letterScreen);
-        
-        // Reset envelope state
-        setTimeout(() => {
-            envelope.style.transform = '';
-            envelope.style.opacity = '';
-        }, 600);
-    }, 600);
-}
-
-function goBack() {
-    transitionToScreen(mainScreen);
-}
-
-// Add CSS for shake animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes shake {
-        0%, 20%, 40%, 60%, 80%, 100% {
-            transform: translateX(0);
-        }
-        10%, 30%, 50%, 70%, 90% {
-            transform: translateX(-10px);
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// Add some romantic particle effects
-function createFloatingHeart() {
+// Heart Animation Functions
+function createHeart() {
     const heart = document.createElement('div');
-    heart.innerHTML = '💖';
-    heart.style.position = 'fixed';
-    heart.style.left = Math.random() * 100 + 'vw';
-    heart.style.top = '100vh';
-    heart.style.fontSize = '1.5rem';
-    heart.style.color = 'rgba(255, 182, 193, 0.8)';
-    heart.style.pointerEvents = 'none';
-    heart.style.zIndex = '-1';
-    heart.style.transition = 'all 8s linear';
+    heart.className = 'heart';
+    heart.innerHTML = '♥';
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+    heart.style.animationDelay = Math.random() * 2 + 's';
     
-    document.body.appendChild(heart);
-    
-    // Animate the heart
-    setTimeout(() => {
-        heart.style.top = '-50px';
-        heart.style.transform = 'translateX(' + (Math.random() * 200 - 100) + 'px) rotate(360deg)';
-        heart.style.opacity = '0';
-    }, 100);
-    
-    // Remove the heart after animation
+    const heartsContainer = document.getElementById('heartsContainer');
+    if (heartsContainer) {
+        heartsContainer.appendChild(heart);
+    }
+
     setTimeout(() => {
         if (heart.parentNode) {
-            heart.parentNode.removeChild(heart);
+            heart.remove();
         }
-    }, 8000);
+    }, CONFIG.heartLifetime);
 }
 
-// Create floating hearts periodically when on main or letter screen
-setInterval(() => {
-    if (mainScreen.classList.contains('active') || letterScreen.classList.contains('active')) {
-        if (Math.random() < 0.3) { // 30% chance every interval
-            createFloatingHeart();
-        }
-    }
-}, 2000);
+function startHeartAnimation() {
+    setInterval(createHeart, CONFIG.heartInterval);
+}
 
-// Add some sparkle effects when hovering over the envelope
-const envelope = document.getElementById('envelope');
-if (envelope) {
-    envelope.addEventListener('mouseenter', function() {
-        createSparkles(this);
+// Authentication Functions
+function checkCode() {
+    const codeInput = document.getElementById('codeInput');
+    const code = codeInput.value.toLowerCase().trim();
+    
+    if (CONFIG.correctCodes.includes(code)) {
+        showValentinePage();
+    } else {
+        showError();
+    }
+}
+
+function showValentinePage() {
+    const loginPage = document.getElementById('loginPage');
+    const valentinePage = document.getElementById('valentinePage');
+    
+    loginPage.style.display = 'none';
+    valentinePage.style.display = 'block';
+    valentinePage.style.animation = 'slideIn 1s ease-out forwards';
+}
+
+function showError() {
+    const errorMessage = document.getElementById('errorMessage');
+    const codeInput = document.getElementById('codeInput');
+    
+    errorMessage.classList.add('show');
+    codeInput.style.animation = 'shake 0.5s ease-in-out';
+    
+    setTimeout(() => {
+        errorMessage.classList.remove('show');
+        codeInput.style.animation = '';
+    }, CONFIG.errorDisplayTime);
+}
+
+// Navigation Functions
+function goBack() {
+    const loginPage = document.getElementById('loginPage');
+    const valentinePage = document.getElementById('valentinePage');
+    const codeInput = document.getElementById('codeInput');
+    
+    valentinePage.style.display = 'none';
+    loginPage.style.display = 'block';
+    codeInput.value = '';
+}
+
+// Modal Functions
+function showModal(feature) {
+    const modal = document.getElementById('featureModal');
+    const modalContent = document.getElementById('modalContent');
+    
+    if (modalContents[feature]) {
+        modalContent.innerHTML = modalContents[feature];
+        modal.style.display = 'flex';
+    }
+}
+
+function closeModal() {
+    const modal = document.getElementById('featureModal');
+    modal.style.display = 'none';
+}
+
+// Event Listeners
+function setupEventListeners() {
+    // Enter key support for code input
+    const codeInput = document.getElementById('codeInput');
+    if (codeInput) {
+        codeInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkCode();
+            }
+        });
+    }
+
+    // Close modal when clicking outside
+    const modal = document.getElementById('featureModal');
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeModal();
+        }
     });
 }
 
-function createSparkles(element) {
-    for (let i = 0; i < 5; i++) {
-        setTimeout(() => {
-            const sparkle = document.createElement('div');
-            sparkle.innerHTML = '✨';
-            sparkle.style.position = 'absolute';
-            sparkle.style.left = Math.random() * 100 + '%';
-            sparkle.style.top = Math.random() * 100 + '%';
-            sparkle.style.fontSize = '1rem';
-            sparkle.style.pointerEvents = 'none';
-            sparkle.style.zIndex = '10';
-            sparkle.style.transition = 'all 1s ease-out';
-            
-            element.style.position = 'relative';
-            element.appendChild(sparkle);
-            
-            // Animate sparkle
-            setTimeout(() => {
-                sparkle.style.transform = 'translateY(-30px) scale(0)';
-                sparkle.style.opacity = '0';
-            }, 100);
-            
-            // Remove sparkle
-            setTimeout(() => {
-                if (sparkle.parentNode) {
-                    sparkle.parentNode.removeChild(sparkle);
-                }
-            }, 1100);
-        }, i * 100);
-    }
+// Initialization
+function init() {
+    setupEventListeners();
+    startHeartAnimation();
 }
+
+// Start the application when DOM is loaded
+document.addEventListener('DOMContentLoaded', init);
