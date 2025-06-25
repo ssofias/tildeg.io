@@ -449,6 +449,8 @@
                 grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
                 gap: 1rem;
                 margin-bottom: 1rem;
+                width: 100%;
+                max-width: 600px;
             }
     
             .counter-item {
@@ -468,6 +470,15 @@
                 font-size: 0.9rem;
                 color: #636e72;
                 margin-top: 0.5rem;
+            }
+            
+            /* NY: Styling for å sentrere timeglass-visningen */
+            .counter-display {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
             }
     
             /* --- Start of new gallery styles --- */
@@ -709,7 +720,6 @@
                 line-height: 1.4;
             }
 
-            /* NY, ENKLERE CSS for pulserende sirkel-markører */
             .custom-map-marker {
                 background-color: #e84393;
                 width: 20px;
@@ -866,7 +876,7 @@
             let popupGalleryStates = {}; 
         
             // KONFIGURASJON
-            const meetingDate = new Date('2025-08-13T00:00:00');
+            const meetingDate = new Date('2024-08-14T00:00:00');
             const galleryImages = [
                 { src: 'https://i.imgur.com/iXfC2nm.jpeg', caption: 'hh ♡' },
                 { src: 'https://i.imgur.com/ZEdMp8r.jpeg', caption: 'Minner som varer evig' }
@@ -1040,7 +1050,6 @@
             function initMap() {
                 if (map) { map.invalidateSize(); return; }
 
-                // Definer den nye, enkle sirkel-markøren
                 const customIcon = L.divIcon({
                     className: 'custom-map-marker',
                     iconSize: [20, 20],
@@ -1051,7 +1060,6 @@
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(map);
 
                 mapLocations.forEach(location => {
-                    // Bruk den nye markøren
                     const marker = L.marker([location.lat, location.lng], { icon: customIcon }).addTo(map);
                     
                     marker.on('popupopen', () => {
