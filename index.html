@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="no">
 <head>
     <meta charset="UTF-8">
@@ -541,4 +541,853 @@
         };
     </script>
 </body>
-</html>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="no">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Til Sebastian ♡</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+    
+            html {
+                scroll-behavior: smooth;
+                scroll-snap-type: y mandatory;
+            }
+    
+            body {
+                font-family: 'Arial', sans-serif;
+                background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 50%, #fd79a8 100%);
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+            }
+    
+            .container {
+                text-align: center;
+                opacity: 1;
+                transform: translateY(0);
+                transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+    
+            .container.fade-out {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+    
+            .title {
+                font-size: 3.5rem;
+                color: #74b9ff;
+                margin-bottom: 2rem;
+                font-weight: 300;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+                animation: float 3s ease-in-out infinite;
+            }
+    
+            .heart {
+                color: #fd79a8;
+                font-size: 3rem;
+                margin-left: 0.5rem;
+                animation: heartbeat 2s ease-in-out infinite;
+            }
+    
+            .login-box {
+                background: rgba(255, 255, 255, 0.9);
+                padding: 3rem 2.5rem;
+                border-radius: 25px;
+                box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+                backdrop-filter: blur(10px);
+                max-width: 400px;
+                width: 90%;
+                margin: 0 auto;
+            }
+    
+            .subtitle {
+                font-size: 1.5rem;
+                color: #fd79a8;
+                margin-bottom: 1.5rem;
+                font-weight: 300;
+            }
+    
+            .heart-small {
+                color: #e84393;
+                font-size: 2rem;
+                margin: 1rem 0;
+                animation: pulse 2s infinite;
+            }
+    
+            .input-group {
+                margin: 2rem 0;
+            }
+    
+            .code-input {
+                width: 100%;
+                padding: 1rem 1.5rem;
+                font-size: 1.2rem;
+                border: none;
+                border-radius: 15px;
+                background: rgba(253, 121, 168, 0.1);
+                color: #2d3436;
+                text-align: center;
+                letter-spacing: 0.2rem;
+                outline: none;
+                transition: all 0.3s ease;
+                box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            }
+    
+            .code-input:focus {
+                background: rgba(253, 121, 168, 0.2);
+                transform: scale(1.02);
+                box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
+            }
+    
+            .code-input::placeholder {
+                color: rgba(253, 121, 168, 0.7);
+            }
+    
+            .submit-btn {
+                background: linear-gradient(45deg, #fd79a8, #fdcb6e);
+                border: none;
+                padding: 1rem 3rem;
+                border-radius: 25px;
+                color: white;
+                font-size: 1.1rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
+                margin-top: 1rem;
+            }
+    
+            .submit-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
+            }
+    
+            .submit-btn:active {
+                transform: translateY(0);
+            }
+    
+            /* Success page styles */
+            .success-page {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                overflow-y: auto;
+                scroll-snap-type: y mandatory;
+            }
+    
+            .success-page.show {
+                display: block;
+            }
+    
+            .section {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 2rem;
+                scroll-snap-align: start;
+                position: relative;
+            }
+    
+            .first-section {
+                background: linear-gradient(180deg, #e3f2fd 0%, #f8bbd9 40%, #fce4ec 100%);
+            }
+    
+            .second-section {
+                background: linear-gradient(180deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            }
+    
+            .third-section {
+                background: linear-gradient(135deg, #e3f2fd 0%, #f8bbd9 40%, #fce4ec 100%);
+            }
+    
+            .section-header {
+                position: absolute;
+                top: 2rem;
+                left: 2rem;
+                font-size: 1.2rem;
+                color: rgba(0,0,0,0.5);
+                font-weight: 300;
+            }
+    
+            .typewriter-container {
+                max-width: 900px;
+                width: 100%;
+                text-align: center;
+                margin: 2rem 0;
+            }
+    
+            .typewriter-text {
+                font-size: 3rem;
+                color: #2d3436;
+                line-height: 1.4;
+                font-weight: 300;
+                min-height: 300px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                font-style: italic;
+                letter-spacing: 0.02em;
+            }
+    
+            .cursor {
+                display: inline-block;
+                background-color: #2d3436;
+                margin-left: 3px;
+                width: 3px;
+                height: 1em;
+                animation: blink 1s infinite;
+            }
+    
+            .scroll-arrow {
+                position: absolute;
+                bottom: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                background: rgba(253, 121, 168, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
+                opacity: 0;
+                animation: fadeInUp 1s ease-out 6s forwards;
+            }
+    
+            .scroll-arrow:hover {
+                background: rgba(253, 121, 168, 1);
+                transform: translateX(-50%) translateY(-5px);
+                box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
+            }
+    
+            .arrow-down {
+                width: 0;
+                height: 0;
+                border-left: 15px solid transparent;
+                border-right: 15px solid transparent;
+                border-top: 20px solid white;
+            }
+    
+            .next-section-content {
+                text-align: center;
+                max-width: 600px;
+            }
+    
+            .next-section-title {
+                font-size: 3rem;
+                color: #e84393;
+                margin-bottom: 2rem;
+                animation: float 3s ease-in-out infinite;
+            }
+    
+            .next-section-text {
+                font-size: 1.5rem;
+                color: #2d3436;
+                line-height: 1.8;
+                background: rgba(255, 255, 255, 0.9);
+                padding: 2rem;
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                backdrop-filter: blur(10px);
+            }
+    
+            .floating-hearts {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                overflow: hidden;
+            }
+    
+            .floating-heart {
+                position: absolute;
+                color: rgba(253, 121, 168, 0.7);
+                font-size: 1.5rem;
+                animation: floatUp 4s linear infinite;
+            }
+    
+            /* Error message */
+            .error-message {
+                color: #e17055;
+                font-size: 1rem;
+                margin-top: 1rem;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+    
+            .error-message.show {
+                opacity: 1;
+            }
+    
+            /* Third section - Popup styles */
+            .popup-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(10px);
+                display: none;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            }
+    
+            .popup-overlay.show {
+                display: flex;
+            }
+    
+            .popup-content {
+                background: rgba(255, 255, 255, 0.95);
+                padding: 3rem 2.5rem;
+                border-radius: 25px;
+                box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+                backdrop-filter: blur(15px);
+                max-width: 450px;
+                width: 90%;
+                text-align: center;
+                position: relative;
+                animation: popupSlideIn 0.5s ease-out;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+    
+            .popup-header {
+                font-size: 2rem;
+                color: #e84393;
+                margin-bottom: 2rem;
+                font-weight: 300;
+            }
+    
+            .popup-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+    
+            .popup-btn {
+                background: linear-gradient(45deg, #fd79a8, #fdcb6e);
+                border: none;
+                padding: 1.2rem 2rem;
+                border-radius: 20px;
+                color: white;
+                font-size: 1.3rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
+                position: relative;
+                overflow: hidden;
+            }
+    
+            .popup-btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
+            }
+    
+            .popup-btn-subtitle {
+                font-size: 0.9rem;
+                opacity: 0.9;
+                margin-top: 0.5rem;
+                font-weight: 300;
+            }
+    
+            .back-arrow {
+                position: absolute;
+                top: 2rem;
+                left: 2rem;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background: rgba(253, 121, 168, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
+            }
+    
+            .back-arrow:hover {
+                background: rgba(253, 121, 168, 1);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(253, 121, 168, 0.4);
+            }
+    
+            .arrow-left {
+                width: 0;
+                height: 0;
+                border-top: 10px solid transparent;
+                border-bottom: 10px solid transparent;
+                border-right: 15px solid white;
+            }
+    
+            .close-popup {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                background: none;
+                border: none;
+                font-size: 2rem;
+                color: #e84393;
+                cursor: pointer;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                transition: all 0.3s ease;
+            }
+    
+            .close-popup:hover {
+                background: rgba(253, 121, 168, 0.1);
+            }
+    
+            /* Timeglass counter styles */
+            .counter-display {
+                display: none;
+                text-align: center;
+                padding: 2rem;
+            }
+    
+            .counter-display.show {
+                display: block;
+            }
+    
+            .counter-title {
+                font-size: 2rem;
+                color: #e84393;
+                margin-bottom: 2rem;
+            }
+    
+            .counter-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+    
+            .counter-item {
+                background: rgba(255, 255, 255, 0.9);
+                padding: 1.5rem 1rem;
+                border-radius: 15px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+    
+            .counter-number {
+                font-size: 2.5rem;
+                font-weight: bold;
+                color: #fd79a8;
+            }
+    
+            .counter-label {
+                font-size: 1rem;
+                color: #636e72;
+                margin-top: 0.5rem;
+            }
+    
+            /* Gallery styles */
+            .gallery-display {
+                display: none;
+                padding: 2rem;
+            }
+    
+            .gallery-display.show {
+                display: block;
+            }
+    
+            .gallery-title {
+                font-size: 2rem;
+                color: #e84393;
+                margin-bottom: 2rem;
+                text-align: center;
+            }
+    
+            .gallery-container {
+                display: flex;
+                overflow-x: auto;
+                gap: 1rem;
+                padding: 1rem 0;
+                scroll-behavior: smooth;
+            }
+    
+            .gallery-item {
+                min-width: 300px;
+                height: 250px;
+                background: rgba(255, 255, 255, 0.9);
+                border-radius: 15px;
+                overflow: hidden;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                position: relative;
+                flex-shrink: 0;
+            }
+    
+            .gallery-image {
+                width: 100%;
+                height: 80%;
+                background: linear-gradient(45deg, #fd79a8, #fdcb6e);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 1.2rem;
+                object-fit: cover;
+            }
+    
+            .gallery-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+    
+            .gallery-caption {
+                padding: 1rem;
+                text-align: center;
+                color: #636e72;
+            }
+    
+            /* Spotify styles */
+            .spotify-display {
+                display: none;
+                padding: 2rem;
+                text-align: center;
+            }
+    
+            .spotify-display.show {
+                display: block;
+            }
+    
+            .spotify-title {
+                font-size: 2rem;
+                color: #e84393;
+                margin-bottom: 2rem;
+            }
+    
+            .spotify-embed {
+                background: rgba(255, 255, 255, 0.9);
+                padding: 2rem;
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                margin-bottom: 2rem;
+            }
+    
+            /* Animations */
+            @keyframes float {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
+            }
+    
+            @keyframes heartbeat {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+            }
+    
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); opacity: 1; }
+                50% { transform: scale(1.2); opacity: 0.8; }
+            }
+    
+            @keyframes blink {
+                0%, 50% { opacity: 1; }
+                51%, 100% { opacity: 0; }
+            }
+    
+            @keyframes fadeInUp {
+                0% {
+                    opacity: 0;
+                    transform: translateX(-50%) translateY(30px);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateX(-50%) translateY(0);
+                }
+            }
+    
+            @keyframes floatUp {
+                0% {
+                    transform: translateY(100vh) rotate(0deg);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-100px) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+    
+            @keyframes popupSlideIn {
+                0% {
+                    opacity: 0;
+                    transform: scale(0.8) translateY(50px);
+                }
+                100% {
+                    opacity: 1;
+                    transform: scale(1) translateY(0);
+                }
+            }
+    
+            /* Responsive design */
+            @media (max-width: 768px) {
+                .title {
+                    font-size: 2.5rem;
+                }
+                .login-box {
+                    padding: 2rem 1.5rem;
+                }
+                .typewriter-text {
+                    font-size: 2rem;
+                    min-height: 250px;
+                }
+                .next-section-title {
+                    font-size: 2.5rem;
+                }
+                .next-section-text {
+                    font-size: 1.3rem;
+                }
+                .counter-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .gallery-item {
+                    min-width: 250px;
+                }
+                .popup-content {
+                    padding: 2rem 1.5rem;
+                }
+            }
+    
+            @media (max-width: 480px) {
+                .typewriter-text {
+                    font-size: 1.5rem;
+                    min-height: 200px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="floating-hearts" id="floating-hearts"></div>
+    
+        <div class="container" id="login-container">
+            <h1 class="title">Til Sebastian<span class="heart">♡</span></h1>
+            
+            <div class="login-box">
+                <h2 class="subtitle">Skriv inn koden</h2>
+                <div class="heart-small">❤️</div>
+                
+                <div class="input-group">
+                    <input type="password" class="code-input" id="codeInput" placeholder="Passord" maxlength="20">
+                    <div class="error-message" id="errorMessage">Feil kode, prøv igjen ♡</div>
+                </div>
+                
+                <button class="submit-btn" onclick="checkCode()">→</button>
+            </div>
+        </div>
+    
+        <div class="success-page" id="success-page">
+            <div class="section first-section" id="first-section">
+                <div class="section-header">Hjemside etter kode</div>
+                <div class="typewriter-container">
+                    <div class="typewriter-text" id="typewriter-text">
+                        <span class="cursor" id="cursor">|</span>
+                    </div>
+                </div>
+                <div class="scroll-arrow" id="scroll-arrow" onclick="scrollToNextSection()">
+                    <div class="arrow-down"></div>
+                </div>
+            </div>
+            
+            <div class="section second-section" id="second-section">
+                <div class="next-section-content">
+                    <h2 class="next-section-title">Fortsettelse følger... ♡</h2>
+                    <div class="next-section-text">
+                        Her kan du legge til mer innhold for din kjære Sebastian!<br>
+                        Kanskje bilder, minner, eller en annen melding? 💕
+                    </div>
+                </div>
+            </div>
+    
+            <div class="section third-section" id="third-section">
+                <div class="back-arrow" onclick="scrollToPreviousSection()">
+                    <div class="arrow-left"></div>
+                </div>
+                
+                <div class="next-section-content">
+                    <h2 class="next-section-title">Til deg fra meg ♡</h2>
+                    <div class="next-section-text" style="cursor: pointer;" onclick="showPopup()">
+                        Klikk her for å utforske våre minner sammen 💕
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Popup Overlay -->
+        <div class="popup-overlay" id="popup-overlay">
+            <div class="popup-content">
+                <button class="close-popup" onclick="closePopup()">×</button>
+                
+                <div id="main-popup" class="popup-main">
+                    <h2 class="popup-header">Til deg fra meg</h2>
+                    <div class="popup-buttons">
+                        <button class="popup-btn" onclick="showTimeglass()">
+                            Timeglass
+                            <div class="popup-btn-subtitle">Hvor lang tid det har gått siden vi møttes</div>
+                        </button>
+                        <button class="popup-btn" onclick="showGallery()">
+                            Minnene våre
+                            <div class="popup-btn-subtitle">Galleri</div>
+                        </button>
+                        <button class="popup-btn" onclick="showSpotify()">
+                            Spotify
+                            <div class="popup-btn-subtitle">Sanger som minner meg om deg</div>
+                        </button>
+                    </div>
+                    <div style="margin-top: 2rem; color: #e84393; font-size: 1rem;">
+                        ⬇️ Scroll ned for flere overraskelser
+                    </div>
+                </div>
+    
+                <!-- Timeglass Display -->
+                <div id="timeglass-display" class="counter-display">
+                    <button class="close-popup" onclick="showMainPopup()" style="top: 1rem; left: 1rem;">←</button>
+                    <h2 class="counter-title">Tiden vi har vært sammen ♡</h2>
+                    <div class="counter-grid">
+                        <div class="counter-item">
+                            <div class="counter-number" id="years">0</div>
+                            <div class="counter-label">År</div>
+                        </div>
+                        <div class="counter-item">
+                            <div class="counter-number" id="months">0</div>
+                            <div class="counter-label">Måneder</div>
+                        </div>
+                        <div class="counter-item">
+                            <div class="counter-number" id="days">0</div>
+                            <div class="counter-label">Dager</div>
+                        </div>
+                        <div class="counter-item">
+                            <div class="counter-number" id="hours">0</div>
+                            <div class="counter-label">Timer</div>
+                        </div>
+                        <div class="counter-item">
+                            <div class="counter-number" id="minutes">0</div>
+                            <div class="counter-label">Minutter</div>
+                        </div>
+                        <div class="counter-item">
+                            <div class="counter-number" id="seconds">0</div>
+                            <div class="counter-label">Sekunder</div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Gallery Display -->
+                <div id="gallery-display" class="gallery-display">
+                    <button class="close-popup" onclick="showMainPopup()" style="top: 1rem; left: 1rem;">←</button>
+                    <h2 class="gallery-title">Minnene våre ♡</h2>
+                    <div class="gallery-container" id="gallery-container">
+                        <!-- Bilder vil bli lagt til her via JavaScript -->
+                    </div>
+                </div>
+    
+                <!-- Spotify Display -->
+                <div id="spotify-display" class="spotify-display">
+                    <button class="close-popup" onclick="showMainPopup()" style="top: 1rem; left: 1rem;">←</button>
+                    <h2 class="spotify-title">Vår spilleliste ♡</h2>
+                    <div class="spotify-embed">
+                        <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX0XUsuxWHRQd?utm_source=generator&theme=0" 
+                                width="100%" 
+                                height="352" 
+                                frameBorder="0" 
+                                allowfullscreen="" 
+                                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                                loading="lazy"
+                                style="border-radius: 12px;">
+                        </iframe>
+                    </div>
+                    <div style="color: #636e72; font-style: italic;">
+                        Erstatt Spotify playlist URL med din egen i koden
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <script>
+            // Sett riktig kode her (kan endres)
+            const correctCode = "iloveyou";
+            
+            // Tekst som skal skrives med typewriter-effekt
+            const typewriterText = "Jeg skulle ønske det fantes ord som kunne beskrive hvor høyt jeg elsker deg... I stedet gir jeg dette, for kun oss to, som et forsøk på å beskrive det som ikke kan beskrives...";
+            
+            let typewriterIndex = 0;
+            let isTyping = false;
+            let timeglassInterval;
+
+            // Dato dere møttes (endre denne datoen)
+            const meetingDate = new Date('2024-01-01'); // Endre til riktig dato
+
+            // Bilder for galleriet (legg til dine egne bilder her)
+            const galleryImages = [
+                { src: 'https://via.placeholder.com/300x200/fd79a8/ffffff?text=Vårt+første+møte', caption: 'Vårt første møte ♡' },
+                { src: 'https://via.placeholder.com/300x200/fdcb6e/ffffff?text=En+spesiell+dag', caption: 'En spesiell dag sammen' },
+                { src: 'https://via.placeholder.com/300x200/74b9ff/ffffff?text=Minner', caption: 'Minner som varer evig' },
+                { src: 'https://via.placeholder.com/300x200/e84393/ffffff?text=Du+og+meg', caption: 'Du og meg mot verden' },
+                { src: 'https://via.placeholder.com/300x200/a29bfe/ffffff?text=Kjærlighet', caption: 'Kjærlighet uten grenser' },
+                { src: 'https://via.placeholder.com/300x200/fd79a8/ffffff?text=Framtid', caption: 'Vår framtid sammen' }
+                // Legg til flere bilder her med riktige URL-er
+            ];
+            
+            // Legg til event listener for Enter-tasten
+            document.getElementById('codeInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkCode();
+                }
+            });
+
+            function checkCode() {
+                const input = document.getElementById('codeInput').value.toLowerCase().trim();
+                const errorMessage = document.getElementById('errorMessage');
+                
+                if (input === correctCode) {
+                    // Riktig kode - start overgang
+                    createHearts();
+                    setTimeout(() => {
+                        transitionToSuccess();
+                    }, 500);
+                } else {
+                    // Feil kode - vis feilmelding
+                    errorMessage.classList.add('show');
+                    document.getElementById('codeInput').style.background = 'rgba(231, 112, 85, 0.2)';
+                    
+                    // Skjul feilmelding etter 3 sekunder
+                    setTimeout(() => {
+                        errorMessage.classList.remove('show');
+                        document.getElementById('codeInput').style.background = 'rgba(253, 121, 168, 0.1)';
+                    }, 3000);
+                    
+                    // Clear input
+                    document.getElementById('codeInput').value = '';
+                }
+            }
