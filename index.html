@@ -464,7 +464,7 @@
                 grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
                 gap: 1rem;
                 width: 100%;
-                max-width: 700px;
+                max-width: 700px; /* Økt bredde for å få plass til "Uker" */
             }
     
             .counter-item {
@@ -486,8 +486,8 @@
                 margin-top: 0.5rem;
             }
     
-            /* Gallery styles */
-            .gallery-title, .spotify-title, .map-title {
+            /* --- Start of new gallery styles --- */
+            .gallery-title {
                 font-size: 1.8rem;
                 color: #e84393;
                 margin-bottom: 1.5rem;
@@ -554,8 +554,15 @@
                 align-items: center;
                 justify-content: center;
             }
-            
+            /* --- End of new gallery styles --- */
+
             /* Spotify styles */
+            .spotify-title {
+                font-size: 1.8rem;
+                color: #e84393;
+                margin-bottom: 1.5rem;
+            }
+    
             .spotify-embed {
                 background: rgba(255, 255, 255, 0.9);
                 padding: 1rem;
@@ -564,7 +571,7 @@
                 margin-bottom: 1rem;
             }
 
-            /* Lightbox / Modal Styles */
+            /* --- Lightbox / Modal Styles --- */
             .lightbox-overlay {
                 position: fixed;
                 top: 0;
@@ -581,7 +588,10 @@
                 transition: opacity 0.4s ease;
             }
 
-            .lightbox-overlay.show { display: flex; opacity: 1; }
+            .lightbox-overlay.show {
+                display: flex;
+                opacity: 1;
+            }
 
             .lightbox-content {
                 max-width: 90%;
@@ -601,9 +611,19 @@
                 cursor: pointer;
                 transition: transform 0.2s ease, color 0.2s ease;
             }
-            .lightbox-close:hover { color: #ddd; transform: scale(1.1); }
 
-            /* Map Styles */
+            .lightbox-close:hover {
+                color: #ddd;
+                transform: scale(1.1);
+            }
+
+            /* --- Map Styles --- */
+            .map-title {
+                font-size: 1.8rem;
+                color: #e84393;
+                margin-bottom: 1.5rem;
+                text-align: center;
+            }
             #map-container {
                 height: 500px;
                 width: 100%;
@@ -616,8 +636,10 @@
                 box-shadow: 0 3px 15px rgba(0,0,0,0.2);
                 background: #fdfdfd;
             }
-            .leaflet-popup-content { margin: 0; width: 250px !important; }
-
+            .leaflet-popup-content {
+                margin: 0;
+                width: 250px !important;
+            }
             .popup-gallery-image-wrapper {
                 position: relative;
                 width: 100%;
@@ -738,11 +760,24 @@
     
             /* Responsive design */
             @media (max-width: 768px) {
-                .popup-content { width: 95%; }
-                #map-container, .gallery-container { height: 400px; }
+                .title { font-size: 2.5rem; }
+                .login-box { padding: 2rem 1.5rem; }
+                .typewriter-text { font-size: 2rem; min-height: 250px; }
+                .next-section-title { font-size: 2.5rem; }
+                .next-section-text { font-size: 1.3rem; }
+                .gallery-item { width: 320px; }
+                .gallery-image { height: 250px; }
+                .popup-content { padding: 2rem 1.5rem; width: 95%; }
+                #map-container { height: 400px; }
             }
             @media (max-width: 480px) {
-                .counter-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+                .typewriter-text { font-size: 1.5rem; min-height: 200px; }
+                .popup-content { padding: 2rem 1rem; }
+                .popup-header { font-size: 1.5rem; }
+                .popup-btn { padding: 0.8rem 1rem; font-size: 1rem; }
+                .counter-grid { grid-template-columns: repeat(2, 1fr); }
+                .gallery-item { width: 280px; }
+                .gallery-image { height: 220px; }
                 #map-container { height: 350px; }
             }
         </style>
@@ -765,6 +800,7 @@
     
         <div class="success-page" id="success-page">
             <div class="section first-section">
+                <div class="section-header">Hjemside etter kode</div>
                 <div class="typewriter-container">
                     <div class="typewriter-text" id="typewriter-text"><span class="cursor" id="cursor">|</span></div>
                 </div>
@@ -772,8 +808,8 @@
             </div>
             <div class="section second-section">
                 <div class="next-section-content">
-                    <h2 class="next-section-title">...</h2>
-                    <div class="next-section-text">...</div>
+                    <h2 class="next-section-title">Fortsettelse følger... ♡</h2>
+                    <div class="next-section-text">Her kan du legge til mer innhold for din kjære Sebastian!<br>Kanskje bilder, minner, eller en annen melding? 💕</div>
                 </div>
             </div>
             <div class="section third-section">
@@ -788,7 +824,6 @@
         <div class="popup-overlay" id="popup-overlay">
             <div class="popup-content">
                 <button class="close-popup" onclick="closePopup()">×</button>
-                
                 <div id="main-popup" class="popup-view show">
                     <div class="popup-buttons">
                         <button class="popup-btn" onclick="showView('timeglass-display')">Timeglass<div class="popup-btn-subtitle">Hvor lang tid det har gått siden vi møttes</div></button>
@@ -814,13 +849,13 @@
                     </div>
                 </div>
 
-                <div id="gallery-display" class="popup-view">
+                <div id="gallery-display" class="popup-view gallery-display">
                     <button class="close-popup" onclick="showView('main-popup')" style="top: 1rem; left: 1rem;">←</button>
                     <h2 class="gallery-title">Minnene våre ♡</h2>
                     <div class="gallery-container" id="gallery-container"></div>
                 </div>
 
-                <div id="spotify-display" class="popup-view">
+                <div id="spotify-display" class="popup-view spotify-display">
                     <button class="close-popup" onclick="showView('main-popup')" style="top: 1rem; left: 1rem;">←</button>
                     <h2 class="spotify-title">Vår spilleliste ♡</h2>
                     <div class="spotify-embed">
@@ -828,7 +863,7 @@
                     </div>
                 </div>
 
-                <div id="map-display" class="popup-view">
+                <div id="map-display" class="popup-view map-display">
                     <button class="close-popup" onclick="showView('main-popup')" style="top: 1rem; left: 1rem;">←</button>
                     <h2 class="map-title">Kart over Vår Historie ♡</h2>
                     <div id="map-container"></div>
@@ -850,7 +885,7 @@
             let popupGalleryStates = {}; 
         
             // KONFIGURASJON
-            const meetingDate = new Date('2024-06-25T20:30:00');
+            const meetingDate = new Date('2024-08-14T20:30:00');
             const galleryImages = [
                 { src: 'https://i.imgur.com/iXfC2nm.jpeg', caption: 'hh ♡' },
                 { src: 'https://i.imgur.com/ZEdMp8r.jpeg', caption: 'Minner som varer evig' }
@@ -859,34 +894,71 @@
 
             const mapLocations = [
                 {
-                    id: 1, lat: 59.9139, lng: 10.7522, title: 'Oslo',
+                    id: 1,
+                    lat: 59.9139,
+                    lng: 10.7522,
+                    title: 'Oslo',
                     images: [
                         { src: 'https://i.imgur.com/iXfC2nm.jpeg', caption: 'Vår første date ved Operaen!' },
-                        { src: 'https://i.imgur.com/ZEdMp8r.jpeg', caption: 'Kveldskos i Frognerparken.' }
+                        { src: 'https://i.imgur.com/ZEdMp8r.jpeg', caption: 'Kveldskos i Frognerparken.' },
+                        { src: 'https://i.imgur.com/kAqpjiS.jpeg', caption: 'Bare oss to.' }
                     ]
                 },
                 {
-                    id: 2, lat: 58.1472, lng: 7.9958, title: 'Kristiansand',
-                    images: [ { src: 'https://i.imgur.com/QTfigFF.jpeg', caption: 'Sommeren i Dyreparken var magisk.' } ]
+                    id: 2,
+                    lat: 58.1472,
+                    lng: 7.9958,
+                    title: 'Kristiansand',
+                    images: [
+                        { src: 'https://i.imgur.com/QTfigFF.jpeg', caption: 'Sommeren i Dyreparken var magisk.' },
+                        { src: 'https://i.imgur.com/iXfC2nm.jpeg', caption: 'Båttur i den fine skjærgården.' }
+                    ]
+                },
+                {
+                    id: 3,
+                    lat: 63.4305,
+                    lng: 10.3951,
+                    title: 'Trondheim',
+                    images: [
+                        { src: 'https://i.imgur.com/ZEdMp8r.jpeg', caption: 'Utsikten fra Nidarosdomen.' }
+                    ]
                 }
             ];
         
+            // EVENT LISTENERS
             document.getElementById('codeInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') checkCode(); });
         
+            // GRUNNLEGGENDE FUNKSJONER
             function checkCode() {
                 const input = document.getElementById('codeInput').value.toLowerCase().trim();
+                const errorMessage = document.getElementById('errorMessage');
                 if (input === correctCode) {
                     createHearts();
                     setTimeout(transitionToSuccess, 500);
                 } else {
-                    const errorMessage = document.getElementById('errorMessage');
                     errorMessage.classList.add('show');
-                    setTimeout(() => { errorMessage.classList.remove('show'); }, 3000);
+                    const codeInput = document.getElementById('codeInput');
+                    codeInput.style.animation = 'shake 0.5s';
+                    setTimeout(() => {
+                        errorMessage.classList.remove('show');
+                        codeInput.style.animation = '';
+                    }, 3000);
+                    codeInput.value = '';
                 }
             }
-
             function createHearts() {
-                // Heart creation logic...
+                const container = document.getElementById('floating-hearts');
+                if (!container) return;
+                for (let i = 0; i < 30; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'floating-heart';
+                    heart.innerHTML = '❤️';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.fontSize = Math.random() * 2 + 1 + 'rem';
+                    heart.style.animationDuration = (Math.random() * 5 + 3) + 's';
+                    container.appendChild(heart);
+                    setTimeout(() => container.removeChild(heart), 8000);
+                }
             }
             function transitionToSuccess() {
                 document.getElementById('login-container').classList.add('fade-out');
@@ -897,11 +969,26 @@
                 }, 800);
             }
             function startTypewriter() {
-                // Typewriter logic...
+                if (isTyping) return;
+                isTyping = true;
+                const el = document.getElementById('typewriter-text');
+                const cursor = document.getElementById('cursor');
+                el.innerHTML = ''; 
+                let i = 0;
+                const interval = setInterval(() => {
+                    if (i < typewriterText.length) {
+                        el.innerHTML += typewriterText.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(interval);
+                        if (cursor) cursor.style.display = 'none';
+                    }
+                }, 70);
             }
             function scrollToNextSection() { document.getElementById('second-section').scrollIntoView({ behavior: 'smooth' }); }
             function scrollToPreviousSection() { document.getElementById('first-section').scrollIntoView({ behavior: 'smooth' }); }
         
+            // POPUP FUNKSJONER
             function showPopup() {
                 document.getElementById('popup-overlay').classList.add('show');
                 showView('main-popup');
@@ -914,15 +1001,12 @@
                 document.querySelectorAll('.popup-view').forEach(view => view.classList.remove('show'));
                 const viewToShow = document.getElementById(viewId);
                 if (viewToShow) viewToShow.classList.add('show');
-
-                if (viewId === 'timeglass-display') startTimglassUpdater();
-                else clearInterval(timeglassInterval);
-                
-                if (viewId === 'gallery-display') populateGallery();
-                if (viewId === 'spotify-display') loadSpotifyPlayer();
-                if (viewId === 'map-display') setTimeout(initMap, 10);
+                if (viewId === 'timeglass-display') { startTimglassUpdater(); } 
+                else { clearInterval(timeglassInterval); }
+                if (viewId === 'gallery-display') { populateGallery(); }
+                if (viewId === 'spotify-display') { loadSpotifyPlayer(); }
+                if (viewId === 'map-display') { setTimeout(initMap, 10); }
             }
-
             function startTimglassUpdater() {
                 clearInterval(timeglassInterval);
                 updateTimeglass();
@@ -932,12 +1016,14 @@
             function updateTimeglass() {
                 const now = new Date();
                 let tempDate = new Date(meetingDate);
+
                 let years = now.getFullYear() - tempDate.getFullYear();
                 tempDate.setFullYear(tempDate.getFullYear() + years);
                 if (tempDate > now) {
                     years--;
                     tempDate.setFullYear(tempDate.getFullYear() - 1);
                 }
+
                 let months = now.getMonth() - tempDate.getMonth();
                 if (months < 0) {
                     months += 12;
@@ -947,9 +1033,11 @@
                     months--;
                     tempDate.setMonth(tempDate.getMonth() - 1);
                 }
+
                 let days = Math.floor((now - tempDate) / (1000 * 60 * 60 * 24));
                 let weeks = Math.floor(days / 7);
-                days %= 7;
+                days = days % 7;
+                
                 let seconds = Math.floor((now - tempDate) / 1000);
                 let minutes = Math.floor(seconds / 60);
                 let hours = Math.floor(minutes / 60);
@@ -963,24 +1051,55 @@
                 document.getElementById('years').textContent = years;
             }
 
-            function populateGallery() { /* Gallery logic... */ }
-            function loadSpotifyPlayer() { /* Spotify logic... */ }
-            function openLightbox(src) { /* Lightbox logic... */ }
-            function closeLightbox() { /* Lightbox logic... */ }
+            function populateGallery() {
+                const gallery = document.getElementById('gallery-container');
+                if (!gallery || gallery.children.length > 0) return; 
+                gallery.innerHTML = '';
+                galleryImages.forEach(img => {
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item';
+                    item.innerHTML = `<div class="gallery-image"><img src="${img.src}" alt="${img.caption}" loading="lazy"></div><div class="gallery-caption">${img.caption}</div>`;
+                    item.onclick = () => openLightbox(img.src);
+                    gallery.appendChild(item);
+                });
+            }
+            function loadSpotifyPlayer() {
+                const spotifyEmbed = document.querySelector('.spotify-embed iframe');
+                if (spotifyEmbed && spotifyEmbed.src !== spotifyPlaylistURL) spotifyEmbed.src = spotifyPlaylistURL;
+            }
 
+            // LIGHTBOX FUNKSJONER
+            function openLightbox(src) {
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightbox-img');
+                lightboxImg.src = src;
+                lightbox.classList.add('show');
+                lightbox.onclick = function(event) { if (event.target === lightbox) closeLightbox(); };
+            }
+            function closeLightbox() { document.getElementById('lightbox').classList.remove('show'); }
+
+            // KART FUNKSJONER MED LEAFLET
             function initMap() {
                 if (map) { map.invalidateSize(); return; }
-                const customIcon = L.divIcon({ className: 'custom-map-marker', iconSize: [20, 20], iconAnchor: [10, 10] });
+
+                const customIcon = L.divIcon({
+                    className: 'custom-map-marker',
+                    iconSize: [20, 20],
+                    iconAnchor: [10, 10]
+                });
+                
                 map = L.map('map-container').setView([62, 10.5], 5);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(map);
 
                 mapLocations.forEach(location => {
                     const marker = L.marker([location.lat, location.lng], { icon: customIcon }).addTo(map);
+                    
                     marker.on('popupopen', () => {
                         popupGalleryStates[location.id] = { currentIndex: 0 };
                         updatePopupGallery(location.id);
                     });
-                    marker.bindPopup(`
+                    
+                    const popupContent = `
                         <div id="popup-wrapper-${location.id}" class="popup-gallery-image-wrapper">
                             <img id="popup-img-${location.id}" class="popup-gallery-image" src="" onclick="openLightbox(this.src)">
                             <div class="popup-gallery-nav">
@@ -991,7 +1110,8 @@
                         </div>
                         <h3 class="popup-gallery-header">${location.title}</h3>
                         <div id="popup-caption-${location.id}" class="popup-gallery-caption"></div>
-                    `, { minWidth: 250 });
+                    `;
+                    marker.bindPopup(popupContent, { minWidth: 250 });
                 });
             }
 
@@ -999,7 +1119,9 @@
                 const location = mapLocations.find(loc => loc.id === locationId);
                 const state = popupGalleryStates[locationId];
                 if (!location || !state) return;
-                state.currentIndex = (state.currentIndex + direction + location.images.length) % location.images.length;
+                
+                const newIndex = (state.currentIndex + direction + location.images.length) % location.images.length;
+                state.currentIndex = newIndex;
                 updatePopupGallery(locationId);
             }
 
@@ -1007,20 +1129,26 @@
                 const location = mapLocations.find(loc => loc.id === locationId);
                 const state = popupGalleryStates[locationId];
                 if (!location || !state) return;
+
                 const currentImage = location.images[state.currentIndex];
-                const wrapper = document.getElementById(`popup-wrapper-${location.id}`);
-                const img = document.getElementById(`popup-img-${location.id}`);
-                const counter = document.getElementById(`popup-counter-${location.id}`);
-                const caption = document.getElementById(`popup-caption-${location.id}`);
-                if (wrapper) wrapper.style.backgroundImage = `url(${currentImage.src})`;
-                if (img) img.src = currentImage.src;
-                if (caption) caption.textContent = currentImage.caption;
-                if (counter) {
+                
+                const wrapperElement = document.getElementById(`popup-wrapper-${location.id}`);
+                const imgElement = document.getElementById(`popup-img-${location.id}`);
+                const counterElement = document.getElementById(`popup-counter-${location.id}`);
+                const captionElement = document.getElementById(`popup-caption-${location.id}`);
+
+                if(wrapperElement) {
+                    wrapperElement.style.backgroundImage = `url(${currentImage.src})`;
+                }
+                if (imgElement) imgElement.src = currentImage.src;
+                if (captionElement) captionElement.textContent = currentImage.caption;
+                
+                if (counterElement) {
                     if (location.images.length > 1) {
-                        counter.style.display = 'block';
-                        counter.textContent = `${state.currentIndex + 1} / ${location.images.length}`;
+                        counterElement.style.display = 'block';
+                        counterElement.textContent = `${state.currentIndex + 1} / ${location.images.length}`;
                     } else {
-                        counter.style.display = 'none';
+                        counterElement.style.display = 'none';
                     }
                 }
             }
