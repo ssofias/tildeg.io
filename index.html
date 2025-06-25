@@ -4,83 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Til Sebastian ♥</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0, #fd79a8);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #2d3436;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            font-weight: normal;
+        }
+
+        .heart {
+            color: #e84393;
+            font-size: 2rem;
+            margin-left: 10px;
+        }
+
+        .login-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .card-title {
+            color: #e84393;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: normal;
+        }
+
+        .card-heart {
+            color: #e74c3c;
+            font-size: 2rem;
+            margin: 10px 0 30px 0;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            background: #f8d7da;
+            border-radius: 15px;
+            font-size: 1rem;
+            margin-bottom: 25px;
+            outline: none;
+            color: #6c757d;
+        }
+
+        .password-input::placeholder {
+            color: #adb5bd;
+        }
+
+        .login-btn {
+            background: #f8d7da;
+            border: none;
+            border-radius: 15px;
+            padding: 15px 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #f5c6cb;
+            transform: translateY(-2px);
+        }
+
+        .arrow {
+            color: white;
+            font-size: 1.2rem;
+        }
+    </style>
 </head>
 <body>
-    <div class="floating-hearts" id="heartsContainer"></div>
-
-    <!-- Login Page -->
-    <div class="container" id="loginPage">
-        <h1 class="title">Til Sebastian ♥</h1>
-        <h2 class="subtitle">Skriv inn koden</h2>
-        <div style="font-size: 2rem; margin-bottom: 20px;">❤️</div>
+    <div class="container">
+        <h1>Til Sebastian<span class="heart">♥</span></h1>
         
-        <input type="password" class="code-input" id="codeInput" placeholder="Passord" maxlength="20">
-        <br>
-        <button class="enter-btn" onclick="checkCode()">→</button>
-        
-        <div class="error-message" id="errorMessage">
-            Feil kode! Prøv igjen ❤️
+        <div class="login-card">
+            <h2 class="card-title">Skriv inn koden</h2>
+            <div class="card-heart">❤️</div>
+            
+            <form onsubmit="login(event)">
+                <input type="password" class="password-input" placeholder="Passord" id="password" required>
+                <button type="submit" class="login-btn">
+                    <span class="arrow">→</span>
+                </button>
+            </form>
         </div>
     </div>
 
-    <!-- Valentine's Features Page -->
-    <div class="valentine-page" id="valentinePage">
-        <h1 class="valentine-title">Kjære Sebastian ❤️</h1>
-        
-        <div class="love-message">
-            "Du er min solskinn på regnfulle dager, mitt hjertets melodi, og grunnen til at jeg smiler hver dag. ❤️"
-        </div>
-
-        <div class="features-grid">
-            <div class="feature-card" onclick="showModal('loveLetters')">
-                <div class="feature-icon">💌</div>
-                <div class="feature-title">Kjærlighetsbrev</div>
-                <div class="feature-desc">Personlige meldinger bare for deg</div>
-            </div>
-
-            <div class="feature-card" onclick="showModal('memories')">
-                <div class="feature-icon">📸</div>
-                <div class="feature-title">Mine Minner</div>
-                <div class="feature-desc">Våre vakre øyeblikk sammen</div>
-            </div>
-
-            <div class="feature-card" onclick="showModal('playlist')">
-                <div class="feature-icon">🎵</div>
-                <div class="feature-title">Vår Spilleliste</div>
-                <div class="feature-desc">Sanger som minner meg om deg</div>
-            </div>
-
-            <div class="feature-card" onclick="showModal('promises')">
-                <div class="feature-icon">💝</div>
-                <div class="feature-title">Mine Løfter</div>
-                <div class="feature-desc">Alt jeg vil gi deg</div>
-            </div>
-
-            <div class="feature-card" onclick="showModal('future')">
-                <div class="feature-icon">🌟</div>
-                <div class="feature-title">Vår Fremtid</div>
-                <div class="feature-desc">Drømmer vi skal leve sammen</div>
-            </div>
-
-            <div class="feature-card" onclick="showModal('reasons')">
-                <div class="feature-icon">💖</div>
-                <div class="feature-title">Hvorfor Jeg Elsker Deg</div>
-                <div class="feature-desc">Uendelige grunner til min kjærlighet</div>
-            </div>
-        </div>
-
-        <button class="back-btn" onclick="goBack()">← Tilbake</button>
-    </div>
-
-    <!-- Modal for feature details -->
-    <div class="modal" id="featureModal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal()">×</button>
-            <div id="modalContent"></div>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
+    <script>
+        function login(event) {
+            event.preventDefault();
+            const password = document.getElementById('password').value;
+            
+            // Simple password check (in real app, this would be more secure)
+            if (password === 'love' || password === 'sebastian') {
+                window.location.href = 'home.html';
+            } else {
+                alert('Feil passord! ❤️');
+            }
+        }
+    </script>
 </body>
 </html>
