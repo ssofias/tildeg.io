@@ -622,149 +622,110 @@
                 box-shadow: 0 3px 15px rgba(0,0,0,0.2);
             }
             .leaflet-popup-content {
-                margin: 15px;
-                font-family: 'Arial', sans-serif;
+                margin: 0;
+                width: 250px !important; /* Fast bredde for popupen */
             }
             .leaflet-popup-content p {
-                margin: 10px 0 0 0;
+                margin: 10px 15px 15px 15px;
+                text-align: center;
+            }
+
+            /* Styling for mini-galleriet inne i popup */
+            .popup-gallery-container {
+                position: relative;
+            }
+            .popup-gallery-image {
+                width: 100%;
+                height: 180px;
+                object-fit: cover;
+                border-top-left-radius: 12px;
+                border-top-right-radius: 12px;
+                cursor: pointer;
+                display: block;
+            }
+            .popup-gallery-nav {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                padding: 0 5px;
+                pointer-events: none; /* Slik at man kan klikke på bildet */
+            }
+            .popup-gallery-btn {
+                pointer-events: all; /* Gjør knappene klikkbare */
+                background: rgba(0,0,0,0.5);
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 30px;
+                height: 30px;
+                font-size: 18px;
+                cursor: pointer;
+                transition: background 0.2s ease;
+            }
+            .popup-gallery-btn:hover {
+                background: rgba(0,0,0,0.8);
+            }
+            .popup-gallery-counter {
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                background: rgba(0,0,0,0.6);
+                color: white;
+                padding: 2px 8px;
+                border-radius: 10px;
+                font-size: 12px;
+            }
+            .popup-gallery-header {
+                font-size: 1.2rem;
+                margin: 10px 15px 5px 15px;
+                text-align: center;
+                color: #e84393;
             }
     
             /* Animations */
-            @keyframes float {
-                0%, 100% { transform: translateY(0px); }
-                50% { transform: translateY(-10px); }
-            }
-    
-            @keyframes heartbeat {
-                0%, 100% { transform: scale(1); }
-                50% { transform: scale(1.1); }
-            }
-    
-            @keyframes pulse {
-                0%, 100% { transform: scale(1); opacity: 1; }
-                50% { transform: scale(1.2); opacity: 0.8; }
-            }
-    
-            @keyframes blink {
-                0%, 50% { opacity: 1; }
-                51%, 100% { opacity: 0; }
-            }
-    
+            @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+            @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+            @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.8; } }
+            @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
             @keyframes fadeInUp {
-                0% {
-                    opacity: 0;
-                    transform: translateX(-50%) translateY(30px);
-                }
-                100% {
-                    opacity: 1;
-                    transform: translateX(-50%) translateY(0);
-                }
+                0% { opacity: 0; transform: translateX(-50%) translateY(30px); }
+                100% { opacity: 1; transform: translateX(-50%) translateY(0); }
             }
-    
             @keyframes floatUp {
-                0% {
-                    transform: translateY(100vh) rotate(0deg);
-                    opacity: 0;
-                }
-                10% {
-                    opacity: 1;
-                }
-                90% {
-                    opacity: 1;
-                }
-                100% {
-                    transform: translateY(-100px) rotate(360deg);
-                    opacity: 0;
-                }
+                0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; }
+                90% { opacity: 1; } 100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
             }
-    
             @keyframes popupSlideIn {
-                0% {
-                    opacity: 0;
-                    transform: scale(0.8) translateY(50px);
-                }
-                100% {
-                    opacity: 1;
-                    transform: scale(1) translateY(0);
-                }
+                0% { opacity: 0; transform: scale(0.8) translateY(50px); }
+                100% { opacity: 1; transform: scale(1) translateY(0); }
             }
-    
-             @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-
-            @keyframes zoomIn {
-                from {
-                    transform: scale(0.8);
-                    opacity: 0;
-                }
-                to {
-                    transform: scale(1);
-                    opacity: 1;
-                }
-            }
+            @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+            @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     
             /* Responsive design */
             @media (max-width: 768px) {
-                .title {
-                    font-size: 2.5rem;
-                }
-                .login-box {
-                    padding: 2rem 1.5rem;
-                }
-                .typewriter-text {
-                    font-size: 2rem;
-                    min-height: 250px;
-                }
-                .next-section-title {
-                    font-size: 2.5rem;
-                }
-                .next-section-text {
-                    font-size: 1.3rem;
-                }
-                .gallery-item {
-                    width: 320px; /* Adjusted responsive size */
-                }
-                .gallery-image {
-                    height: 250px; /* Adjust height for tablets */
-                }
-                .popup-content {
-                    padding: 2rem 1.5rem;
-                    width: 95%;
-                }
-                #map-container {
-                    height: 400px;
-                }
+                .title { font-size: 2.5rem; }
+                .login-box { padding: 2rem 1.5rem; }
+                .typewriter-text { font-size: 2rem; min-height: 250px; }
+                .next-section-title { font-size: 2.5rem; }
+                .next-section-text { font-size: 1.3rem; }
+                .gallery-item { width: 320px; }
+                .gallery-image { height: 250px; }
+                .popup-content { padding: 2rem 1.5rem; width: 95%; }
+                #map-container { height: 400px; }
             }
-    
             @media (max-width: 480px) {
-                .typewriter-text {
-                    font-size: 1.5rem;
-                    min-height: 200px;
-                }
-                .popup-content {
-                    padding: 2rem 1rem;
-                }
-                .popup-header {
-                    font-size: 1.5rem;
-                }
-                .popup-btn {
-                    padding: 0.8rem 1rem;
-                    font-size: 1rem;
-                }
-                .counter-grid {
-                    grid-template-columns: repeat(2, 1fr);
-                }
-                .gallery-item {
-                    width: 280px; /* Adjusted for smallest screens */
-                }
-                .gallery-image {
-                    height: 220px; /* Adjusted for phones */
-                }
-                 #map-container {
-                    height: 350px;
-                }
+                .typewriter-text { font-size: 1.5rem; min-height: 200px; }
+                .popup-content { padding: 2rem 1rem; }
+                .popup-header { font-size: 1.5rem; }
+                .popup-btn { padding: 0.8rem 1rem; font-size: 1rem; }
+                .counter-grid { grid-template-columns: repeat(2, 1fr); }
+                .gallery-item { width: 280px; }
+                .gallery-image { height: 220px; }
+                #map-container { height: 350px; }
             }
         </style>
     </head>
@@ -773,53 +734,36 @@
     
         <div class="container" id="login-container">
             <h1 class="title">Til Sebastian<span class="heart">♡</span></h1>
-            
             <div class="login-box">
                 <h2 class="subtitle">Skriv inn koden</h2>
                 <div class="heart-small">❤️</div>
-                
                 <div class="input-group">
                     <input type="password" class="code-input" id="codeInput" placeholder="Passord" maxlength="20">
                     <div class="error-message" id="errorMessage">Feil kode, prøv igjen ♡</div>
                 </div>
-                
                 <button class="submit-btn" onclick="checkCode()">→</button>
             </div>
         </div>
     
         <div class="success-page" id="success-page">
-            <div class="section first-section" id="first-section">
+            <div class="section first-section">
                 <div class="section-header">Hjemside etter kode</div>
                 <div class="typewriter-container">
-                    <div class="typewriter-text" id="typewriter-text">
-                        <span class="cursor" id="cursor">|</span>
-                    </div>
+                    <div class="typewriter-text" id="typewriter-text"><span class="cursor" id="cursor">|</span></div>
                 </div>
-                <div class="scroll-arrow" id="scroll-arrow" onclick="scrollToNextSection()">
-                    <div class="arrow-down"></div>
-                </div>
+                <div class="scroll-arrow" id="scroll-arrow" onclick="scrollToNextSection()"><div class="arrow-down"></div></div>
             </div>
-            
-            <div class="section second-section" id="second-section">
+            <div class="section second-section">
                 <div class="next-section-content">
                     <h2 class="next-section-title">Fortsettelse følger... ♡</h2>
-                    <div class="next-section-text">
-                        Her kan du legge til mer innhold for din kjære Sebastian!<br>
-                        Kanskje bilder, minner, eller en annen melding? 💕
-                    </div>
+                    <div class="next-section-text">Her kan du legge til mer innhold for din kjære Sebastian!<br>Kanskje bilder, minner, eller en annen melding? 💕</div>
                 </div>
             </div>
-    
-            <div class="section third-section" id="third-section">
-                <div class="back-arrow" onclick="scrollToPreviousSection()">
-                    <div class="arrow-left"></div>
-                </div>
-                
+            <div class="section third-section">
+                <div class="back-arrow" onclick="scrollToPreviousSection()"><div class="arrow-left"></div></div>
                 <div class="next-section-content">
                     <h2 class="next-section-title">Til deg fra meg ♡</h2>
-                    <div class="next-section-text" style="cursor: pointer;" onclick="showPopup()">
-                        Klikk her for å utforske våre minner sammen 💕
-                    </div>
+                    <div class="next-section-text" style="cursor: pointer;" onclick="showPopup()">Klikk her for å utforske våre minner sammen 💕</div>
                 </div>
             </div>
         </div>
@@ -827,32 +771,15 @@
         <div class="popup-overlay" id="popup-overlay">
             <div class="popup-content">
                 <button class="close-popup" onclick="closePopup()">×</button>
-                
                 <div id="main-popup" class="popup-view show">
                     <h2 class="popup-header">Til deg fra meg</h2>
                     <div class="popup-buttons">
-                        <button class="popup-btn" onclick="showView('timeglass-display')">
-                            Timeglass
-                            <div class="popup-btn-subtitle">Hvor lang tid det har gått siden vi møttes</div>
-                        </button>
-                        <button class="popup-btn" onclick="showView('gallery-display')">
-                            Minnene våre
-                            <div class="popup-btn-subtitle">Galleri</div>
-                        </button>
-                        <button class="popup-btn" onclick="showView('spotify-display')">
-                            Spotify
-                            <div class="popup-btn-subtitle">Sanger som minner meg om deg</div>
-                        </button>
-                        <button class="popup-btn" onclick="showView('map-display')">
-                            Vårt Norgeskart
-                            <div class="popup-btn-subtitle">Viktige steder i vår historie</div>
-                        </button>
-                    </div>
-                    <div style="margin-top: 2rem; color: #e84393; font-size: 1rem;">
-                        ⬇️ Scroll ned for flere overraskelser
+                        <button class="popup-btn" onclick="showView('timeglass-display')">Timeglass<div class="popup-btn-subtitle">Hvor lang tid det har gått siden vi møttes</div></button>
+                        <button class="popup-btn" onclick="showView('gallery-display')">Minnene våre<div class="popup-btn-subtitle">Galleri</div></button>
+                        <button class="popup-btn" onclick="showView('spotify-display')">Spotify<div class="popup-btn-subtitle">Sanger som minner meg om deg</div></button>
+                        <button class="popup-btn" onclick="showView('map-display')">Vårt Norgeskart<div class="popup-btn-subtitle">Viktige steder i vår historie</div></button>
                     </div>
                 </div>
-    
                 <div id="timeglass-display" class="popup-view counter-display">
                     <button class="close-popup" onclick="showView('main-popup')" style="top: 1rem; left: 1rem;">←</button>
                     <h2 class="counter-title">Tiden vi har vært sammen ♡</h2>
@@ -865,24 +792,18 @@
                         <div class="counter-item"><div class="counter-number" id="seconds">0</div><div class="counter-label">Sekunder</div></div>
                     </div>
                 </div>
-    
                 <div id="gallery-display" class="popup-view gallery-display">
                     <button class="close-popup" onclick="showView('main-popup')" style="top: 1rem; left: 1rem;">←</button>
                     <h2 class="gallery-title">Minnene våre ♡</h2>
                     <div class="gallery-container" id="gallery-container"></div>
                 </div>
-    
                 <div id="spotify-display" class="popup-view spotify-display">
                     <button class="close-popup" onclick="showView('main-popup')" style="top: 1rem; left: 1rem;">←</button>
                     <h2 class="spotify-title">Vår spilleliste ♡</h2>
                     <div class="spotify-embed">
                         <iframe src="" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style="border-radius: 12px;"></iframe>
                     </div>
-                    <div style="color: #636e72; font-style: italic; font-size: 0.9rem;">
-                        Erstatt Spotify playlist URL med din egen i koden
-                    </div>
                 </div>
-
                 <div id="map-display" class="popup-view map-display">
                     <button class="close-popup" onclick="showView('main-popup')" style="top: 1rem; left: 1rem;">←</button>
                     <h2 class="map-title">Kart over Vår Historie ♡</h2>
@@ -901,60 +822,63 @@
             const typewriterText = "Jeg skulle ønske det fantes ord som kunne beskrive hvor høyt jeg elsker deg... I stedet gir jeg dette, for kun oss to, som et forsøk på å beskrive det som ikke kan beskrives...";
             let isTyping = false;
             let timeglassInterval;
-            let map = null; // Global variabel for å holde på kart-objektet
+            let map = null;
+            let popupGalleryStates = {}; // Holder styr på hvilket bilde som vises i hvert popup-galleri
         
             // KONFIGURASJON
-            const meetingDate = new Date('2024-08-13T00:00:00'); // Sett deres møtedato her
+            const meetingDate = new Date('2025-08-13T00:00:00');
             const galleryImages = [
                 { src: 'https://i.imgur.com/iXfC2nm.jpeg', caption: 'hh ♡' },
-                { src: 'https://via.placeholder.com/400x300/fdcb6e/ffffff?text=Vår+første+ferie', caption: 'En spesiell dag sammen' },
-                { src: 'https://i.imgur.com/ZEdMp8r.jpeg', caption: 'Minner som varer evig' },
-                { src: 'https://i.imgur.com/kAqpjiS.jpeg', caption: 'Du og meg mot verden' },
-                { src: 'https://i.imgur.com/QTfigFF.jpeg', caption: 'Kjærlighet uten grenser' },
-                { src: 'https://via.placeholder.com/400x300/fd79a8/ffffff?text=Framtid', caption: 'Vår framtid sammen' }
+                { src: 'https://i.imgur.com/ZEdMp8r.jpeg', caption: 'Minner som varer evig' }
             ];
-            const spotifyPlaylistURL = "https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"; // Erstatt med deres Spotify-spilleliste URL
+            const spotifyPlaylistURL = "https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M";
 
-            // KONFIGURASJON FOR INTERAKTIVT KART
             const mapLocations = [
                 {
-                    lat: 59.9139, // Breddegrad (finn på f.eks. Google Maps ved å høyreklikke)
-                    lng: 10.7522, // Lengdegrad
-                    title: 'Oslo',
+                    id: 1, // Unik ID for hvert sted
+                    lat: 58.11064818107508,
+                    lng: 7.97177635486865,
+                    title: 'Hjemme hos oss',
                     description: 'Her hadde vi vår første date, og jeg visste med en gang at dette var noe spesielt.',
-                    image: 'https://i.imgur.com/iXfC2nm.jpeg' 
+                    images: [
+                        'https://i.imgur.com/iXfC2nm.jpeg',
+                        'https://i.imgur.com/ZEdMp8r.jpeg',
+                        'https://i.imgur.com/kAqpjiS.jpeg'
+                    ]
                 },
                 {
-                    lat: 58.1472, // Kristiansand
+                    id: 2,
+                    lat: 58.1472,
                     lng: 7.9958,
                     title: 'Kristiansand',
                     description: 'Sommeren her med deg var helt magisk. Gleder meg til neste tur!',
-                    image: 'https://i.imgur.com/ZEdMp8r.jpeg'
+                    images: [
+                        'https://i.imgur.com/QTfigFF.jpeg',
+                        'https://i.imgur.com/iXfC2nm.jpeg'
+                    ]
                 },
                 {
-                    lat: 63.4305, // Trondheim
+                    id: 3,
+                    lat: 63.4305,
                     lng: 10.3951,
                     title: 'Trondheim',
                     description: 'Den koselige helgeturen hvor vi bare utforsket byen sammen.',
-                    image: 'https://i.imgur.com/kAqpjiS.jpeg'
+                    images: [
+                        'https://i.imgur.com/ZEdMp8r.jpeg'
+                    ]
                 }
             ];
         
             // EVENT LISTENERS
-            document.getElementById('codeInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') checkCode();
-            });
+            document.getElementById('codeInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') checkCode(); });
         
             // GRUNNLEGGENDE FUNKSJONER
             function checkCode() {
                 const input = document.getElementById('codeInput').value.toLowerCase().trim();
                 const errorMessage = document.getElementById('errorMessage');
-                
                 if (input === correctCode) {
                     createHearts();
-                    setTimeout(() => {
-                        transitionToSuccess();
-                    }, 500);
+                    setTimeout(transitionToSuccess, 500);
                 } else {
                     errorMessage.classList.add('show');
                     const codeInput = document.getElementById('codeInput');
@@ -966,7 +890,6 @@
                     codeInput.value = '';
                 }
             }
-        
             function createHearts() {
                 const container = document.getElementById('floating-hearts');
                 if (!container) return;
@@ -981,7 +904,6 @@
                     setTimeout(() => container.removeChild(heart), 8000);
                 }
             }
-        
             function transitionToSuccess() {
                 document.getElementById('login-container').classList.add('fade-out');
                 setTimeout(() => {
@@ -990,7 +912,6 @@
                     startTypewriter();
                 }, 800);
             }
-        
             function startTypewriter() {
                 if (isTyping) return;
                 isTyping = true;
@@ -1008,173 +929,134 @@
                     }
                 }, 70);
             }
+            function scrollToNextSection() { document.getElementById('second-section').scrollIntoView({ behavior: 'smooth' }); }
+            function scrollToPreviousSection() { document.getElementById('first-section').scrollIntoView({ behavior: 'smooth' }); }
         
-            function scrollToNextSection() {
-                document.getElementById('second-section').scrollIntoView({ behavior: 'smooth' });
-            }
-        
-            function scrollToPreviousSection() {
-                document.getElementById('first-section').scrollIntoView({ behavior: 'smooth' });
-            }
-        
-            // --- TREDJE SIDE / POPUP FUNKSJONER ---
-            
+            // POPUP FUNKSJONER
             function showPopup() {
                 document.getElementById('popup-overlay').classList.add('show');
                 showView('main-popup');
             }
-        
             function closePopup() {
                 document.getElementById('popup-overlay').classList.remove('show');
                 clearInterval(timeglassInterval);
             }
-        
             function showView(viewId) {
-                document.querySelectorAll('.popup-view').forEach(view => {
-                    view.classList.remove('show');
-                });
-        
+                document.querySelectorAll('.popup-view').forEach(view => view.classList.remove('show'));
                 const viewToShow = document.getElementById(viewId);
-                if (viewToShow) {
-                    viewToShow.classList.add('show');
-                }
-        
-                // Håndterer de ulike visningene
-                if (viewId === 'timeglass-display') {
-                    startTimglassUpdater();
-                } else {
-                    clearInterval(timeglassInterval);
-                }
-        
-                if (viewId === 'gallery-display') {
-                    populateGallery();
-                }
-        
-                if (viewId === 'spotify-display') {
-                    loadSpotifyPlayer();
-                }
-
-                if (viewId === 'map-display') {
-                    // Må ha en liten forsinkelse for at kart-div'en skal bli synlig før kartet lages
-                    setTimeout(initMap, 10); 
-                }
+                if (viewToShow) viewToShow.classList.add('show');
+                if (viewId === 'timeglass-display') { startTimglassUpdater(); } 
+                else { clearInterval(timeglassInterval); }
+                if (viewId === 'gallery-display') { populateGallery(); }
+                if (viewId === 'spotify-display') { loadSpotifyPlayer(); }
+                if (viewId === 'map-display') { setTimeout(initMap, 10); }
             }
-        
             function startTimglassUpdater() {
                 clearInterval(timeglassInterval);
                 updateTimeglass();
                 timeglassInterval = setInterval(updateTimeglass, 1000);
             }
-        
             function updateTimeglass() {
                 const now = new Date();
                 const diff = now - meetingDate;
-        
-                let remainingDiff = diff;
-        
-                const years = Math.floor(remainingDiff / (1000 * 60 * 60 * 24 * 365.25));
-                remainingDiff -= years * (1000 * 60 * 60 * 24 * 365.25);
-        
-                const months = Math.floor(remainingDiff / (1000 * 60 * 60 * 24 * 30.44));
-                remainingDiff -= months * (1000 * 60 * 60 * 24 * 30.44);
-        
-                const days = Math.floor(remainingDiff / (1000 * 60 * 60 * 24));
-                remainingDiff -= days * (1000 * 60 * 60 * 24);
-        
-                const hours = Math.floor(remainingDiff / (1000 * 60 * 60));
-                remainingDiff -= hours * (1000 * 60 * 60);
-        
-                const minutes = Math.floor(remainingDiff / (1000 * 60));
-                remainingDiff -= minutes * (1000 * 60);
-        
-                const seconds = Math.floor(remainingDiff / 1000);
-        
-                document.getElementById('years').textContent = years;
-                document.getElementById('months').textContent = months;
-                document.getElementById('days').textContent = days;
-                document.getElementById('hours').textContent = hours;
-                document.getElementById('minutes').textContent = minutes;
-                document.getElementById('seconds').textContent = seconds;
+                let s = diff / 1000;
+                let m = s / 60;
+                let h = m / 60;
+                let d = h / 24;
+                let mo = d / 30.44;
+                let y = d / 365.25;
+                document.getElementById('seconds').textContent = Math.floor(s % 60);
+                document.getElementById('minutes').textContent = Math.floor(m % 60);
+                document.getElementById('hours').textContent = Math.floor(h % 24);
+                document.getElementById('days').textContent = Math.floor(d % 30.44);
+                document.getElementById('months').textContent = Math.floor(mo % 12);
+                document.getElementById('years').textContent = Math.floor(y);
             }
-        
             function populateGallery() {
                 const gallery = document.getElementById('gallery-container');
                 if (!gallery || gallery.children.length > 0) return; 
-                
                 gallery.innerHTML = '';
                 galleryImages.forEach(img => {
                     const item = document.createElement('div');
                     item.className = 'gallery-item';
-                    item.innerHTML = `
-                        <div class="gallery-image"><img src="${img.src}" alt="${img.caption}" loading="lazy"></div>
-                        <div class="gallery-caption">${img.caption}</div>
-                    `;
+                    item.innerHTML = `<div class="gallery-image"><img src="${img.src}" alt="${img.caption}" loading="lazy"></div><div class="gallery-caption">${img.caption}</div>`;
                     item.onclick = () => openLightbox(img.src);
                     gallery.appendChild(item);
                 });
             }
-        
             function loadSpotifyPlayer() {
                 const spotifyEmbed = document.querySelector('.spotify-embed iframe');
-                if (spotifyEmbed && spotifyEmbed.src !== spotifyPlaylistURL) {
-                    spotifyEmbed.src = spotifyPlaylistURL;
-                }
+                if (spotifyEmbed && spotifyEmbed.src !== spotifyPlaylistURL) spotifyEmbed.src = spotifyPlaylistURL;
             }
 
-            // --- LIGHTBOX FUNCTIONS ---
+            // LIGHTBOX FUNKSJONER
             function openLightbox(src) {
                 const lightbox = document.getElementById('lightbox');
                 const lightboxImg = document.getElementById('lightbox-img');
                 lightboxImg.src = src;
                 lightbox.classList.add('show');
-
-                lightbox.onclick = function(event) {
-                    if (event.target === lightbox) {
-                        closeLightbox();
-                    }
-                };
+                lightbox.onclick = function(event) { if (event.target === lightbox) closeLightbox(); };
             }
+            function closeLightbox() { document.getElementById('lightbox').classList.remove('show'); }
 
-            function closeLightbox() {
-                const lightbox = document.getElementById('lightbox');
-                lightbox.classList.remove('show');
-            }
-
-            // --- KART FUNKSJONER MED LEAFLET ---
+            // KART FUNKSJONER MED LEAFLET
             function initMap() {
-                // Hvis kartet allerede er laget, bare juster størrelsen
-                if (map) {
-                    map.invalidateSize();
-                    return;
-                }
+                if (map) { map.invalidateSize(); return; }
+                map = L.map('map-container').setView([62, 10.5], 5);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(map);
 
-                // 1. Initialiser kartet og sentrer det over Sør-Norge
-                map = L.map('map-container').setView([61.5, 8.5], 5.5);
-
-                // 2. Legg til det visuelle kartlaget fra OpenStreetMap
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                }).addTo(map);
-
-                // 3. Loop gjennom stedene og legg til en markør for hver
                 mapLocations.forEach(location => {
                     const marker = L.marker([location.lat, location.lng]).addTo(map);
                     
-                    // Lag innholdet for popup-vinduet med bilde og tekst
-                    const popupContent = `
-                        <div style="text-align: center;">
-                            <img src="${location.image}" alt="${location.title}" style="width:100%; max-width:150px; border-radius:8px; margin-bottom:8px;">
-                            <h3 style="font-size:1.2rem; margin:5px 0; color:#e84393;">${location.title}</h3>
-                            <p style="margin:0;">${location.description}</p>
-                        </div>
-                    `;
+                    marker.on('popupopen', () => {
+                        popupGalleryStates[location.id] = { currentIndex: 0 };
+                        updatePopupGallery(location.id);
+                    });
                     
-                    // Koble popup-vinduet til markøren
-                    marker.bindPopup(popupContent);
+                    const popupContent = `
+                        <div class="popup-gallery-container">
+                            <img id="popup-img-${location.id}" class="popup-gallery-image" src="${location.images[0]}" onclick="openLightbox(this.src)">
+                            <div class="popup-gallery-nav">
+                                <button class="popup-gallery-btn" onclick="navigatePopupGallery(${location.id}, -1)">‹</button>
+                                <button class="popup-gallery-btn" onclick="navigatePopupGallery(${location.id}, 1)">›</button>
+                            </div>
+                            <div id="popup-counter-${location.id}" class="popup-gallery-counter"></div>
+                        </div>
+                        <h3 class="popup-gallery-header">${location.title}</h3>
+                        <p>${location.description}</p>
+                    `;
+                    marker.bindPopup(popupContent, { minWidth: 250 });
                 });
             }
-    
+
+            function navigatePopupGallery(locationId, direction) {
+                const location = mapLocations.find(loc => loc.id === locationId);
+                const state = popupGalleryStates[locationId];
+                if (!location || !state) return;
+                
+                const newIndex = (state.currentIndex + direction + location.images.length) % location.images.length;
+                state.currentIndex = newIndex;
+                updatePopupGallery(locationId);
+            }
+
+            function updatePopupGallery(locationId) {
+                const location = mapLocations.find(loc => loc.id === locationId);
+                const state = popupGalleryStates[locationId];
+                if (!location || !state) return;
+
+                const imgElement = document.getElementById(`popup-img-${location.id}`);
+                const counterElement = document.getElementById(`popup-counter-${location.id}`);
+
+                if (imgElement) imgElement.src = location.images[state.currentIndex];
+                if (counterElement) {
+                    if (location.images.length > 1) {
+                        counterElement.textContent = `${state.currentIndex + 1} / ${location.images.length}`;
+                        counterElement.style.display = 'block';
+                    } else {
+                        counterElement.style.display = 'none';
+                    }
+                }
+            }
         </script>
     </body>
 </html>
