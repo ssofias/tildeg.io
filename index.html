@@ -610,13 +610,12 @@
                 text-align: center;
             }
             #map-container {
-                height: 500px; /* VIKTIG: Kartet trenger en definert høyde */
+                height: 500px;
                 width: 100%;
                 border-radius: 15px;
                 box-shadow: 0 5px 20px rgba(0,0,0,0.1);
                 z-index: 1;
             }
-            /* Justeringer for Leaflet sitt popup-vindu */
             .leaflet-popup-content-wrapper {
                 border-radius: 12px;
                 box-shadow: 0 3px 15px rgba(0,0,0,0.2);
@@ -624,10 +623,8 @@
             }
             .leaflet-popup-content {
                 margin: 0;
-                width: 250px !important; /* Fast bredde for popupen */
+                width: 250px !important;
             }
-            
-            /* Styling for mini-galleriet inne i popup */
             .popup-gallery-image-wrapper {
                 position: relative;
                 width: 100%;
@@ -637,21 +634,20 @@
                 justify-content: center;
                 border-top-left-radius: 12px;
                 border-top-right-radius: 12px;
-                overflow: hidden; /* VIKTIG for blur-effekten */
+                overflow: hidden;
                 background-size: cover;
                 background-position: center;
                 transition: background-image 0.3s ease-in-out;
             }
-            /* Den nye "glass-blur" effekten */
             .popup-gallery-image-wrapper::before {
                 content: '';
                 position: absolute;
-                inset: 0; /* Dekker hele forelder-elementet */
+                inset: 0;
                 backdrop-filter: blur(10px) brightness(0.8);
                 z-index: 1;
             }
             .popup-gallery-image {
-                position: relative; /* Legger bildet over blur-laget */
+                position: relative;
                 z-index: 2;
                 max-width: 100%;
                 max-height: 100%;
@@ -669,7 +665,7 @@
                 display: flex;
                 justify-content: space-between;
                 padding: 0 5px;
-                z-index: 3; /* Legger knappene øverst */
+                z-index: 3;
             }
             .popup-gallery-btn {
                 background: rgba(0,0,0,0.5);
@@ -686,9 +682,7 @@
                 justify-content: center;
                 line-height: 1;
             }
-            .popup-gallery-btn:hover {
-                background: rgba(0,0,0,0.8);
-            }
+            .popup-gallery-btn:hover { background: rgba(0,0,0,0.8); }
             .popup-gallery-counter {
                 position: absolute;
                 top: 8px;
@@ -714,8 +708,43 @@
                 min-height: 40px;
                 line-height: 1.4;
             }
+
+            /* NYTT: CSS for Hjerte-markørene */
+            .heart-marker {
+                background: #e84393;
+                position: relative;
+                transform: rotate(45deg);
+                width: 24px;
+                height: 24px;
+                animation: pulse-heart 1.5s infinite;
+                border-radius: 4px;
+                border: 1px solid rgba(255,255,255,0.5);
+            }
+            .heart-marker:before,
+            .heart-marker:after {
+                content: "";
+                background: #e84393;
+                position: absolute;
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                border: 1px solid rgba(255,255,255,0.5);
+            }
+            .heart-marker:before {
+                top: -12px;
+                left: 0;
+            }
+            .heart-marker:after {
+                left: -12px;
+                top: 0;
+            }
     
             /* Animations */
+            @keyframes pulse-heart {
+                0% { transform: rotate(45deg) scale(0.9); box-shadow: 0 0 0 0 rgba(232, 67, 147, 0.7); }
+                70% { transform: rotate(45deg) scale(1); box-shadow: 0 0 0 10px rgba(232, 67, 147, 0); }
+                100% { transform: rotate(45deg) scale(0.9); box-shadow: 0 0 0 0 rgba(232, 67, 147, 0); }
+            }
             @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
             @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
             @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.8; } }
@@ -1029,11 +1058,20 @@
             // KART FUNKSJONER MED LEAFLET
             function initMap() {
                 if (map) { map.invalidateSize(); return; }
+
+                // Definer den nye hjerte-markøren
+                const heartIcon = L.divIcon({
+                    className: 'heart-marker',
+                    iconSize: [30, 30],
+                    iconAnchor: [15, 30] // Sørger for at hjertespissen peker på riktig sted
+                });
+                
                 map = L.map('map-container').setView([62, 10.5], 5);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(map);
 
                 mapLocations.forEach(location => {
-                    const marker = L.marker([location.lat, location.lng]).addTo(map);
+                    // Bruk den nye hjerte-markøren
+                    const marker = L.marker([location.lat, location.lng], { icon: heartIcon }).addTo(map);
                     
                     marker.on('popupopen', () => {
                         popupGalleryStates[location.id] = { currentIndex: 0 };
@@ -1079,7 +1117,6 @@
                 const captionElement = document.getElementById(`popup-caption-${location.id}`);
 
                 if(wrapperElement) {
-                    // Denne linjen setter den moderne blur-effekten!
                     wrapperElement.style.backgroundImage = `url(${currentImage.src})`;
                 }
                 if (imgElement) imgElement.src = currentImage.src;
