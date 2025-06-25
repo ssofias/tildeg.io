@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="no">
 <head>
     <meta charset="UTF-8">
@@ -566,19 +566,19 @@
                 
                 <div class="popup-overlay" id="popup-overlay"></div>
                 
-                <!-- Timeglass Button -->
+                <!-- Timeglass Button 
                 <div class="feature-button timeglass-btn" onclick="openTimeglass()">
                     <h3>Timeglass</h3>
                     <p>Hvor lang tid det har gått siden vi møttes</p>
                 </div>
                 
-                <!-- Minnene våre Button -->
+                <!-- Minnene våre Button 
                 <div class="feature-button memories-btn" onclick="openMemories()">
                     <h3>Minnene våre</h3>
                     <p>Galleri</p>
                 </div>
                 
-                <!-- Spotify Button -->
+                <!-- Spotify Button --
                 <div class="feature-button spotify-btn" onclick="openSpotify()">
                     <h3>Spotify</h3>
                     <p>Sanger som minner meg om deg</p>
@@ -589,7 +589,7 @@
                 </div>
             </div>
             
-            <!-- Timeglass Popup -->
+            <!-- Timeglass Popup -
             <div class="popup timeglass-popup" id="timeglass-popup">
                 <div class="popup-header">
                     <h2>Vår tid sammen ♡</h2>
@@ -628,7 +628,7 @@
                 </div>
             </div>
             
-            <!-- Memories Popup -->
+          Memories Popup 
             <div class="popup memories-popup" id="memories-popup">
                 <div class="popup-header">
                     <h2>Minnene våre ♡</h2>
@@ -656,12 +656,12 @@
                                 <span>Ferie sammen 🌅</span>
                             </div>
                         </div>
-                        <!-- Add more memory items as needed -->
+                       Add more memory items as needed 
                     </div>
                 </div>
             </div>
             
-            <!-- Spotify Popup -->
+        Spotify Popup -
             <div class="popup spotify-popup" id="spotify-popup">
                 <div class="popup-header">
                     <h2>Vår spilleliste ♡</h2>
@@ -684,4 +684,897 @@
                     </div>
                 </div>
             </div>
+        </div>--><!DOCTYPE html>
+<html lang="no">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Til Sebastian ♡</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+    
+            html {
+                scroll-behavior: smooth;
+                scroll-snap-type: y mandatory;
+            }
+    
+            body {
+                font-family: 'Arial', sans-serif;
+                background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 50%, #fd79a8 100%);
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;
+            }
+    
+            .container {
+                text-align: center;
+                opacity: 1;
+                transform: translateY(0);
+                transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+    
+            .container.fade-out {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+    
+            .title {
+                font-size: 3.5rem;
+                color: #74b9ff;
+                margin-bottom: 2rem;
+                font-weight: 300;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+                animation: float 3s ease-in-out infinite;
+            }
+    
+            .heart {
+                color: #fd79a8;
+                font-size: 3rem;
+                margin-left: 0.5rem;
+                animation: heartbeat 2s ease-in-out infinite;
+            }
+    
+            .login-box {
+                background: rgba(255, 255, 255, 0.9);
+                padding: 3rem 2.5rem;
+                border-radius: 25px;
+                box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+                backdrop-filter: blur(10px);
+                max-width: 400px;
+                width: 90%;
+                margin: 0 auto;
+            }
+    
+            .subtitle {
+                font-size: 1.5rem;
+                color: #fd79a8;
+                margin-bottom: 1.5rem;
+                font-weight: 300;
+            }
+    
+            .heart-small {
+                color: #e84393;
+                font-size: 2rem;
+                margin: 1rem 0;
+                animation: pulse 2s infinite;
+            }
+    
+            .input-group {
+                margin: 2rem 0;
+            }
+    
+            .code-input {
+                width: 100%;
+                padding: 1rem 1.5rem;
+                font-size: 1.2rem;
+                border: none;
+                border-radius: 15px;
+                background: rgba(253, 121, 168, 0.1);
+                color: #2d3436;
+                text-align: center;
+                letter-spacing: 0.2rem;
+                outline: none;
+                transition: all 0.3s ease;
+                box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            }
+    
+            .code-input:focus {
+                background: rgba(253, 121, 168, 0.2);
+                transform: scale(1.02);
+                box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
+            }
+    
+            .code-input::placeholder {
+                color: rgba(253, 121, 168, 0.7);
+            }
+    
+            .submit-btn {
+                background: linear-gradient(45deg, #fd79a8, #fdcb6e);
+                border: none;
+                padding: 1rem 3rem;
+                border-radius: 25px;
+                color: white;
+                font-size: 1.1rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
+                margin-top: 1rem;
+            }
+    
+            .submit-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
+            }
+    
+            .submit-btn:active {
+                transform: translateY(0);
+            }
+    
+            /* Success page styles */
+            .success-page {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                overflow-y: auto;
+                scroll-snap-type: y mandatory;
+            }
+    
+            .success-page.show {
+                display: block;
+            }
+    
+            .section {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 2rem;
+                scroll-snap-align: start;
+                position: relative;
+            }
+    
+            .first-section {
+                background: linear-gradient(180deg, #e3f2fd 0%, #f8bbd9 40%, #fce4ec 100%);
+            }
+    
+            .second-section {
+                background: linear-gradient(180deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            }
+    
+            .third-section {
+                background: linear-gradient(180deg, #a8e6cf 0%, #dcedc1 50%, #ffd3a5 100%);
+            }
+    
+            .section-header {
+                position: absolute;
+                top: 2rem;
+                left: 2rem;
+                font-size: 1.2rem;
+                color: rgba(0,0,0,0.5);
+                font-weight: 300;
+            }
+    
+            .typewriter-container {
+                max-width: 900px;
+                width: 100%;
+                text-align: center;
+                margin: 2rem 0;
+            }
+    
+            .typewriter-text {
+                font-size: 3rem;
+                color: #2d3436;
+                line-height: 1.4;
+                font-weight: 300;
+                min-height: 300px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                font-style: italic;
+                letter-spacing: 0.02em;
+            }
+    
+            .cursor {
+                display: inline-block;
+                background-color: #2d3436;
+                margin-left: 3px;
+                width: 3px;
+                height: 1em;
+                animation: blink 1s infinite;
+            }
+    
+            .scroll-arrow {
+                position: absolute;
+                bottom: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                background: rgba(253, 121, 168, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
+                opacity: 0;
+                animation: fadeInUp 1s ease-out 6s forwards;
+            }
+    
+            .scroll-arrow:hover {
+                background: rgba(253, 121, 168, 1);
+                transform: translateX(-50%) translateY(-5px);
+                box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
+            }
+    
+            .arrow-down {
+                width: 0;
+                height: 0;
+                border-left: 15px solid transparent;
+                border-right: 15px solid transparent;
+                border-top: 20px solid white;
+            }
+    
+            .arrow-left {
+                font-size: 2rem;
+                color: white;
+            }
+    
+            .next-section-content {
+                text-align: center;
+                max-width: 600px;
+            }
+    
+            .next-section-title {
+                font-size: 3rem;
+                color: #e84393;
+                margin-bottom: 2rem;
+                animation: float 3s ease-in-out infinite;
+            }
+    
+            .next-section-text {
+                font-size: 1.5rem;
+                color: #2d3436;
+                line-height: 1.8;
+                background: rgba(255, 255, 255, 0.9);
+                padding: 2rem;
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                backdrop-filter: blur(10px);
+            }
+    
+            /* Third section styles */
+            .back-button {
+                position: absolute;
+                top: 2rem;
+                left: 2rem;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background: rgba(253, 121, 168, 0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
+            }
+    
+            .back-button:hover {
+                background: rgba(253, 121, 168, 1);
+                transform: translateY(-3px);
+                box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
+            }
+    
+            .third-section-content {
+                text-align: center;
+                max-width: 500px;
+                width: 100%;
+            }
+    
+            .section-title {
+                font-size: 2.5rem;
+                color: #2d3436;
+                margin-bottom: 3rem;
+                font-weight: 300;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+                background: rgba(255, 255, 255, 0.9);
+                padding: 1rem 2rem;
+                border-radius: 15px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                backdrop-filter: blur(10px);
+            }
+    
+            .feature-button {
+                background: rgba(255, 255, 255, 0.9);
+                margin: 1.5rem 0;
+                padding: 2rem;
+                border-radius: 20px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                backdrop-filter: blur(10px);
+                border: 3px solid transparent;
+            }
+    
+            .feature-button:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+                border-color: rgba(253, 121, 168, 0.5);
+            }
+    
+            .feature-button h3 {
+                font-size: 1.8rem;
+                color: #fd79a8;
+                margin-bottom: 0.5rem;
+                font-weight: 300;
+            }
+    
+            .feature-button p {
+                font-size: 1.1rem;
+                color: #2d3436;
+                font-weight: 300;
+            }
+    
+            .scroll-indicator {
+                position: absolute;
+                bottom: 3rem;
+                left: 50%;
+                transform: translateX(-50%);
+                opacity: 0.6;
+            }
+    
+            .arrow-down-illustration {
+                width: 0;
+                height: 0;
+                border-left: 12px solid transparent;
+                border-right: 12px solid transparent;
+                border-top: 15px solid #2d3436;
+                animation: bounce 2s infinite;
+            }
+    
+            /* Popup styles */
+            .popup-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: none;
+                z-index: 1000;
+                backdrop-filter: blur(5px);
+            }
+    
+            .popup-overlay.show {
+                display: block;
+            }
+    
+            .popup {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                background: rgba(255, 255, 255, 0.95);
+                border-radius: 25px;
+                padding: 2rem;
+                max-width: 600px;
+                width: 90%;
+                max-height: 80vh;
+                overflow-y: auto;
+                z-index: 1001;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                backdrop-filter: blur(15px);
+                transition: transform 0.3s ease;
+            }
+    
+            .popup.show {
+                transform: translate(-50%, -50%) scale(1);
+            }
+    
+            .popup-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 2rem;
+                padding-bottom: 1rem;
+                border-bottom: 2px solid rgba(253, 121, 168, 0.3);
+            }
+    
+            .popup-header h2 {
+                font-size: 2rem;
+                color: #fd79a8;
+                font-weight: 300;
+            }
+    
+            .close-btn {
+                background: none;
+                border: none;
+                font-size: 2rem;
+                color: #fd79a8;
+                cursor: pointer;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s ease;
+            }
+    
+            .close-btn:hover {
+                background: rgba(253, 121, 168, 0.1);
+                transform: rotate(90deg);
+            }
+    
+            /* Timeglass styles */
+            .time-counter {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+    
+            .time-unit {
+                text-align: center;
+                background: rgba(253, 121, 168, 0.1);
+                padding: 1.5rem 1rem;
+                border-radius: 15px;
+                transition: all 0.3s ease;
+            }
+    
+            .time-unit:hover {
+                background: rgba(253, 121, 168, 0.2);
+                transform: scale(1.05);
+            }
+    
+            .time-number {
+                display: block;
+                font-size: 2.5rem;
+                font-weight: bold;
+                color: #fd79a8;
+                margin-bottom: 0.5rem;
+            }
+    
+            .time-label {
+                font-size: 1rem;
+                color: #2d3436;
+                font-weight: 300;
+            }
+    
+            .love-message {
+                text-align: center;
+                font-size: 1.3rem;
+                color: #2d3436;
+                font-style: italic;
+                background: rgba(253, 121, 168, 0.1);
+                padding: 1.5rem;
+                border-radius: 15px;
+            }
+    
+            /* Memory gallery styles */
+            .memory-gallery {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+                max-height: 400px;
+                overflow-y: auto;
+            }
+    
+            .memory-item {
+                aspect-ratio: 1;
+                border-radius: 15px;
+                overflow: hidden;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+    
+            .memory-item:hover {
+                transform: scale(1.05);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            }
+    
+            .memory-placeholder {
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(45deg, #fd79a8, #fdcb6e);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 1.1rem;
+                font-weight: 300;
+                text-align: center;
+                padding: 1rem;
+            }
+    
+            /* Spotify styles */
+            .spotify-player {
+                margin-bottom: 2rem;
+                border-radius: 15px;
+                overflow: hidden;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            }
+    
+            .spotify-message {
+                text-align: center;
+                font-size: 1.3rem;
+                color: #2d3436;
+                font-style: italic;
+                background: rgba(253, 121, 168, 0.1);
+                padding: 1.5rem;
+                border-radius: 15px;
+            }
+    
+            .floating-hearts {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                overflow: hidden;
+            }
+    
+            .floating-heart {
+                position: absolute;
+                color: rgba(253, 121, 168, 0.7);
+                font-size: 1.5rem;
+                animation: floatUp 4s linear infinite;
+            }
+    
+            /* Error message */
+            .error-message {
+                color: #e17055;
+                font-size: 1rem;
+                margin-top: 1rem;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+    
+            .error-message.show {
+                opacity: 1;
+            }
+    
+            /* Animations */
+            @keyframes float {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
+            }
+    
+            @keyframes heartbeat {
+                0%, 100% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+            }
+    
+            @keyframes pulse {
+                0%, 100% { transform: scale(1); opacity: 1; }
+                50% { transform: scale(1.2); opacity: 0.8; }
+            }
+    
+            @keyframes blink {
+                0%, 50% { opacity: 1; }
+                51%, 100% { opacity: 0; }
+            }
+    
+            @keyframes fadeInUp {
+                0% {
+                    opacity: 0;
+                    transform: translateX(-50%) translateY(30px);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateX(-50%) translateY(0);
+                }
+            }
+    
+            @keyframes floatUp {
+                0% {
+                    transform: translateY(100vh) rotate(0deg);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-100px) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+    
+            @keyframes bounce {
+                0%, 20%, 50%, 80%, 100% {
+                    transform: translateY(0);
+                }
+                40% {
+                    transform: translateY(-10px);
+                }
+                60% {
+                    transform: translateY(-5px);
+                }
+            }
+    
+            /* Responsive design */
+            @media (max-width: 768px) {
+                .title {
+                    font-size: 2.5rem;
+                }
+                .login-box {
+                    padding: 2rem 1.5rem;
+                }
+                .typewriter-text {
+                    font-size: 2rem;
+                    min-height: 250px;
+                }
+                .next-section-title {
+                    font-size: 2.5rem;
+                }
+                .next-section-text {
+                    font-size: 1.3rem;
+                }
+                .section-title {
+                    font-size: 2rem;
+                }
+                .time-counter {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .time-number {
+                    font-size: 2rem;
+                }
+                .memory-gallery {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+    
+            @media (max-width: 480px) {
+                .typewriter-text {
+                    font-size: 1.5rem;
+                    min-height: 200px;
+                }
+                .time-counter {
+                    grid-template-columns: 1fr;
+                }
+                .popup {
+                    width: 95%;
+                    padding: 1.5rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="floating-hearts" id="floating-hearts"></div>
+    
+        <div class="container" id="login-container">
+            <h1 class="title">Til Sebastian<span class="heart">♡</span></h1>
+            
+            <div class="login-box">
+                <h2 class="subtitle">Skriv inn koden</h2>
+                <div class="heart-small">❤️</div>
+                
+                <div class="input-group">
+                    <input type="password" class="code-input" id="codeInput" placeholder="Passord" maxlength="20">
+                    <div class="error-message" id="errorMessage">Feil kode, prøv igjen ♡</div>
+                </div>
+                
+                <button class="submit-btn" onclick="checkCode()">→</button>
+            </div>
         </div>
+    
+        <div class="success-page" id="success-page">
+            <div class="section first-section" id="first-section">
+                <div class="section-header">Hjemside etter kode</div>
+                <div class="typewriter-container">
+                    <div class="typewriter-text" id="typewriter-text">
+                        <span class="cursor" id="cursor">|</span>
+                    </div>
+                </div>
+                <div class="scroll-arrow" id="scroll-arrow" onclick="scrollToNextSection()">
+                    <div class="arrow-down"></div>
+                </div>
+            </div>
+            
+            <div class="section second-section" id="second-section">
+                <div class="next-section-content">
+                    <h2 class="next-section-title">Fortsettelse følger... ♡</h2>
+                    <div class="next-section-text">
+                        Her kan du legge til mer innhold for din kjære Sebastian!<br>
+                        Kanskje bilder, minner, eller en annen melding? 💕
+                    </div>
+                </div>
+                <div class="scroll-arrow" onclick="scrollToThirdSection()">
+                    <div class="arrow-down"></div>
+                </div>
+            </div>
+    
+            <div class="section third-section" id="third-section">
+                <div class="back-button" onclick="scrollToSecondSection()">
+                    <span class="arrow-left">←</span>
+                </div>
+                
+                <div class="third-section-content">
+                    <div class="section-title">Til deg fra meg</div>
+                    
+                    <div class="popup-overlay" id="popup-overlay" onclick="closePopup()"></div>
+                    
+                    <!-- Timeglass Button -->
+                    <div class="feature-button timeglass-btn" onclick="openTimeglass()">
+                        <h3>Timeglass</h3>
+                        <p>Hvor lang tid det har gått siden vi møttes</p>
+                    </div>
+                    
+                    <!-- Minnene våre Button -->
+                    <div class="feature-button memories-btn" onclick="openMemories()">
+                        <h3>Minnene våre</h3>
+                        <p>Galleri</p>
+                    </div>
+                    
+                    <!-- Spotify Button -->
+                    <div class="feature-button spotify-btn" onclick="openSpotify()">
+                        <h3>Spotify</h3>
+                        <p>Sanger som minner meg om deg</p>
+                    </div>
+                    
+                    <div class="scroll-indicator">
+                        <div class="arrow-down-illustration"></div>
+                    </div>
+                </div>
+                
+                <!-- Timeglass Popup -->
+                <div class="popup timeglass-popup" id="timeglass-popup">
+                    <div class="popup-header">
+                        <h2>Vår tid sammen ♡</h2>
+                        <button class="close-btn" onclick="closePopup()">&times;</button>
+                    </div>
+                    <div class="popup-content">
+                        <div class="time-counter">
+                            <div class="time-unit">
+                                <span class="time-number" id="years">0</span>
+                                <span class="time-label">År</span>
+                            </div>
+                            <div class="time-unit">
+                                <span class="time-number" id="months">0</span>
+                                <span class="time-label">Måneder</span>
+                            </div>
+                            <div class="time-unit">
+                                <span class="time-number" id="days">0</span>
+                                <span class="time-label">Dager</span>
+                            </div>
+                            <div class="time-unit">
+                                <span class="time-number" id="hours">0</span>
+                                <span class="time-label">Timer</span>
+                            </div>
+                            <div class="time-unit">
+                                <span class="time-number" id="minutes">0</span>
+                                <span class="time-label">Minutter</span>
+                            </div>
+                            <div class="time-unit">
+                                <span class="time-number" id="seconds">0</span>
+                                <span class="time-label">Sekunder</span>
+                            </div>
+                        </div>
+                        <div class="love-message">
+                            Hver eneste sekund med deg har vært magisk ✨
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Memories Popup -->
+                <div class="popup memories-popup" id="memories-popup">
+                    <div class="popup-header">
+                        <h2>Minnene våre ♡</h2>
+                        <button class="close-btn" onclick="closePopup()">&times;</button>
+                    </div>
+                    <div class="popup-content">
+                        <div class="memory-gallery">
+                            <div class="memory-item">
+                                <div class="memory-placeholder">
+                                    <span>Første møte 💕</span>
+                                </div>
+                            </div>
+                            <div class="memory-item">
+                                <div class="memory-placeholder">
+                                    <span>Første date ✨</span>
+                                </div>
+                            </div>
+                            <div class="memory-item">
+                                <div class="memory-placeholder">
+                                    <span>Vårt første bilde 📸</span>
+                                </div>
+                            </div>
+                            <div class="memory-item">
+                                <div class="memory-placeholder">
+                                    <span>Ferie sammen 🌅</span>
+                                </div>
+                            </div>
+                            <div class="memory-item">
+                                <div class="memory-placeholder">
+                                    <span>Romantisk kveld 🌙</span>
+                                </div>
+                            </div>
+                            <div class="memory-item">
+                                <div class="memory-placeholder">
+                                    <span>Vårt kjærlighetssted 🏞️</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Spotify Popup -->
+                <div class="popup spotify-popup" id="spotify-popup">
+                    <div class="popup-header">
+                        <h2>Vår spilleliste ♡</h2>
+                        <button class="close-btn" onclick="closePopup()">&times;</button>
+                    </div>
+                    <div class="popup-content">
+                        <div class="spotify-player">
+                            <iframe id="spotify-embed" 
+                                    src="https://open.spotify.com/embed/playlist/37i9dQZF1DX0XUsuxWHRQd?utm_source=generator&theme=0" 
+                                    width="100%" 
+                                    height="352" 
+                                    frameBorder="0" 
+                                    allowfullscreen="" 
+                                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                                    loading="lazy">
+                            </iframe>
+                        </div>
+                        <div class="spotify-message">
+                            Hver sang forteller vår historie 🎵
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <script>
+            // Sett riktig kode her (kan endres)
+            const correctCode = "iloveyou";
+            
+            // Sett datoen dere møttes (YYYY, MM-1, DD - måneder starter på 0)
+            const meetingDate = new Date(2023, 0, 15); // 15. januar 2023 - endre dette!
+            
+            // Tekst som skal skrives med typewriter-effekt
+            const typewriterText = "Jeg skulle ønske det fantes ord som kunne beskrive hvor høyt jeg elsker deg... I stedet gir jeg dette, for kun oss to, som et forsøk på å beskrive det som ikke kan beskrives...";
+            
+            let typewriterIndex = 0;
+            let isTyping = false;
+            let timeInterval;
+            
+            // Legg til event listener for Enter-tasten
+            document.getElementById('codeInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkCode();
+                }
+            });
+    
+            function checkCode() {
+                const input = document.getElementById('codeInput').value.toLowerCase().trim();
+                const errorMessage = document.getElementById('errorMessage');
+                
+                if (input === correctCode) {
+                    // Riktig kode - start overgang
+                    createHearts();
+                    setTimeout(() => {
+                        transitionToSuccess();
+                    }, 500);
+                } else {
+                    // Feil kode - vis feilmelding
+                    errorMessage.classList.add('show');
+                    document.getElementById('codeInput').style.background = 'rgba(231, 112, 85, 0.2)';
+                    
+                    // Skjul feilmelding etter 3
