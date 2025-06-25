@@ -272,6 +272,7 @@
                 height: 100%;
                 pointer-events: none;
                 overflow: hidden;
+                z-index: 1001;
             }
     
             .floating-heart {
@@ -294,7 +295,7 @@
                 opacity: 1;
             }
     
-            /* Third section - Popup styles */
+            /* --- POPUP STYLES --- */
             .popup-overlay {
                 position: fixed;
                 top: 0;
@@ -309,6 +310,7 @@
                 z-index: 1000;
                 opacity: 0;
                 transition: opacity 0.4s ease;
+                padding: 1rem;
             }
     
             .popup-overlay.show {
@@ -318,17 +320,18 @@
     
             .popup-content {
                 background: rgba(255, 255, 255, 0.95);
-                padding: 3rem 2.5rem;
+                padding: 2.5rem;
                 border-radius: 25px;
                 box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-                backdrop-filter: blur(15px);
-                max-width: 450px;
-                width: 90%;
+                max-width: 500px;
+                width: 100%;
                 text-align: center;
                 position: relative;
                 animation: popupSlideIn 0.5s ease-out;
                 max-height: 90vh;
                 overflow-y: auto;
+                display: flex;
+                flex-direction: column;
             }
     
             .popup-header {
@@ -432,218 +435,140 @@
                 display: block;
             }
     
-            /* Timeglass counter styles */
+            /* --- IMPROVED Timeglass counter styles --- */
             .counter-display {
-                text-align: center;
-                padding: 2rem;
+                padding: 1rem 0;
             }
-    
             .counter-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
                 color: #e84393;
-                margin-bottom: 2rem;
+                margin-bottom: 1.5rem;
             }
-    
             .counter-grid {
                 display: grid;
-                grid-template-columns: repeat(3, 1fr);
+                /* This is the key change: it creates a responsive grid */
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
                 gap: 1rem;
-                margin-bottom: 2rem;
+                margin-bottom: 1rem;
             }
-    
             .counter-item {
                 background: rgba(255, 255, 255, 0.9);
-                padding: 1.5rem 1rem;
+                padding: 1rem;
                 border-radius: 15px;
                 box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             }
-    
             .counter-number {
-                font-size: 2.5rem;
+                font-size: 2rem;
                 font-weight: bold;
                 color: #fd79a8;
             }
-    
             .counter-label {
-                font-size: 1rem;
+                font-size: 0.9rem;
                 color: #636e72;
                 margin-top: 0.5rem;
             }
     
-            /* Gallery styles */
+            /* --- IMPROVED Gallery styles --- */
             .gallery-display {
-                padding: 2rem;
+                padding: 1rem 0;
             }
-    
             .gallery-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
                 color: #e84393;
-                margin-bottom: 2rem;
-                text-align: center;
+                margin-bottom: 1.5rem;
             }
-    
             .gallery-container {
                 display: flex;
                 overflow-x: auto;
                 gap: 1rem;
-                padding: 1rem 0;
+                padding: 1rem;
                 scroll-behavior: smooth;
+                /* Adds a subtle shadow to indicate scrolling */
+                -webkit-mask-image: linear-gradient(to right, transparent, black 20px, black 95%, transparent);
+                mask-image: linear-gradient(to right, transparent, black 20px, black 95%, transparent);
             }
-    
             .gallery-item {
-                min-width: 300px;
-                height: 250px;
-                background: rgba(255, 255, 255, 0.9);
+                min-width: 250px;
+                height: 220px;
+                background: #fff;
                 border-radius: 15px;
                 overflow: hidden;
                 box-shadow: 0 5px 15px rgba(0,0,0,0.1);
                 position: relative;
                 flex-shrink: 0;
             }
-    
             .gallery-image {
                 width: 100%;
-                height: 80%;
+                height: 75%;
                 background: linear-gradient(45deg, #fd79a8, #fdcb6e);
                 display: flex;
                 align-items: center;
                 justify-content: center;
                 color: white;
-                font-size: 1.2rem;
-                object-fit: cover;
             }
-    
             .gallery-image img {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
             }
-    
             .gallery-caption {
-                padding: 1rem;
+                padding: 0.75rem;
                 text-align: center;
                 color: #636e72;
+                font-size: 0.9rem;
             }
     
-            /* Spotify styles */
+            /* --- IMPROVED Spotify styles --- */
             .spotify-display {
-                padding: 2rem;
-                text-align: center;
+                padding: 1rem 0;
             }
-    
             .spotify-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
                 color: #e84393;
-                margin-bottom: 2rem;
+                margin-bottom: 1.5rem;
             }
-    
-            .spotify-embed {
-                background: rgba(255, 255, 255, 0.9);
-                padding: 2rem;
+            /* This wrapper makes the iframe responsive */
+            .spotify-embed-wrapper {
+                position: relative;
+                padding-bottom: 125%; /* Aspect ratio for Spotify's tall embed */
+                height: 0;
+                overflow: hidden;
                 border-radius: 20px;
                 box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-                margin-bottom: 2rem;
+                background: #fff;
+                margin-bottom: 1rem;
+            }
+            .spotify-embed-wrapper iframe {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: 0;
             }
     
             /* Animations */
-            @keyframes float {
-                0%, 100% { transform: translateY(0px); }
-                50% { transform: translateY(-10px); }
-            }
-    
-            @keyframes heartbeat {
-                0%, 100% { transform: scale(1); }
-                50% { transform: scale(1.1); }
-            }
-    
-            @keyframes pulse {
-                0%, 100% { transform: scale(1); opacity: 1; }
-                50% { transform: scale(1.2); opacity: 0.8; }
-            }
-    
-            @keyframes blink {
-                0%, 50% { opacity: 1; }
-                51%, 100% { opacity: 0; }
-            }
-    
-            @keyframes fadeInUp {
-                0% {
-                    opacity: 0;
-                    transform: translateX(-50%) translateY(30px);
-                }
-                100% {
-                    opacity: 1;
-                    transform: translateX(-50%) translateY(0);
-                }
-            }
-    
-            @keyframes floatUp {
-                0% {
-                    transform: translateY(100vh) rotate(0deg);
-                    opacity: 0;
-                }
-                10% {
-                    opacity: 1;
-                }
-                90% {
-                    opacity: 1;
-                }
-                100% {
-                    transform: translateY(-100px) rotate(360deg);
-                    opacity: 0;
-                }
-            }
-    
-            @keyframes popupSlideIn {
-                0% {
-                    opacity: 0;
-                    transform: scale(0.8) translateY(50px);
-                }
-                100% {
-                    opacity: 1;
-                    transform: scale(1) translateY(0);
-                }
-            }
-    
-             @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
+            @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+            @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+            @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.8; } }
+            @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+            @keyframes fadeInUp { 0% { opacity: 0; transform: translateX(-50%) translateY(30px); } 100% { opacity: 1; transform: translateX(-50%) translateY(0); } }
+            @keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(-100px) rotate(360deg); opacity: 0; } }
+            @keyframes popupSlideIn { 0% { opacity: 0; transform: scale(0.8) translateY(50px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+            @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     
             /* Responsive design */
             @media (max-width: 768px) {
-                .title {
-                    font-size: 2.5rem;
-                }
-                .login-box {
-                    padding: 2rem 1.5rem;
-                }
-                .typewriter-text {
-                    font-size: 2rem;
-                    min-height: 250px;
-                }
-                .next-section-title {
-                    font-size: 2.5rem;
-                }
-                .next-section-text {
-                    font-size: 1.3rem;
-                }
-                .counter-grid {
-                    grid-template-columns: repeat(2, 1fr);
-                }
-                .gallery-item {
-                    min-width: 250px;
-                }
-                .popup-content {
-                    padding: 2rem 1.5rem;
-                }
+                .title { font-size: 2.5rem; }
+                .login-box { padding: 2rem 1.5rem; }
+                .typewriter-text { font-size: 2rem; min-height: 250px; }
+                .next-section-title { font-size: 2.5rem; }
+                .next-section-text { font-size: 1.3rem; }
+                .popup-content { padding: 2rem 1.5rem; }
             }
     
             @media (max-width: 480px) {
-                .typewriter-text {
-                    font-size: 1.5rem;
-                    min-height: 200px;
-                }
+                .typewriter-text { font-size: 1.5rem; min-height: 200px; }
             }
         </style>
     </head>
@@ -712,7 +637,7 @@
                     <div class="popup-buttons">
                         <button class="popup-btn" onclick="showView('timeglass-display')">
                             Timeglass
-                            <div class="popup-btn-subtitle">Hvor lang tid det har gått siden vi møttes</div>
+                            <div class="popup-btn-subtitle">Hvor lenge vi har vært sammen</div>
                         </button>
                         <button class="popup-btn" onclick="showView('gallery-display')">
                             Minnene våre
@@ -723,39 +648,18 @@
                             <div class="popup-btn-subtitle">Sanger som minner meg om deg</div>
                         </button>
                     </div>
-                    <div style="margin-top: 2rem; color: #e84393; font-size: 1rem;">
-                        ⬇️ Scroll ned for flere overraskelser
-                    </div>
                 </div>
     
                 <div id="timeglass-display" class="popup-view counter-display">
                     <button class="close-popup" onclick="showView('main-popup')" style="top: 1rem; left: 1rem;">←</button>
                     <h2 class="counter-title">Tiden vi har vært sammen ♡</h2>
                     <div class="counter-grid">
-                        <div class="counter-item">
-                            <div class="counter-number" id="years">0</div>
-                            <div class="counter-label">År</div>
-                        </div>
-                        <div class="counter-item">
-                            <div class="counter-number" id="months">0</div>
-                            <div class="counter-label">Måneder</div>
-                        </div>
-                        <div class="counter-item">
-                            <div class="counter-number" id="days">0</div>
-                            <div class="counter-label">Dager</div>
-                        </div>
-                        <div class="counter-item">
-                            <div class="counter-number" id="hours">0</div>
-                            <div class="counter-label">Timer</div>
-                        </div>
-                        <div class="counter-item">
-                            <div class="counter-number" id="minutes">0</div>
-                            <div class="counter-label">Minutter</div>
-                        </div>
-                        <div class="counter-item">
-                            <div class="counter-number" id="seconds">0</div>
-                            <div class="counter-label">Sekunder</div>
-                        </div>
+                        <div class="counter-item"><div class="counter-number" id="years">0</div><div class="counter-label">År</div></div>
+                        <div class="counter-item"><div class="counter-number" id="months">0</div><div class="counter-label">Måneder</div></div>
+                        <div class="counter-item"><div class="counter-number" id="days">0</div><div class="counter-label">Dager</div></div>
+                        <div class="counter-item"><div class="counter-number" id="hours">0</div><div class="counter-label">Timer</div></div>
+                        <div class="counter-item"><div class="counter-number" id="minutes">0</div><div class="counter-label">Minutter</div></div>
+                        <div class="counter-item"><div class="counter-number" id="seconds">0</div><div class="counter-label">Sekunder</div></div>
                     </div>
                 </div>
     
@@ -769,19 +673,16 @@
                 <div id="spotify-display" class="popup-view spotify-display">
                     <button class="close-popup" onclick="showView('main-popup')" style="top: 1rem; left: 1rem;">←</button>
                     <h2 class="spotify-title">Vår spilleliste ♡</h2>
-                    <div class="spotify-embed">
-                        <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M" 
-                                width="100%" 
-                                height="352" 
+                    <div class="spotify-embed-wrapper">
+                        <iframe src="" 
                                 frameBorder="0" 
                                 allowfullscreen="" 
                                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                                loading="lazy"
-                                style="border-radius: 12px;">
+                                loading="lazy">
                         </iframe>
                     </div>
-                    <div style="color: #636e72; font-style: italic;">
-                        Erstatt Spotify playlist URL med din egen i koden
+                    <div style="color: #636e72; font-style: italic; font-size: 0.9rem;">
+                        Erstatt Spotify playlist URL med din egen i koden.
                     </div>
                 </div>
             </div>
@@ -793,42 +694,38 @@
             let isTyping = false;
             let timeglassInterval;
         
-            // KONFIGURASJON
-            const meetingDate = new Date('2024-01-01T00:00:00'); // Sett deres møtedato her
+            // --- CONFIGURATION ---
+            // IMPORTANT: Set your actual meeting date here
+            const meetingDate = new Date('2024-01-01T18:00:00'); 
+            
+            // Add your own image URLs and captions
             const galleryImages = [
                 { src: 'https://via.placeholder.com/300x200/fd79a8/ffffff?text=Vårt+første+møte', caption: 'Vårt første møte ♡' },
-                { src: 'https://via.placeholder.com/300x200/fdcb6e/ffffff?text=En+spesiell+dag', caption: 'En spesiell dag sammen' },
-                { src: 'https://via.placeholder.com/300x200/74b9ff/ffffff?text=Minner', caption: 'Minner som varer evig' },
-                { src: 'https://via.placeholder.com/300x200/e84393/ffffff?text=Du+og+meg', caption: 'Du og meg mot verden' },
-                { src: 'https://via.placeholder.com/300x200/a29bfe/ffffff?text=Kjærlighet', caption: 'Kjærlighet uten grenser' },
-                { src: 'https://via.placeholder.com/300x200/fd79a8/ffffff?text=Framtid', caption: 'Vår framtid sammen' }
+                { src: 'https://via.placeholder.com/300x200/fdcb6e/ffffff?text=En+spesiell+dag', caption: 'En spesiell dag' },
+                { src: 'https://via.placeholder.com/300x200/74b9ff/ffffff?text=Minner', caption: 'Minner for livet' },
+                { src: 'https://via.placeholder.com/300x200/e84393/ffffff?text=Du+og+meg', caption: 'Du og meg' },
             ];
-            const spotifyPlaylistURL = "https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"; // Erstatt med deres Spotify-spilleliste URL
+            
+            // IMPORTANT: Replace with your Spotify playlist embed URL
+            const spotifyPlaylistURL = "https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"; 
         
-            // EVENT LISTENERS
+            // --- EVENT LISTENERS ---
             document.getElementById('codeInput').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') checkCode();
             });
         
-            // GRUNNLEGGENDE FUNKSJONER
+            // --- CORE FUNCTIONS ---
             function checkCode() {
                 const input = document.getElementById('codeInput').value.toLowerCase().trim();
                 const errorMessage = document.getElementById('errorMessage');
                 
                 if (input === correctCode) {
                     createHearts();
-                    setTimeout(() => {
-                        transitionToSuccess();
-                    }, 500);
+                    setTimeout(transitionToSuccess, 500);
                 } else {
                     errorMessage.classList.add('show');
-                    const codeInput = document.getElementById('codeInput');
-                    codeInput.style.animation = 'shake 0.5s';
-                    setTimeout(() => {
-                        errorMessage.classList.remove('show');
-                        codeInput.style.animation = '';
-                    }, 3000);
-                    codeInput.value = '';
+                    document.getElementById('codeInput').value = '';
+                    setTimeout(() => errorMessage.classList.remove('show'), 3000);
                 }
             }
         
@@ -842,6 +739,7 @@
                     heart.style.left = Math.random() * 100 + 'vw';
                     heart.style.fontSize = Math.random() * 2 + 1 + 'rem';
                     heart.style.animationDuration = (Math.random() * 5 + 3) + 's';
+                    heart.style.animationDelay = (Math.random() * 2) + 's';
                     container.appendChild(heart);
                     setTimeout(() => container.removeChild(heart), 8000);
                 }
@@ -882,41 +780,28 @@
                 document.getElementById('first-section').scrollIntoView({ behavior: 'smooth' });
             }
         
-            // --- OPPdaterte TREDJE SIDE / POPUP FUNKSJONER ---
+            // --- UPDATED POPUP FUNCTIONS ---
             
-            // Viser popup-overlayen og tilbakestiller til hovedvisningen
             function showPopup() {
                 document.getElementById('popup-overlay').classList.add('show');
-                showView('main-popup'); // Start alltid på hovedmenyen
+                showView('main-popup');
             }
         
-            // Skjuler popup-overlayen og stopper timeglass-telleren
             function closePopup() {
                 document.getElementById('popup-overlay').classList.remove('show');
-                clearInterval(timeglassInterval); // Stopp intervallet når popupen lukkes
+                clearInterval(timeglassInterval);
             }
         
-            /**
-             * Viser en spesifikk visning inne i popupen og skjuler de andre.
-             * @param {string} viewId IDen til elementet som skal vises.
-             */
             function showView(viewId) {
-                // Skjul alle popup-visninger
-                document.querySelectorAll('.popup-view').forEach(view => {
-                    view.classList.remove('show');
-                });
-        
-                // Vis den valgte visningen
+                document.querySelectorAll('.popup-view').forEach(view => view.classList.remove('show'));
                 const viewToShow = document.getElementById(viewId);
-                if (viewToShow) {
-                    viewToShow.classList.add('show');
-                }
+                if (viewToShow) viewToShow.classList.add('show');
         
-                // Håndter spesifikk logikk for hver visning
+                // Specific actions for each view
                 if (viewId === 'timeglass-display') {
                     startTimglassUpdater();
                 } else {
-                    clearInterval(timeglassInterval); // Stopp teller hvis vi navigerer bort
+                    clearInterval(timeglassInterval);
                 }
         
                 if (viewId === 'gallery-display') {
@@ -928,41 +813,43 @@
                 }
             }
         
-            // Starter og oppdaterer timeglass-telleren
             function startTimglassUpdater() {
-                clearInterval(timeglassInterval); // Slett forrige intervall for sikkerhets skyld
-                updateTimeglass(); // Kjør en gang umiddelbart
+                clearInterval(timeglassInterval);
+                updateTimeglass();
                 timeglassInterval = setInterval(updateTimeglass, 1000);
             }
         
-            // Beregner og viser tiden som har gått
             function updateTimeglass() {
                 const now = new Date();
-                const diff = now - meetingDate;
+                let diff = (now - meetingDate) / 1000; // difference in seconds
         
-                const totalSeconds = Math.floor(diff / 1000);
-                const totalMinutes = Math.floor(totalSeconds / 60);
-                const totalHours = Math.floor(totalMinutes / 60);
-                const totalDays = Math.floor(totalHours / 24);
+                const s = Math.floor(diff % 60);
+                const m = Math.floor((diff / 60) % 60);
+                const h = Math.floor((diff / 3600) % 24);
+                const d = Math.floor(diff / 86400);
         
-                const years = now.getFullYear() - meetingDate.getFullYear();
-                const months = (now.getMonth() - meetingDate.getMonth() + 12) % 12;
-                // Mer nøyaktig dagsberegning vil være mer kompleks, holder dette enkelt
+                // A more intuitive calculation for years and months
+                let tempDate = new Date(meetingDate);
+                let years = now.getFullYear() - tempDate.getFullYear();
+                let months = now.getMonth() - tempDate.getMonth();
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
         
-                document.getElementById('years').textContent = years;
+                document.getElementById('seconds').textContent = s;
+                document.getElementById('minutes').textContent = m;
+                document.getElementById('hours').textContent = h;
+                document.getElementById('days').textContent = d;
                 document.getElementById('months').textContent = months;
-                document.getElementById('days').textContent = totalDays;
-                document.getElementById('hours').textContent = totalHours;
-                document.getElementById('minutes').textContent = totalMinutes;
-                document.getElementById('seconds').textContent = totalSeconds;
+                document.getElementById('years').textContent = years;
             }
         
-            // Bygger galleriet fra `galleryImages`-arrayet
             function populateGallery() {
                 const gallery = document.getElementById('gallery-container');
-                if (!gallery || gallery.children.length > 0) return; // Ikke bygg på nytt hvis det allerede finnes
+                if (!gallery || gallery.children.length > 0) return;
                 
-                gallery.innerHTML = ''; // Tøm galleriet først
+                gallery.innerHTML = '';
                 galleryImages.forEach(img => {
                     const item = document.createElement('div');
                     item.className = 'gallery-item';
@@ -974,11 +861,10 @@
                 });
             }
         
-            // Laster inn Spotify-spilleren med riktig URL
             function loadSpotifyPlayer() {
-                const spotifyEmbed = document.querySelector('.spotify-embed iframe');
-                if (spotifyEmbed && spotifyEmbed.src !== spotifyPlaylistURL) {
-                    spotifyEmbed.src = spotifyPlaylistURL;
+                const iframe = document.querySelector('.spotify-embed-wrapper iframe');
+                if (iframe && iframe.src !== spotifyPlaylistURL) {
+                    iframe.src = spotifyPlaylistURL;
                 }
             }
     
