@@ -495,11 +495,13 @@
                 flex-shrink: 0;
                 display: flex;
                 flex-direction: column;
-                transition: transform 0.3s ease;
+                cursor: pointer;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
             }
 
             .gallery-item:hover {
-                transform: translateY(-5px); /* Add a hover effect */
+                transform: translateY(-5px) scale(1.02); /* Make hover effect a bit more pronounced */
+                box-shadow: 0 12px 30px rgba(0,0,0,0.2);
             }
 
             .gallery-image {
@@ -548,6 +550,52 @@
                 border-radius: 20px;
                 box-shadow: 0 10px 30px rgba(0,0,0,0.1);
                 margin-bottom: 1rem;
+            }
+
+            /* --- Lightbox / Modal Styles --- */
+            .lightbox-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.85);
+                backdrop-filter: blur(5px);
+                display: none; /* Initially hidden */
+                justify-content: center;
+                align-items: center;
+                z-index: 2000; /* Make sure it's on top of everything */
+                opacity: 0;
+                transition: opacity 0.4s ease;
+            }
+
+            .lightbox-overlay.show {
+                display: flex;
+                opacity: 1;
+            }
+
+            .lightbox-content {
+                max-width: 90%;
+                max-height: 85%;
+                border-radius: 10px;
+                box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+                animation: zoomIn 0.4s ease-out;
+            }
+
+            .lightbox-close {
+                position: absolute;
+                top: 20px;
+                right: 35px;
+                color: #fff;
+                font-size: 45px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: transform 0.2s ease, color 0.2s ease;
+            }
+
+            .lightbox-close:hover {
+                color: #ddd;
+                transform: scale(1.1);
             }
     
             /* Animations */
@@ -613,6 +661,17 @@
              @keyframes fadeIn {
                 from { opacity: 0; }
                 to { opacity: 1; }
+            }
+
+            @keyframes zoomIn {
+                from {
+                    transform: scale(0.8);
+                    opacity: 0;
+                }
+                to {
+                    transform: scale(1);
+                    opacity: 1;
+                }
             }
     
             /* Responsive design */
@@ -755,7 +814,7 @@
     
                 <div id="timeglass-display" class="popup-view counter-display">
                     <button class="close-popup" onclick="showView('main-popup')" style="top: 1rem; left: 1rem;">←</button>
-                    <h2 class="counter-title">Tiden vi har vært sammen ♡</h2>
+                    <h2 class="counter-title">Hvor lang tid det har gått fra da vi møttes 13. august 2024 ♡</h2>
                     <div class="counter-grid">
                         <div class="counter-item">
                             <div class="counter-number" id="years">0</div>
@@ -811,6 +870,11 @@
                 </div>
             </div>
         </div>
+
+        <div id="lightbox" class="lightbox-overlay">
+            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+            <img class="lightbox-content" id="lightbox-img">
+        </div>
     
         <script>
             const correctCode = "iloveyou";
@@ -828,7 +892,7 @@
                 { src: 'https://i.imgur.com/QTfigFF.jpeg', caption: 'Kjærlighet uten grenser' },
                 { src: 'https://via.placeholder.com/300x200/fd79a8/ffffff?text=Framtid', caption: 'Vår framtid sammen' }
             ];
-            const spotifyPlaylistURL = src="https://open.spotify.com/embed/playlist/5kDyn5qItEbCuA8fROjEKq?utm_source=generator"; // Erstatt med deres Spotify-spilleliste URL
+            const spotifyPlaylistURL = "https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"; // Erstatt med deres Spotify-spilleliste URL
         
             // EVENT LISTENERS
             document.getElementById('codeInput').addEventListener('keypress', function(e) {
@@ -993,6 +1057,7 @@
                         <div class="gallery-image"><img src="${img.src}" alt="${img.caption}" loading="lazy"></div>
                         <div class="gallery-caption">${img.caption}</div>
                     `;
+                    item.onclick = () => openLightbox(img.src);
                     gallery.appendChild(item);
                 });
             }
@@ -1002,6 +1067,26 @@
                 if (spotifyEmbed && spotifyEmbed.src !== spotifyPlaylistURL) {
                     spotifyEmbed.src = spotifyPlaylistURL;
                 }
+            }
+
+            // --- LIGHTBOX FUNCTIONS ---
+            function openLightbox(src) {
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightbox-img');
+                lightboxImg.src = src;
+                lightbox.classList.add('show');
+
+                // Add event listener to close when clicking the background
+                lightbox.onclick = function(event) {
+                    if (event.target === lightbox) { // Check if the click is on the overlay itself, not the image
+                        closeLightbox();
+                    }
+                };
+            }
+
+            function closeLightbox() {
+                const lightbox = document.getElementById('lightbox');
+                lightbox.classList.remove('show');
             }
     
         </script>
