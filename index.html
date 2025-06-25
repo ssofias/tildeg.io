@@ -307,10 +307,13 @@
                 justify-content: center;
                 align-items: center;
                 z-index: 1000;
+                opacity: 0;
+                transition: opacity 0.4s ease;
             }
     
             .popup-overlay.show {
                 display: flex;
+                opacity: 1;
             }
     
             .popup-content {
@@ -413,21 +416,26 @@
                 justify-content: center;
                 border-radius: 50%;
                 transition: all 0.3s ease;
+                z-index: 10;
             }
     
             .close-popup:hover {
                 background: rgba(253, 121, 168, 0.1);
             }
     
-            /* Timeglass counter styles */
-            .counter-display {
+            /* Generic popup view styles */
+            .popup-view {
                 display: none;
-                text-align: center;
-                padding: 2rem;
+                animation: fadeIn 0.4s ease;
+            }
+            .popup-view.show {
+                display: block;
             }
     
-            .counter-display.show {
-                display: block;
+            /* Timeglass counter styles */
+            .counter-display {
+                text-align: center;
+                padding: 2rem;
             }
     
             .counter-title {
@@ -464,12 +472,7 @@
     
             /* Gallery styles */
             .gallery-display {
-                display: none;
                 padding: 2rem;
-            }
-    
-            .gallery-display.show {
-                display: block;
             }
     
             .gallery-title {
@@ -524,13 +527,8 @@
     
             /* Spotify styles */
             .spotify-display {
-                display: none;
                 padding: 2rem;
                 text-align: center;
-            }
-    
-            .spotify-display.show {
-                display: block;
             }
     
             .spotify-title {
@@ -605,6 +603,11 @@
                     opacity: 1;
                     transform: scale(1) translateY(0);
                 }
+            }
+    
+             @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
             }
     
             /* Responsive design */
@@ -700,23 +703,22 @@
             </div>
         </div>
     
-        <!-- Popup Overlay -->
         <div class="popup-overlay" id="popup-overlay">
             <div class="popup-content">
                 <button class="close-popup" onclick="closePopup()">×</button>
                 
-                <div id="main-popup" class="popup-main">
+                <div id="main-popup" class="popup-view show">
                     <h2 class="popup-header">Til deg fra meg</h2>
                     <div class="popup-buttons">
-                        <button class="popup-btn" onclick="showTimeglass()">
+                        <button class="popup-btn" onclick="showView('timeglass-display')">
                             Timeglass
                             <div class="popup-btn-subtitle">Hvor lang tid det har gått siden vi møttes</div>
                         </button>
-                        <button class="popup-btn" onclick="showGallery()">
+                        <button class="popup-btn" onclick="showView('gallery-display')">
                             Minnene våre
                             <div class="popup-btn-subtitle">Galleri</div>
                         </button>
-                        <button class="popup-btn" onclick="showSpotify()">
+                        <button class="popup-btn" onclick="showView('spotify-display')">
                             Spotify
                             <div class="popup-btn-subtitle">Sanger som minner meg om deg</div>
                         </button>
@@ -726,9 +728,8 @@
                     </div>
                 </div>
     
-                <!-- Timeglass Display -->
-                <div id="timeglass-display" class="counter-display">
-                    <button class="close-popup" onclick="showMainPopup()" style="top: 1rem; left: 1rem;">←</button>
+                <div id="timeglass-display" class="popup-view counter-display">
+                    <button class="close-popup" onclick="showView('main-popup')" style="top: 1rem; left: 1rem;">←</button>
                     <h2 class="counter-title">Tiden vi har vært sammen ♡</h2>
                     <div class="counter-grid">
                         <div class="counter-item">
@@ -758,21 +759,18 @@
                     </div>
                 </div>
     
-                <!-- Gallery Display -->
-                <div id="gallery-display" class="gallery-display">
-                    <button class="close-popup" onclick="showMainPopup()" style="top: 1rem; left: 1rem;">←</button>
+                <div id="gallery-display" class="popup-view gallery-display">
+                    <button class="close-popup" onclick="showView('main-popup')" style="top: 1rem; left: 1rem;">←</button>
                     <h2 class="gallery-title">Minnene våre ♡</h2>
                     <div class="gallery-container" id="gallery-container">
-                        <!-- Bilder vil bli lagt til her via JavaScript -->
-                    </div>
+                        </div>
                 </div>
     
-                <!-- Spotify Display -->
-                <div id="spotify-display" class="spotify-display">
-                    <button class="close-popup" onclick="showMainPopup()" style="top: 1rem; left: 1rem;">←</button>
+                <div id="spotify-display" class="popup-view spotify-display">
+                    <button class="close-popup" onclick="showView('main-popup')" style="top: 1rem; left: 1rem;">←</button>
                     <h2 class="spotify-title">Vår spilleliste ♡</h2>
                     <div class="spotify-embed">
-                        <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DX0XUsuxWHRQd?utm_source=generator&theme=0" 
+                        <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M" 
                                 width="100%" 
                                 height="352" 
                                 frameBorder="0" 
@@ -795,7 +793,8 @@
             let isTyping = false;
             let timeglassInterval;
         
-            const meetingDate = new Date('2024-01-01');
+            // KONFIGURASJON
+            const meetingDate = new Date('2024-01-01T00:00:00'); // Sett deres møtedato her
             const galleryImages = [
                 { src: 'https://via.placeholder.com/300x200/fd79a8/ffffff?text=Vårt+første+møte', caption: 'Vårt første møte ♡' },
                 { src: 'https://via.placeholder.com/300x200/fdcb6e/ffffff?text=En+spesiell+dag', caption: 'En spesiell dag sammen' },
@@ -804,11 +803,14 @@
                 { src: 'https://via.placeholder.com/300x200/a29bfe/ffffff?text=Kjærlighet', caption: 'Kjærlighet uten grenser' },
                 { src: 'https://via.placeholder.com/300x200/fd79a8/ffffff?text=Framtid', caption: 'Vår framtid sammen' }
             ];
+            const spotifyPlaylistURL = "https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"; // Erstatt med deres Spotify-spilleliste URL
         
+            // EVENT LISTENERS
             document.getElementById('codeInput').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') checkCode();
             });
         
+            // GRUNNLEGGENDE FUNKSJONER
             function checkCode() {
                 const input = document.getElementById('codeInput').value.toLowerCase().trim();
                 const errorMessage = document.getElementById('errorMessage');
@@ -820,17 +822,19 @@
                     }, 500);
                 } else {
                     errorMessage.classList.add('show');
-                    document.getElementById('codeInput').style.background = 'rgba(231, 112, 85, 0.2)';
+                    const codeInput = document.getElementById('codeInput');
+                    codeInput.style.animation = 'shake 0.5s';
                     setTimeout(() => {
                         errorMessage.classList.remove('show');
-                        document.getElementById('codeInput').style.background = 'rgba(253, 121, 168, 0.1)';
+                        codeInput.style.animation = '';
                     }, 3000);
-                    document.getElementById('codeInput').value = '';
+                    codeInput.value = '';
                 }
             }
         
             function createHearts() {
                 const container = document.getElementById('floating-hearts');
+                if (!container) return;
                 for (let i = 0; i < 30; i++) {
                     const heart = document.createElement('div');
                     heart.className = 'floating-heart';
@@ -857,7 +861,7 @@
                 isTyping = true;
                 const el = document.getElementById('typewriter-text');
                 const cursor = document.getElementById('cursor');
-                el.innerHTML = '';
+                el.innerHTML = ''; 
                 let i = 0;
                 const interval = setInterval(() => {
                     if (i < typewriterText.length) {
@@ -865,7 +869,7 @@
                         i++;
                     } else {
                         clearInterval(interval);
-                        cursor.style.display = 'none';
+                        if (cursor) cursor.style.display = 'none';
                     }
                 }, 70);
             }
@@ -878,69 +882,106 @@
                 document.getElementById('first-section').scrollIntoView({ behavior: 'smooth' });
             }
         
+            // --- OPPdaterte TREDJE SIDE / POPUP FUNKSJONER ---
+            
+            // Viser popup-overlayen og tilbakestiller til hovedvisningen
             function showPopup() {
                 document.getElementById('popup-overlay').classList.add('show');
-                showMainPopup();
+                showView('main-popup'); // Start alltid på hovedmenyen
             }
         
+            // Skjuler popup-overlayen og stopper timeglass-telleren
             function closePopup() {
                 document.getElementById('popup-overlay').classList.remove('show');
+                clearInterval(timeglassInterval); // Stopp intervallet når popupen lukkes
             }
         
-            function showMainPopup() {
-                document.getElementById('main-popup').style.display = 'block';
-                document.getElementById('timeglass-display').classList.remove('show');
-                document.getElementById('gallery-display').classList.remove('show');
-                document.getElementById('spotify-display').classList.remove('show');
+            /**
+             * Viser en spesifikk visning inne i popupen og skjuler de andre.
+             * @param {string} viewId IDen til elementet som skal vises.
+             */
+            function showView(viewId) {
+                // Skjul alle popup-visninger
+                document.querySelectorAll('.popup-view').forEach(view => {
+                    view.classList.remove('show');
+                });
+        
+                // Vis den valgte visningen
+                const viewToShow = document.getElementById(viewId);
+                if (viewToShow) {
+                    viewToShow.classList.add('show');
+                }
+        
+                // Håndter spesifikk logikk for hver visning
+                if (viewId === 'timeglass-display') {
+                    startTimglassUpdater();
+                } else {
+                    clearInterval(timeglassInterval); // Stopp teller hvis vi navigerer bort
+                }
+        
+                if (viewId === 'gallery-display') {
+                    populateGallery();
+                }
+        
+                if (viewId === 'spotify-display') {
+                    loadSpotifyPlayer();
+                }
             }
         
-            function showTimeglass() {
-                document.getElementById('main-popup').style.display = 'none';
-                document.getElementById('timeglass-display').classList.add('show');
-                updateTimeglass();
-                clearInterval(timeglassInterval);
+            // Starter og oppdaterer timeglass-telleren
+            function startTimglassUpdater() {
+                clearInterval(timeglassInterval); // Slett forrige intervall for sikkerhets skyld
+                updateTimeglass(); // Kjør en gang umiddelbart
                 timeglassInterval = setInterval(updateTimeglass, 1000);
             }
         
+            // Beregner og viser tiden som har gått
             function updateTimeglass() {
                 const now = new Date();
                 const diff = now - meetingDate;
-                const seconds = Math.floor(diff / 1000);
-                const minutes = Math.floor(seconds / 60);
-                const hours = Math.floor(minutes / 60);
-                const days = Math.floor(hours / 24);
-                const months = Math.floor(days / 30.44);
-                const years = Math.floor(months / 12);
+        
+                const totalSeconds = Math.floor(diff / 1000);
+                const totalMinutes = Math.floor(totalSeconds / 60);
+                const totalHours = Math.floor(totalMinutes / 60);
+                const totalDays = Math.floor(totalHours / 24);
+        
+                const years = now.getFullYear() - meetingDate.getFullYear();
+                const months = (now.getMonth() - meetingDate.getMonth() + 12) % 12;
+                // Mer nøyaktig dagsberegning vil være mer kompleks, holder dette enkelt
         
                 document.getElementById('years').textContent = years;
-                document.getElementById('months').textContent = months % 12;
-                document.getElementById('days').textContent = days % 30;
-                document.getElementById('hours').textContent = hours % 24;
-                document.getElementById('minutes').textContent = minutes % 60;
-                document.getElementById('seconds').textContent = seconds % 60;
+                document.getElementById('months').textContent = months;
+                document.getElementById('days').textContent = totalDays;
+                document.getElementById('hours').textContent = totalHours;
+                document.getElementById('minutes').textContent = totalMinutes;
+                document.getElementById('seconds').textContent = totalSeconds;
             }
         
-            function showGallery() {
-                document.getElementById('main-popup').style.display = 'none';
-                document.getElementById('gallery-display').classList.add('show');
+            // Bygger galleriet fra `galleryImages`-arrayet
+            function populateGallery() {
                 const gallery = document.getElementById('gallery-container');
-                gallery.innerHTML = '';
+                if (!gallery || gallery.children.length > 0) return; // Ikke bygg på nytt hvis det allerede finnes
+                
+                gallery.innerHTML = ''; // Tøm galleriet først
                 galleryImages.forEach(img => {
                     const item = document.createElement('div');
                     item.className = 'gallery-item';
                     item.innerHTML = `
-                        <div class="gallery-image"><img src="${img.src}" alt="${img.caption}"></div>
+                        <div class="gallery-image"><img src="${img.src}" alt="${img.caption}" loading="lazy"></div>
                         <div class="gallery-caption">${img.caption}</div>
                     `;
                     gallery.appendChild(item);
                 });
             }
         
-            function showSpotify() {
-                document.getElementById('main-popup').style.display = 'none';
-                document.getElementById('spotify-display').classList.add('show');
+            // Laster inn Spotify-spilleren med riktig URL
+            function loadSpotifyPlayer() {
+                const spotifyEmbed = document.querySelector('.spotify-embed iframe');
+                if (spotifyEmbed && spotifyEmbed.src !== spotifyPlaylistURL) {
+                    spotifyEmbed.src = spotifyPlaylistURL;
+                }
             }
-
+    
         </script>
-</body>
+    </body>
 </html>
