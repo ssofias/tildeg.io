@@ -709,41 +709,22 @@
                 line-height: 1.4;
             }
 
-            /* NYTT: CSS for Hjerte-markørene */
-            .heart-marker {
-                background: #e84393;
-                position: relative;
-                transform: rotate(45deg);
-                width: 24px;
-                height: 24px;
-                animation: pulse-heart 1.5s infinite;
-                border-radius: 4px;
-                border: 1px solid rgba(255,255,255,0.5);
-            }
-            .heart-marker:before,
-            .heart-marker:after {
-                content: "";
-                background: #e84393;
-                position: absolute;
-                width: 24px;
-                height: 24px;
+            /* NY, ENKLERE CSS for pulserende sirkel-markører */
+            .custom-map-marker {
+                background-color: #e84393;
+                width: 20px;
+                height: 20px;
                 border-radius: 50%;
-                border: 1px solid rgba(255,255,255,0.5);
-            }
-            .heart-marker:before {
-                top: -12px;
-                left: 0;
-            }
-            .heart-marker:after {
-                left: -12px;
-                top: 0;
+                border: 2px solid white;
+                box-shadow: 0 0 5px rgba(0,0,0,0.3);
+                animation: pulse-marker 2s infinite;
             }
     
             /* Animations */
-            @keyframes pulse-heart {
-                0% { transform: rotate(45deg) scale(0.9); box-shadow: 0 0 0 0 rgba(232, 67, 147, 0.7); }
-                70% { transform: rotate(45deg) scale(1); box-shadow: 0 0 0 10px rgba(232, 67, 147, 0); }
-                100% { transform: rotate(45deg) scale(0.9); box-shadow: 0 0 0 0 rgba(232, 67, 147, 0); }
+            @keyframes pulse-marker {
+                0% { box-shadow: 0 0 0 0 rgba(232, 67, 147, 0.7); }
+                70% { box-shadow: 0 0 0 10px rgba(232, 67, 147, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(232, 67, 147, 0); }
             }
             @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
             @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
@@ -1059,19 +1040,19 @@
             function initMap() {
                 if (map) { map.invalidateSize(); return; }
 
-                // Definer den nye hjerte-markøren
-                const heartIcon = L.divIcon({
-                    className: 'heart-marker',
-                    iconSize: [30, 30],
-                    iconAnchor: [15, 30] // Sørger for at hjertespissen peker på riktig sted
+                // Definer den nye, enkle sirkel-markøren
+                const customIcon = L.divIcon({
+                    className: 'custom-map-marker',
+                    iconSize: [20, 20],
+                    iconAnchor: [10, 10]
                 });
                 
                 map = L.map('map-container').setView([62, 10.5], 5);
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(map);
 
                 mapLocations.forEach(location => {
-                    // Bruk den nye hjerte-markøren
-                    const marker = L.marker([location.lat, location.lng], { icon: heartIcon }).addTo(map);
+                    // Bruk den nye markøren
+                    const marker = L.marker([location.lat, location.lng], { icon: customIcon }).addTo(map);
                     
                     marker.on('popupopen', () => {
                         popupGalleryStates[location.id] = { currentIndex: 0 };
