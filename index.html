@@ -13,21 +13,38 @@
 
         body {
             font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #ffeaa7, #fab1a0, #fd79a8);
+            overflow: hidden;
+        }
+
+        .page {
+            display: none;
             height: 100vh;
+            width: 100vw;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all 0.5s ease;
+        }
+
+        .page.active {
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .container {
+        /* Login Page Styles */
+        #loginPage {
+            background: linear-gradient(135deg, #ffeaa7, #fab1a0, #fd79a8);
+        }
+
+        .login-container {
             text-align: center;
             width: 100%;
             max-width: 400px;
             padding: 20px;
         }
 
-        h1 {
+        .login-title {
             color: #2d3436;
             font-size: 2.5rem;
             margin-bottom: 40px;
@@ -90,40 +107,315 @@
             transform: translateY(-2px);
         }
 
+        /* Message Page Styles */
+        #messagePage {
+            background: linear-gradient(135deg, #a8e6cf, #88d8c0, #7fcdcd);
+            padding: 20px;
+        }
+
+        .message-container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .message {
+            color: #2d3436;
+            font-size: 2rem;
+            line-height: 1.6;
+            margin-bottom: 60px;
+            font-weight: normal;
+            text-align: center;
+        }
+
+        .continue-btn {
+            background: #fd79a8;
+            border: none;
+            border-radius: 50px;
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(253, 121, 168, 0.3);
+        }
+
+        .continue-btn:hover {
+            background: #e84393;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(253, 121, 168, 0.4);
+        }
+
+        /* Menu Page Styles */
+        #menuPage, #reasonsPage {
+            background: linear-gradient(135deg, #a8e6cf, #88d8c0, #7fcdcd);
+            padding: 20px;
+        }
+
+        .menu-container {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: -60px;
+            left: 0;
+            background: #f8d7da;
+            border: none;
+            border-radius: 15px;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #f5c6cb;
+            transform: translateY(-2px);
+        }
+
+        .header {
+            background: #e8f4f8;
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            color: #5a6c7d;
+            font-size: 1.1rem;
+        }
+
+        .menu-item {
+            background: #fd79a8;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
+        }
+
+        .menu-item:hover {
+            background: #e84393;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(253, 121, 168, 0.4);
+        }
+
+        .menu-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            font-weight: normal;
+        }
+
+        .menu-item p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .small-continue-btn {
+            background: #e8f4f8;
+            border: none;
+            border-radius: 50px;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .small-continue-btn:hover {
+            background: #d1ecf1;
+            transform: translateY(-2px);
+        }
+
         .arrow {
             color: white;
             font-size: 1.2rem;
         }
+
+        .arrow-down {
+            color: #5a6c7d;
+            font-size: 1.5rem;
+        }
+
+        .arrow-down-white {
+            color: white;
+            font-size: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .message {
+                font-size: 1.5rem;
+                margin-bottom: 40px;
+            }
+            
+            .login-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .menu-container {
+                padding: 30px 20px;
+            }
+            
+            .menu-item {
+                padding: 15px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Til Sebastian<span class="heart">♥</span></h1>
-        
-        <div class="login-card">
-            <h2 class="card-title">Skriv inn koden</h2>
-            <div class="card-heart">❤️</div>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="login-container">
+            <h1 class="login-title">Til Sebastian<span class="heart">♥</span></h1>
             
-            <form onsubmit="login(event)">
-                <input type="password" class="password-input" placeholder="Passord" id="password" required>
-                <button type="submit" class="login-btn">
-                    <span class="arrow">→</span>
-                </button>
-            </form>
+            <div class="login-card">
+                <h2 class="card-title">Skriv inn koden</h2>
+                <div class="card-heart">❤️</div>
+                
+                <form onsubmit="login(event)">
+                    <input type="password" class="password-input" placeholder="Passord" id="password" required>
+                    <button type="submit" class="login-btn">
+                        <span class="arrow">→</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message Page -->
+    <div id="messagePage" class="page">
+        <div class="message-container">
+            <p class="message">
+                Jeg skulle ønske det fantes ord som kunne beskrive hvor høyt jeg elsker deg... I stedet gir jeg dette, for kun oss to, som et forsøk på å beskrive det som ikke kan beskrives...
+            </p>
+            
+            <button class="continue-btn" onclick="showPage('menuPage')">
+                <span class="arrow-down-white">↓</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Menu Page -->
+    <div id="menuPage" class="page">
+        <div class="menu-container">
+            <button class="back-btn" onclick="showPage('messagePage')">
+                <span class="arrow">←</span>
+            </button>
+
+            <div class="header">
+                Til deg fra meg
+            </div>
+            
+            <button class="menu-item" onclick="openTimeglass()">
+                <h3>Timeglass</h3>
+                <p>Hvor lang tid det har gått siden vi møttes</p>
+            </button>
+            
+            <button class="menu-item" onclick="openMemories()">
+                <h3>Minnene våre</h3>
+                <p>Galleri</p>
+            </button>
+            
+            <button class="menu-item" onclick="openSpotify()">
+                <h3>Spotify</h3>
+                <p>Sanger som minner meg om deg</p>
+            </button>
+            
+            <button class="small-continue-btn" onclick="showPage('reasonsPage')">
+                <span class="arrow-down">↓</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Reasons Page -->
+    <div id="reasonsPage" class="page">
+        <div class="menu-container">
+            <button class="back-btn" onclick="showPage('menuPage')">
+                <span class="arrow">←</span>
+            </button>
+
+            <div class="header">
+                Til deg fra meg
+            </div>
+            
+            <button class="menu-item" onclick="openForDeg()">
+                <h3>For deg</h3>
+                <p>Alt jeg ønsker å gjøre for deg</p>
+            </button>
+            
+            <button class="menu-item" onclick="openHvorfor()">
+                <h3>Hvorfor jeg elsker deg</h3>
+                <p>Uendelige grunner</p>
+            </button>
+            
+            <button class="menu-item" onclick="openSpotify()">
+                <h3>Spotify</h3>
+                <p>Sanger som minner meg om deg</p>
+            </button>
+            
+            <button class="small-continue-btn" onclick="showFinalMessage()">
+                <span class="arrow-down">↓</span>
+            </button>
         </div>
     </div>
 
     <script>
+        let currentPage = 'loginPage';
+
+        function showPage(pageId) {
+            // Hide current page
+            document.getElementById(currentPage).classList.remove('active');
+            
+            // Show new page
+            setTimeout(() => {
+                document.getElementById(pageId).classList.add('active');
+                currentPage = pageId;
+            }, 250);
+        }
+
         function login(event) {
             event.preventDefault();
             const password = document.getElementById('password').value;
             
-            // Simple password check (in real app, this would be more secure)
-            if (password === 'love' || password === 'sebastian') {
-                window.location.href = 'home.html';
+            // Simple password check
+            if (password === 'love' || password === 'sebastian' || password === 'kjærlighet') {
+                showPage('messagePage');
             } else {
-                alert('Feil passord! ❤️');
+                alert('Feil passord! Prøv "love" eller "sebastian" ❤️');
             }
+        }
+
+        function openTimeglass() {
+            alert('⏳ Timeglass funksjon:\n\nDere har vært sammen i [antall dager] dager!\n\nHver dag med deg er en gave! 💕');
+        }
+
+        function openMemories() {
+            alert('📸 Minnene våre:\n\nHer ville det vært et galleri med alle våre fine bilder sammen!\n\nHvert bilde forteller historien om vår kjærlighet! 💖');
+        }
+
+        function openSpotify() {
+            alert('🎵 Spotify spilleliste:\n\n"Our Love Songs"\n\nSanger som får meg til å tenke på deg:\n- [Favorittlåt 1]\n- [Favorittlåt 2]\n- [Favorittlåt 3]\n\nMusikk som definerer oss! 💕');
+        }
+
+        function openForDeg() {
+            alert('💕 For deg:\n\nAlt jeg ønsker å gjøre for deg:\n\n• Gi deg verdensomspennende eventyr\n• Lage deg smile hver dag\n• Være din støtte i alt\n• Elske deg for alltid\n\nDu fortjener alt det beste! ❤️');
+        }
+
+        function openHvorfor() {
+            alert('❤️ Hvorfor jeg elsker deg:\n\n• Smilet ditt lyser opp dagen min\n• Du får meg til å føle meg komplett\n• Din latter er min favorittlyd\n• Du er den snilleste personen jeg kjenner\n• Du gjør alt bedre bare ved å være der\n\nOg tusen andre grunner... 💖');
+        }
+
+        function showFinalMessage() {
+            alert('💖 Takk for at du tok deg tid til å oppleve denne kjærlighetshistorien!\n\nDu betyr alt for meg, Sebastian.\n\nMed all min kjærlighet,\n[Ditt navn] ❤️');
         }
     </script>
 </body>
