@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hjemside etter kode</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #a8e6cf, #88d8c0, #7fcdcd);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .message {
+            color: #2d3436;
+            font-size: 2rem;
+            line-height: 1.6;
+            margin-bottom: 60px;
+            font-weight: normal;
+            text-align: center;
+        }
+
+        .continue-btn {
+            background: #fd79a8;
+            border: none;
+            border-radius: 50px;
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(253, 121, 168, 0.3);
+        }
+
+        .continue-btn:hover {
+            background: #e84393;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(253, 121, 168, 0.4);
+        }
+
+        .arrow-down {
+            color: white;
+            font-size: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .message {
+                font-size: 1.5rem;
+                margin-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p class="message">
+            Jeg skulle ønske det fantes ord som kunne beskrive hvor høyt jeg elsker deg... I stedet gir jeg dette, for kun oss to, som et forsøk på å beskrive det som ikke kan beskrives...
+        </p>
+        
+        <button class="continue-btn" onclick="goToMenu()">
+            <span class="arrow-down">↓</span>
+        </button>
+    </div>
+
+    <script>
+        function goToMenu() {
+            window.location.href = 'menu.html';
+        }
+    </script>
+</body>
+</html>
