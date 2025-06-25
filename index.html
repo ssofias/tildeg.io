@@ -323,7 +323,7 @@
                 box-shadow: 0 20px 50px rgba(0,0,0,0.2);
                 backdrop-filter: blur(15px);
                 max-width: 90vw;
-                width: 95%;
+                width: 70%;
                 text-align: center;
                 position: relative;
                 animation: popupSlideIn 0.5s ease-out;
@@ -466,60 +466,75 @@
                 margin-top: 0.5rem;
             }
     
-            /* Gallery styles */
+            /* --- Start of new gallery styles --- */
             .gallery-title {
                 font-size: 1.8rem;
                 color: #e84393;
                 margin-bottom: 1.5rem;
                 text-align: center;
             }
-    
+
             .gallery-container {
                 display: flex;
-                align-items: flex-start; /* Align items to the top */
+                align-items: center; /* Vertically align all gallery items */
                 overflow-x: auto;
                 gap: 1.5rem;
-                padding: 1rem;
+                padding: 1.5rem; /* Increased padding */
                 scroll-behavior: smooth;
+                min-height: 450px; /* Give container height for alignment */
             }
-    
+
             .gallery-item {
-                width: 400px; /* Changed from min-width to width */
-                max-width: 80vw; /* Prevent it from getting too wide on small screens */
-                /* REMOVED fixed height */
-                background: rgba(255, 255, 255, 0.9);
+                width: 350px; /* Slightly smaller width */
+                max-width: 80vw;
+                background: rgba(255, 255, 255, 0.95);
                 border-radius: 15px;
                 overflow: hidden;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* Softer shadow */
                 position: relative;
                 flex-shrink: 0;
                 display: flex;
                 flex-direction: column;
+                transition: transform 0.3s ease;
             }
-    
+
+            .gallery-item:hover {
+                transform: translateY(-5px); /* Add a hover effect */
+            }
+
             .gallery-image {
                 width: 100%;
-                /* REMOVED fixed height */
-                /* REMOVED background color */
+                height: 300px; /* A fixed height for the image container */
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                background-color: rgba(0,0,0,0.02); /* A subtle background for the image area */
+                padding: 1rem; /* Padding inside the image box */
             }
-    
+
             .gallery-image img {
-                width: 100%;
-                height: auto; /* THIS IS THE KEY CHANGE */
-                display: block; /* Removes any extra space below the image */
+                /* These properties ensure the image fits without being stretched */
+                max-width: 100%;
+                max-height: 100%;
+                width: auto;
+                height: auto;
+                display: block;
+                border-radius: 8px; /* Rounded corners for the image */
             }
-    
+
             .gallery-caption {
-                padding: 1rem;
+                padding: 1rem 1.5rem;
                 text-align: center;
                 color: #636e72;
                 font-size: 1rem;
                 flex-shrink: 0;
+                min-height: 60px; /* Ensure space for caption */
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
-    
+            /* --- End of new gallery styles --- */
+
             /* Spotify styles */
             .spotify-title {
                 font-size: 1.8rem;
@@ -621,6 +636,9 @@
                 .gallery-item {
                     width: 320px; /* Adjusted responsive size */
                 }
+                .gallery-image {
+                    height: 250px; /* Adjust height for tablets */
+                }
                 .popup-content {
                     padding: 2rem 1.5rem;
                     width: 95%;
@@ -647,6 +665,9 @@
                 }
                 .gallery-item {
                     width: 280px; /* Adjusted for smallest screens */
+                }
+                .gallery-image {
+                    height: 220px; /* Adjust height for phones */
                 }
             }
         </style>
