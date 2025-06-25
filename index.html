@@ -59,32 +59,33 @@
             }
     
             .login-box {
-                background: rgba(255, 255, 255, 0.9);
-                padding: 3rem 2.5rem;
-                border-radius: 25px;
-                box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-                backdrop-filter: blur(10px);
-                max-width: 400px;
-                width: 90%;
-                margin: 0 auto;
-            }
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem; /* Redusert polstring */
+    border-radius: 25px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+    width: 60vw;      /* Fleksibel på mobil */
+    max-width: 500px; /* Fornuftig maks-bredde på PC */
+    margin: 0 auto;
+    /* height: 20vw; <-- Denne er fjernet for å la høyden være automatisk */
+}
     
             .subtitle {
                 font-size: 1.5rem;
                 color: #fd79a8;
-                margin-bottom: 1.5rem;
+                margin-bottom: 0.75rem;
                 font-weight: 300;
             }
     
             .heart-small {
                 color: #e84393;
                 font-size: 2rem;
-                margin: 1rem 0;
+                margin: 0.5rem 0;
                 animation: pulse 2s infinite;
             }
     
             .input-group {
-                margin: 2rem 0;
+                margin: 1rem 0;
             }
     
             .code-input {
@@ -122,7 +123,7 @@
                 cursor: pointer;
                 transition: all 0.3s ease;
                 box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
-                margin-top: 1rem;
+                margin-top: 0rem;
             }
     
             .submit-btn:hover {
@@ -321,41 +322,41 @@
             }
     
             .popup-content {
-                background: rgba(255, 255, 255, 0.95);
-                padding: 2.5rem;
-                border-radius: 25px;
-                box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-                backdrop-filter: blur(15px);
-                max-width: 90vw;
-                width: auto;
-                text-align: center;
-                position: relative;
-                animation: popupSlideIn 0.5s ease-out;
-                max-height: 95vh;
-                overflow-y: auto;
-            }
+    background: rgba(255, 255, 255, 0.95);
+    padding: 3.5rem; /* Økt for mer luft */
+    border-radius: 25px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    backdrop-filter: blur(15px);
+    /* max-width er ikke lenger nødvendig med fast vw-bredde */
+    width: 70vw; /* Setter fast bredde til 70% av skjermbredden */
+    text-align: center;
+    position: relative;
+    animation: popupSlideIn 0.5s ease-out;
+    max-height: 95vh;
+    overflow-y: auto;
+}
     
             .popup-buttons {
                 display: flex;
                 flex-direction: column;
-                gap: 1rem;
+                gap: 1.5rem; /* Økt for mer avstand */
             }
     
             .popup-btn {
-                background: linear-gradient(45deg, #fd79a8, #fdcb6e);
-                border: none;
-                padding: 1rem 1.5rem;
-                border-radius: 20px;
-                color: white;
-                font-size: 1.2rem;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
-                position: relative;
-                overflow: hidden;
-                min-width: 300px;
-            }
-    
+    background: linear-gradient(45deg, #fd79a8, #fdcb6e);
+    border: none;
+    padding: 1.3rem 2rem;
+    border-radius: 22px;
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
+    position: relative;
+    overflow: hidden;
+    width: 50vw; /* Ny: Fyller containeren sin bredde */
+    /* min-width: 450px; <-- Denne er fjernet */
+}
             .popup-btn:hover {
                 transform: translateY(-3px);
                 box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
@@ -439,12 +440,15 @@
     
             /* Timeglass counter styles */
             .counter-display {
-                display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
                 height: 100%;
                 min-height: 400px;
+            }
+
+            #timeglass-display.popup-view.show {
+                display: flex;
             }
             .counter-wrapper {
                 background: rgba(255, 255, 255, 0.7);
@@ -464,7 +468,7 @@
                 grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
                 gap: 1rem;
                 width: 100%;
-                max-width: 700px; /* Økt bredde for å få plass til "Uker" */
+                max-width: 700px;
             }
     
             .counter-item {
@@ -758,7 +762,7 @@
             @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
             @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
     
-            /* Responsive design */
+            /* Responsive design for smaller screens */
             @media (max-width: 768px) {
                 .title { font-size: 2.5rem; }
                 .login-box { padding: 2rem 1.5rem; }
@@ -774,11 +778,30 @@
                 .typewriter-text { font-size: 1.5rem; min-height: 200px; }
                 .popup-content { padding: 2rem 1rem; }
                 .popup-header { font-size: 1.5rem; }
-                .popup-btn { padding: 0.8rem 1rem; font-size: 1rem; }
+                .popup-btn { padding: 0.8rem 1rem; font-size: 1rem; min-width: 280px;}
                 .counter-grid { grid-template-columns: repeat(2, 1fr); }
                 .gallery-item { width: 280px; }
                 .gallery-image { height: 220px; }
                 #map-container { height: 350px; }
+            }
+
+            /* --- Skalering for større PC-skjermer --- */
+            @media (min-width: 1200px) {
+                html {
+                    /* Øker grunnstørrelsen til 110%. 
+                    Dette gjør at 1rem blir 1.1 * 16px = 17.6px.
+                    Hele designet blir 10% større. Juster prosentandelen ved behov. */
+                    font-size: 110%;
+                }
+            }
+
+            @media (min-width: 1600px) {
+                html {
+                    /* Øker den enda mer for ekstra brede skjermer.
+                    Her blir 1rem = 1.2 * 16px = 19.2px.
+                    Hele designet blir 20% større enn originalt. */
+                    font-size: 120%;
+                }
             }
         </style>
     </head>
