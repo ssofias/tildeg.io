@@ -1,548 +1,3 @@
-<!--<!DOCTYPE html>
-<html lang="no">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Til Sebastian ♡</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            scroll-snap-type: y mandatory;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 50%, #fd79a8 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        .container {
-            text-align: center;
-            opacity: 1;
-            transform: translateY(0);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .container.fade-out {
-            opacity: 0;
-            transform: translateY(-50px);
-        }
-
-        .title {
-            font-size: 3.5rem;
-            color: #74b9ff;
-            margin-bottom: 2rem;
-            font-weight: 300;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .heart {
-            color: #fd79a8;
-            font-size: 3rem;
-            margin-left: 0.5rem;
-            animation: heartbeat 2s ease-in-out infinite;
-        }
-
-        .login-box {
-            background: rgba(255, 255, 255, 0.9);
-            padding: 3rem 2.5rem;
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-            max-width: 400px;
-            width: 90%;
-            margin: 0 auto;
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            color: #fd79a8;
-            margin-bottom: 1.5rem;
-            font-weight: 300;
-        }
-
-        .heart-small {
-            color: #e84393;
-            font-size: 2rem;
-            margin: 1rem 0;
-            animation: pulse 2s infinite;
-        }
-
-        .input-group {
-            margin: 2rem 0;
-        }
-
-        .code-input {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 15px;
-            background: rgba(253, 121, 168, 0.1);
-            color: #2d3436;
-            text-align: center;
-            letter-spacing: 0.2rem;
-            outline: none;
-            transition: all 0.3s ease;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .code-input:focus {
-            background: rgba(253, 121, 168, 0.2);
-            transform: scale(1.02);
-            box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
-        }
-
-        .code-input::placeholder {
-            color: rgba(253, 121, 168, 0.7);
-        }
-
-        .submit-btn {
-            background: linear-gradient(45deg, #fd79a8, #fdcb6e);
-            border: none;
-            padding: 1rem 3rem;
-            border-radius: 25px;
-            color: white;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
-            margin-top: 1rem;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
-        }
-
-        .submit-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Success page styles */
-        .success-page {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            overflow-y: auto;
-            scroll-snap-type: y mandatory;
-        }
-
-        .success-page.show {
-            display: block;
-        }
-
-        .section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            scroll-snap-align: start;
-            position: relative;
-        }
-
-        .first-section {
-            background: linear-gradient(180deg, #e3f2fd 0%, #f8bbd9 40%, #fce4ec 100%);
-        }
-
-        .second-section {
-            background: linear-gradient(180deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
-        }
-
-        .section-header {
-            position: absolute;
-            top: 2rem;
-            left: 2rem;
-            font-size: 1.2rem;
-            color: rgba(0,0,0,0.5);
-            font-weight: 300;
-        }
-
-        .typewriter-container {
-            max-width: 900px;
-            width: 100%;
-            text-align: center;
-            margin: 2rem 0;
-        }
-
-        .typewriter-text {
-            font-size: 3rem;
-            color: #2d3436;
-            line-height: 1.4;
-            font-weight: 300;
-            min-height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-style: italic;
-            letter-spacing: 0.02em;
-        }
-
-        .cursor {
-            display: inline-block;
-            background-color: #2d3436;
-            margin-left: 3px;
-            width: 3px;
-            height: 1em;
-            animation: blink 1s infinite;
-        }
-
-        .scroll-arrow {
-            position: absolute;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: rgba(253, 121, 168, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
-            opacity: 0;
-            animation: fadeInUp 1s ease-out 6s forwards;
-        }
-
-        .scroll-arrow:hover {
-            background: rgba(253, 121, 168, 1);
-            transform: translateX(-50%) translateY(-5px);
-            box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
-        }
-
-        .arrow-down {
-            width: 0;
-            height: 0;
-            border-left: 15px solid transparent;
-            border-right: 15px solid transparent;
-            border-top: 20px solid white;
-        }
-
-        .next-section-content {
-            text-align: center;
-            max-width: 600px;
-        }
-
-        .next-section-title {
-            font-size: 3rem;
-            color: #e84393;
-            margin-bottom: 2rem;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .next-section-text {
-            font-size: 1.5rem;
-            color: #2d3436;
-            line-height: 1.8;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
-        }
-
-        .floating-hearts {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .floating-heart {
-            position: absolute;
-            color: rgba(253, 121, 168, 0.7);
-            font-size: 1.5rem;
-            animation: floatUp 4s linear infinite;
-        }
-
-        /* Error message */
-        .error-message {
-            color: #e17055;
-            font-size: 1rem;
-            margin-top: 1rem;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .error-message.show {
-            opacity: 1;
-        }
-
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes heartbeat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.8; }
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateX(-50%) translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-        }
-
-        @keyframes floatUp {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .title {
-                font-size: 2.5rem;
-            }
-            .login-box {
-                padding: 2rem 1.5rem;
-            }
-            .typewriter-text {
-                font-size: 2rem;
-                min-height: 250px;
-            }
-            .next-section-title {
-                font-size: 2.5rem;
-            }
-            .next-section-text {
-                font-size: 1.3rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .typewriter-text {
-                font-size: 1.5rem;
-                min-height: 200px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="floating-hearts" id="floating-hearts"></div>
-
-    <div class="container" id="login-container">
-        <h1 class="title">Til Sebastian<span class="heart">♡</span></h1>
-        
-        <div class="login-box">
-            <h2 class="subtitle">Skriv inn koden</h2>
-            <div class="heart-small">❤️</div>
-            
-            <div class="input-group">
-                <input type="password" class="code-input" id="codeInput" placeholder="Passord" maxlength="20">
-                <div class="error-message" id="errorMessage">Feil kode, prøv igjen ♡</div>
-            </div>
-            
-            <button class="submit-btn" onclick="checkCode()">→</button>
-        </div>
-    </div>
-
-    <div class="success-page" id="success-page">
-        <div class="section first-section" id="first-section">
-            <div class="section-header">Hjemside etter kode</div>
-            <div class="typewriter-container">
-                <div class="typewriter-text" id="typewriter-text">
-                    <span class="cursor" id="cursor">|</span>
-                </div>
-            </div>
-            <div class="scroll-arrow" id="scroll-arrow" onclick="scrollToNextSection()">
-                <div class="arrow-down"></div>
-            </div>
-        </div>
-        
-        <div class="section second-section" id="second-section">
-            <div class="next-section-content">
-                <h2 class="next-section-title">Fortsettelse følger... ♡</h2>
-                <div class="next-section-text">
-                    Her kan du legge til mer innhold for din kjære Sebastian!<br>
-                    Kanskje bilder, minner, eller en annen melding? 💕
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Sett riktig kode her (kan endres)
-        const correctCode = "iloveyou";
-        
-        // Tekst som skal skrives med typewriter-effekt
-        const typewriterText = "Jeg skulle ønske det fantes ord som kunne beskrive hvor høyt jeg elsker deg... I stedet gir jeg dette, for kun oss to, som et forsøk på å beskrive det som ikke kan beskrives...";
-        
-        let typewriterIndex = 0;
-        let isTyping = false;
-        
-        // Legg til event listener for Enter-tasten
-        document.getElementById('codeInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkCode();
-            }
-        });
-
-        function checkCode() {
-            const input = document.getElementById('codeInput').value.toLowerCase().trim();
-            const errorMessage = document.getElementById('errorMessage');
-            
-            if (input === correctCode) {
-                // Riktig kode - start overgang
-                createHearts();
-                setTimeout(() => {
-                    transitionToSuccess();
-                }, 500);
-            } else {
-                // Feil kode - vis feilmelding
-                errorMessage.classList.add('show');
-                document.getElementById('codeInput').style.background = 'rgba(231, 112, 85, 0.2)';
-                
-                // Skjul feilmelding etter 3 sekunder
-                setTimeout(() => {
-                    errorMessage.classList.remove('show');
-                    document.getElementById('codeInput').style.background = 'rgba(253, 121, 168, 0.1)';
-                }, 3000);
-                
-                // Clear input
-                document.getElementById('codeInput').value = '';
-            }
-        }
-
-        function transitionToSuccess() {
-            const loginContainer = document.getElementById('login-container');
-            const successPage = document.getElementById('success-page');
-            
-            // Fade out login page
-            loginContainer.classList.add('fade-out');
-            
-            // Wait for fade out, then show success page and start typewriter
-            setTimeout(() => {
-                loginContainer.style.display = 'none';
-                document.body.style.overflow = 'hidden';
-                successPage.classList.add('show');
-                // Start typewriter effect after a short delay
-                setTimeout(() => {
-                    startTypewriter();
-                }, 1500);
-            }, 800);
-        }
-
-        function startTypewriter() {
-            if (isTyping) return;
-            
-            isTyping = true;
-            const textElement = document.getElementById('typewriter-text');
-            
-            function typeNextCharacter() {
-                if (typewriterIndex < typewriterText.length) {
-                    const currentText = typewriterText.substring(0, typewriterIndex + 1);
-                    textElement.innerHTML = currentText + '<span class="cursor" id="cursor">|</span>';
-                    typewriterIndex++;
-                    
-                    // Variable speed for more natural typing
-                    const delay = Math.random() * 80 + 40;
-                    setTimeout(typeNextCharacter, delay);
-                } else {
-                    // Typing finished, remove cursor after a delay
-                    setTimeout(() => {
-                        const finalCursor = document.getElementById('cursor');
-                        if (finalCursor) {
-                            finalCursor.style.opacity = '0';
-                        }
-                    }, 3000);
-                    isTyping = false;
-                }
-            }
-            
-            typeNextCharacter();
-        }
-
-        function scrollToNextSection() {
-            const secondSection = document.getElementById('second-section');
-            secondSection.scrollIntoView({ 
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-
-        function createHearts() {
-            const heartsContainer = document.getElementById('floating-hearts');
-            const heartSymbols = ['♡', '♥', '💕', '💖', '💗', '💙', '💜'];
-            
-            for (let i = 0; i < 20; i++) {
-                setTimeout(() => {
-                    const heart = document.createElement('div');
-                    heart.className = 'floating-heart';
-                    heart.innerHTML = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
-                    heart.style.left = Math.random() * 100 + '%';
-                    heart.style.animationDelay = Math.random() * 4 + 's';
-                    heart.style.fontSize = (Math.random() * 2 + 1) + 'rem';
-                    
-                    heartsContainer.appendChild(heart);
-                    
-                    // Remove heart after animation
-                    setTimeout(() => {
-                        if (heart.parentNode) {
-                            heart.parentNode.removeChild(heart);
-                        }
-                    }, 4000);
-                }, i * 200);
-            }
-        }
-
-        // Fokuser på input når siden lastes
-        window.onload = function() {
-            document.getElementById('codeInput').focus();
-        };
-    </script>
-</body>
-</html>-->
-
 <!DOCTYPE html>
 <html lang="no">
     <head>
@@ -1335,20 +790,12 @@
         </div>
     
         <script>
-            // Sett riktig kode her (kan endres)
             const correctCode = "iloveyou";
-            
-            // Tekst som skal skrives med typewriter-effekt
             const typewriterText = "Jeg skulle ønske det fantes ord som kunne beskrive hvor høyt jeg elsker deg... I stedet gir jeg dette, for kun oss to, som et forsøk på å beskrive det som ikke kan beskrives...";
-            
-            let typewriterIndex = 0;
             let isTyping = false;
             let timeglassInterval;
-
-            // Dato dere møttes (endre denne datoen)
-            const meetingDate = new Date('2024-01-01'); // Endre til riktig dato
-
-            // Bilder for galleriet (legg til dine egne bilder her)
+        
+            const meetingDate = new Date('2024-01-01');
             const galleryImages = [
                 { src: 'https://via.placeholder.com/300x200/fd79a8/ffffff?text=Vårt+første+møte', caption: 'Vårt første møte ♡' },
                 { src: 'https://via.placeholder.com/300x200/fdcb6e/ffffff?text=En+spesiell+dag', caption: 'En spesiell dag sammen' },
@@ -1356,38 +803,140 @@
                 { src: 'https://via.placeholder.com/300x200/e84393/ffffff?text=Du+og+meg', caption: 'Du og meg mot verden' },
                 { src: 'https://via.placeholder.com/300x200/a29bfe/ffffff?text=Kjærlighet', caption: 'Kjærlighet uten grenser' },
                 { src: 'https://via.placeholder.com/300x200/fd79a8/ffffff?text=Framtid', caption: 'Vår framtid sammen' }
-                // Legg til flere bilder her med riktige URL-er
             ];
-            
-            // Legg til event listener for Enter-tasten
+        
             document.getElementById('codeInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    checkCode();
-                }
+                if (e.key === 'Enter') checkCode();
             });
-
+        
             function checkCode() {
                 const input = document.getElementById('codeInput').value.toLowerCase().trim();
                 const errorMessage = document.getElementById('errorMessage');
                 
                 if (input === correctCode) {
-                    // Riktig kode - start overgang
                     createHearts();
                     setTimeout(() => {
                         transitionToSuccess();
                     }, 500);
                 } else {
-                    // Feil kode - vis feilmelding
                     errorMessage.classList.add('show');
                     document.getElementById('codeInput').style.background = 'rgba(231, 112, 85, 0.2)';
-                    
-                    // Skjul feilmelding etter 3 sekunder
                     setTimeout(() => {
                         errorMessage.classList.remove('show');
                         document.getElementById('codeInput').style.background = 'rgba(253, 121, 168, 0.1)';
                     }, 3000);
-                    
-                    // Clear input
                     document.getElementById('codeInput').value = '';
                 }
+            }
+        
+            function createHearts() {
+                const container = document.getElementById('floating-hearts');
+                for (let i = 0; i < 30; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'floating-heart';
+                    heart.innerHTML = '❤️';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.fontSize = Math.random() * 2 + 1 + 'rem';
+                    heart.style.animationDuration = (Math.random() * 5 + 3) + 's';
+                    container.appendChild(heart);
+                    setTimeout(() => container.removeChild(heart), 8000);
+                }
+            }
+        
+            function transitionToSuccess() {
+                document.getElementById('login-container').classList.add('fade-out');
+                setTimeout(() => {
+                    document.getElementById('login-container').style.display = 'none';
+                    document.getElementById('success-page').classList.add('show');
+                    startTypewriter();
+                }, 800);
+            }
+        
+            function startTypewriter() {
+                if (isTyping) return;
+                isTyping = true;
+                const el = document.getElementById('typewriter-text');
+                const cursor = document.getElementById('cursor');
+                el.innerHTML = '';
+                let i = 0;
+                const interval = setInterval(() => {
+                    if (i < typewriterText.length) {
+                        el.innerHTML += typewriterText.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(interval);
+                        cursor.style.display = 'none';
+                    }
+                }, 70);
+            }
+        
+            function scrollToNextSection() {
+                document.getElementById('second-section').scrollIntoView({ behavior: 'smooth' });
+            }
+        
+            function scrollToPreviousSection() {
+                document.getElementById('first-section').scrollIntoView({ behavior: 'smooth' });
+            }
+        
+            function showPopup() {
+                document.getElementById('popup-overlay').classList.add('show');
+                showMainPopup();
+            }
+        
+            function closePopup() {
+                document.getElementById('popup-overlay').classList.remove('show');
+            }
+        
+            function showMainPopup() {
+                document.getElementById('main-popup').style.display = 'block';
+                document.getElementById('timeglass-display').classList.remove('show');
+                document.getElementById('gallery-display').classList.remove('show');
+                document.getElementById('spotify-display').classList.remove('show');
+            }
+        
+            function showTimeglass() {
+                document.getElementById('main-popup').style.display = 'none';
+                document.getElementById('timeglass-display').classList.add('show');
+                updateTimeglass();
+                clearInterval(timeglassInterval);
+                timeglassInterval = setInterval(updateTimeglass, 1000);
+            }
+        
+            function updateTimeglass() {
+                const now = new Date();
+                const diff = now - meetingDate;
+                const seconds = Math.floor(diff / 1000);
+                const minutes = Math.floor(seconds / 60);
+                const hours = Math.floor(minutes / 60);
+                const days = Math.floor(hours / 24);
+                const months = Math.floor(days / 30.44);
+                const years = Math.floor(months / 12);
+        
+                document.getElementById('years').textContent = years;
+                document.getElementById('months').textContent = months % 12;
+                document.getElementById('days').textContent = days % 30;
+                document.getElementById('hours').textContent = hours % 24;
+                document.getElementById('minutes').textContent = minutes % 60;
+                document.getElementById('seconds').textContent = seconds % 60;
+            }
+        
+            function showGallery() {
+                document.getElementById('main-popup').style.display = 'none';
+                document.getElementById('gallery-display').classList.add('show');
+                const gallery = document.getElementById('gallery-container');
+                gallery.innerHTML = '';
+                galleryImages.forEach(img => {
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item';
+                    item.innerHTML = `
+                        <div class="gallery-image"><img src="${img.src}" alt="${img.caption}"></div>
+                        <div class="gallery-caption">${img.caption}</div>
+                    `;
+                    gallery.appendChild(item);
+                });
+            }
+        
+            function showSpotify() {
+                document.getElementById('main-popup').style.display = 'none';
+                document.getElementById('spotify-display').classList.add('show');
             }
