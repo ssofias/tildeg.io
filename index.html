@@ -1,1180 +1,1180 @@
 <!DOCTYPE html>
 <html lang="no">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Til Sebastian ♡</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Til Sebastian ♡</title>
 
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
 
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-    
-            html {
-                scroll-behavior: smooth;
-                scroll-snap-type: y mandatory;
-            }
-    
-            body {
-                font-family: 'Arial', sans-serif;
-                background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 50%, #fd79a8 100%);
-                min-height: 100vh;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                overflow: hidden;
-            }
-    
-            .container {
-                text-align: center;
-                opacity: 1;
-                transform: translateY(0);
-                transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-            }
-    
-            .container.fade-out {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-    
-            .title {
-                font-size: 3.5rem;
-                color: #74b9ff;
-                margin-bottom: 2rem;
-                font-weight: 300;
-                text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-                animation: float 3s ease-in-out infinite;
-            }
-    
-            .heart {
-                color: #fd79a8;
-                font-size: 3rem;
-                margin-left: 0.5rem;
-                animation: heartbeat 2s ease-in-out infinite;
-            }
-    
-            .login-box {
-    background: rgba(255, 255, 255, 0.9);
-    padding: 2rem; /* Redusert polstring */
-    border-radius: 25px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-    backdrop-filter: blur(10px);
-    width: 60vw;      /* Fleksibel på mobil */
-    max-width: 500px; /* Fornuftig maks-bredde på PC */
-    margin: 0 auto;
-    /* height: 20vw; <-- Denne er fjernet for å la høyden være automatisk */
-}
-    
-            .subtitle {
-                font-size: 1.5rem;
-                color: #fd79a8;
-                margin-bottom: 0.75rem;
-                font-weight: 300;
-            }
-    
-            .heart-small {
-                color: #e84393;
-                font-size: 2rem;
-                margin: 0.5rem 0;
-                animation: pulse 2s infinite;
-            }
-    
-            .input-group {
-                margin: 1rem 0;
-            }
-    
-            .code-input {
-                width: 100%;
-                padding: 1rem 1.5rem;
-                font-size: 1.2rem;
-                border: none;
-                border-radius: 15px;
-                background: rgba(253, 121, 168, 0.1);
-                color: #2d3436;
-                text-align: center;
-                letter-spacing: 0.2rem;
-                outline: none;
-                transition: all 0.3s ease;
-                box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
-            }
-    
-            .code-input:focus {
-                background: rgba(253, 121, 168, 0.2);
-                transform: scale(1.02);
-                box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
-            }
-    
-            .code-input::placeholder {
-                color: rgba(253, 121, 168, 0.7);
-            }
-    
-            .submit-btn {
-                background: linear-gradient(45deg, #fd79a8, #fdcb6e);
-                border: none;
-                padding: 1rem 3rem;
-                border-radius: 25px;
-                color: white;
-                font-size: 1.1rem;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
-                margin-top: 0rem;
-            }
-    
-            .submit-btn:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
-            }
-    
-            .submit-btn:active {
-                transform: translateY(0);
-            }
-    
-            /* Success page styles */
-            .success-page {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                overflow-y: auto;
-                scroll-snap-type: y mandatory;
-            }
-    
-            .success-page.show {
-                display: block;
-            }
-    
-            .section {
-                min-height: 100vh;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                padding: 2rem;
-                scroll-snap-align: start;
-                position: relative;
-            }
-    
-            .first-section {
-                background: linear-gradient(180deg, #e3f2fd 0%, #f8bbd9 40%, #fce4ec 100%);
-            }
-    
-            .second-section {
-                background: linear-gradient(180deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
-            }
-    
-            .third-section {
-                background: linear-gradient(135deg, #e3f2fd 0%, #f8bbd9 40%, #fce4ec 100%);
-            }
-    
-            .section-header {
-                position: absolute;
-                top: 2rem;
-                left: 2rem;
-                font-size: 1.2rem;
-                color: rgba(0,0,0,0.5);
-                font-weight: 300;
-            }
-    
-            .typewriter-container {
-                max-width: 900px;
-                width: 100%;
-                text-align: center;
-                margin: 2rem 0;
-            }
-    
-            .typewriter-text {
-                font-size: 3rem;
-                color: #2d3436;
-                line-height: 1.4;
-                font-weight: 300;
-                min-height: 300px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                font-style: italic;
-                letter-spacing: 0.02em;
-            }
-    
-            .cursor {
-                display: inline-block;
-                background-color: #2d3436;
-                margin-left: 3px;
-                width: 3px;
-                height: 1em;
-                animation: blink 1s infinite;
-            }
-    
-            .scroll-arrow {
-                position: absolute;
-                bottom: 80px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 80px;
-                height: 80px;
-                border-radius: 50%;
-                background: rgba(253, 121, 168, 0.8);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
-                opacity: 0;
-                animation: fadeInUp 1s ease-out 6s forwards;
-            }
-    
-            .scroll-arrow:hover {
-                background: rgba(253, 121, 168, 1);
-                transform: translateX(-50%) translateY(-5px);
-                box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
-            }
-    
-            .arrow-down {
-                width: 0;
-                height: 0;
-                border-left: 15px solid transparent;
-                border-right: 15px solid transparent;
-                border-top: 20px solid white;
-            }
-    
-            .next-section-content {
-                text-align: center;
-                max-width: 600px;
-            }
-    
-            .next-section-title {
-                font-size: 3rem;
-                color: #e84393;
-                margin-bottom: 2rem;
-                animation: float 3s ease-in-out infinite;
-            }
-    
-            .next-section-text {
-                font-size: 1.5rem;
-                color: #2d3436;
-                line-height: 1.8;
-                background: rgba(255, 255, 255, 0.9);
-                padding: 2rem;
-                border-radius: 20px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-                backdrop-filter: blur(10px);
-            }
-    
-            .floating-hearts {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                pointer-events: none;
-                overflow: hidden;
-            }
-    
-            .floating-heart {
-                position: absolute;
-                color: rgba(253, 121, 168, 0.7);
-                font-size: 1.5rem;
-                animation: floatUp 4s linear infinite;
-            }
-    
-            /* Error message */
-            .error-message {
-                color: #e17055;
-                font-size: 1rem;
-                margin-top: 1rem;
-                opacity: 0;
-                transition: opacity 0.3s ease;
-            }
-    
-            .error-message.show {
-                opacity: 1;
-            }
-    
-            /* --- POPUP STYLES --- */
-            .popup-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.5);
-                backdrop-filter: blur(10px);
-                display: none;
-                justify-content: center;
-                align-items: center;
-                z-index: 1000;
-                opacity: 0;
-                transition: opacity 0.4s ease;
-            }
-    
-            .popup-overlay.show {
-                display: flex;
-                opacity: 1;
-            }
-    
-            .popup-content {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 3.5rem; /* Økt for mer luft */
-    border-radius: 25px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-    backdrop-filter: blur(15px);
-    /* max-width er ikke lenger nødvendig med fast vw-bredde */
-    width: 70vw; /* Setter fast bredde til 70% av skjermbredden */
-    text-align: center;
-    position: relative;
-    animation: popupSlideIn 0.5s ease-out;
-    max-height: 95vh;
-    overflow-y: auto;
-}
-    
-            .popup-buttons {
-                display: flex;
-                flex-direction: column;
-                gap: 1.5rem; /* Økt for mer avstand */
-            }
-    
-            .popup-btn {
-    background: linear-gradient(45deg, #fd79a8, #fdcb6e);
-    border: none;
-    padding: 1.3rem 2rem;
-    border-radius: 22px;
-    color: white;
-    font-size: 1.3rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
-    position: relative;
-    overflow: hidden;
-    width: 50vw; /* Ny: Fyller containeren sin bredde */
-    /* min-width: 450px; <-- Denne er fjernet */
-}
-            .popup-btn:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
-            }
-    
-            .popup-btn-subtitle {
-                font-size: 0.8rem;
-                opacity: 0.9;
-                margin-top: 0.3rem;
-                font-weight: 300;
-            }
-    
-            .back-arrow {
-                position: absolute;
-                top: 2rem;
-                left: 2rem;
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                background: rgba(253, 121, 168, 0.8);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
-            }
-    
-            .back-arrow:hover {
-                background: rgba(253, 121, 168, 1);
-                transform: translateY(-2px);
-                box-shadow: 0 8px 20px rgba(253, 121, 168, 0.4);
-            }
-    
-            .arrow-left {
-                width: 0;
-                height: 0;
-                border-top: 10px solid transparent;
-                border-bottom: 10px solid transparent;
-                border-right: 15px solid white;
-            }
-    
-            .close-popup {
-                position: absolute;
-                top: 1rem;
-                right: 1rem;
-                background: none;
-                border: none;
-                font-size: 2rem;
-                color: #e84393;
-                cursor: pointer;
-                width: 40px;
-                height: 40px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-radius: 50%;
-                transition: all 0.3s ease;
-                z-index: 100;
-            }
-    
-            .close-popup:hover {
-                background: rgba(253, 121, 168, 0.1);
-            }
-    
-            /* Generic popup view styles */
-            .popup-view {
-                display: none;
-                animation: fadeIn 0.4s ease;
-            }
-            .popup-view.show {
-                display: block;
-            }
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-            /* Hovedmeny-popup styling for sentrering */
-            #main-popup.popup-view.show {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-    
-            /* Timeglass counter styles */
-            .counter-display {
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-                min-height: 400px;
-            }
+    <style>
+        /* --- 1. Grunnleggende & Variabler --- */
+        :root {
+            --color-primary: #fd79a8;
+            --color-primary-dark: #e84393;
+            --color-secondary: #fdcb6e;
+            --color-tertiary: #74b9ff;
+            --color-text: #2d3436;
+            --color-text-light: #636e72;
+            --color-bg-light: #ffeaa7;
+            --color-bg-mid: #fab1a0;
+            --color-bg-dark: #fd79a8;
+            --color-white: #ffffff;
+            --color-error: #e17055;
+            --font-main: 'Poppins', sans-serif;
+            --border-radius-large: 25px;
+            --border-radius-medium: 15px;
+            --shadow-light: 0 5px 15px rgba(0,0,0,0.1);
+            --shadow-strong: 0 15px 35px rgba(0,0,0,0.1);
+        }
 
-            #timeglass-display.popup-view.show {
-                display: flex;
-            }
-            .counter-wrapper {
-                background: rgba(255, 255, 255, 0.7);
-                padding: 2rem;
-                border-radius: 20px;
-                box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            }
-            .counter-title {
-                font-size: 1.8rem;
-                color: #e84393;
-                margin-bottom: 2rem;
-                margin-top: 0;
-            }
-    
-            .counter-grid {
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-                gap: 1rem;
-                width: 100%;
-                max-width: 700px;
-            }
-    
-            .counter-item {
-                background: rgba(255, 255, 255, 0.9);
-                padding: 1rem 0.5rem;
-                border-radius: 15px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            }
-    
-            .counter-number {
-                font-size: 2rem;
-                font-weight: bold;
-                color: #fd79a8;
-            }
-    
-            .counter-label {
-                font-size: 0.9rem;
-                color: #636e72;
-                margin-top: 0.5rem;
-            }
-    
-            /* --- Start of new gallery styles --- */
-            .gallery-title {
-                font-size: 1.8rem;
-                color: #e84393;
-                margin-bottom: 1.5rem;
-                text-align: center;
-            }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-            .gallery-container {
-                display: flex;
-                align-items: center; 
-                overflow-x: auto;
-                gap: 1.5rem;
-                padding: 1.5rem;
-                scroll-behavior: smooth;
-                min-height: 450px;
-            }
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
 
-            .gallery-item {
-                width: 350px;
-                max-width: 80vw;
-                background: rgba(255, 255, 255, 0.95);
-                border-radius: 15px;
-                overflow: hidden;
-                box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-                position: relative;
-                flex-shrink: 0;
-                display: flex;
-                flex-direction: column;
-                cursor: pointer;
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-            }
+        body {
+            font-family: var(--font-main);
+            background: linear-gradient(135deg, var(--color-bg-light) 0%, var(--color-bg-mid) 50%, var(--color-bg-dark) 100%);
+            min-height: 100vh;
+            color: var(--color-text);
+            width: 100%;
+            max-width: 100vw; 
+            overflow-x: hidden;
+        }
 
-            .gallery-item:hover {
-                transform: translateY(-5px) scale(1.02);
-                box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-            }
+        /* --- 2. Animasjoner --- */
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.8; } }
+        @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
+        @keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(-100px) rotate(360deg); opacity: 0; } }
+        @keyframes popupSlideIn { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes pulse-marker { 0% { box-shadow: 0 0 0 0 rgba(232, 67, 147, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(232, 67, 147, 0); } 100% { box-shadow: 0 0 0 0 rgba(232, 67, 147, 0); } }
 
-            .gallery-image {
-                width: 100%;
-                height: 300px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: rgba(0,0,0,0.02);
-                padding: 1rem;
-            }
+        /* --- 3. Login-side --- */
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .login-page.fade-out {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
 
-            .gallery-image img {
-                max-width: 100%;
-                max-height: 100%;
-                width: auto;
-                height: auto;
-                display: block;
-                border-radius: 8px;
-            }
+        .login-container {
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
 
-            .gallery-caption {
-                padding: 1rem 1.5rem;
-                text-align: center;
-                color: #636e72;
-                font-size: 1rem;
-                flex-shrink: 0;
-                min-height: 60px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            /* --- End of new gallery styles --- */
+        .title {
+            font-size: clamp(2.5rem, 10vw, 3.5rem);
+            color: var(--color-tertiary);
+            margin-bottom: 2rem;
+            font-weight: 300;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: float 3s ease-in-out infinite;
+        }
 
-            /* Spotify styles */
-            .spotify-title {
-                font-size: 1.8rem;
-                color: #e84393;
-                margin-bottom: 1.5rem;
-            }
-    
-            .spotify-embed {
-                background: rgba(255, 255, 255, 0.9);
-                padding: 1rem;
-                border-radius: 20px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-                margin-bottom: 1rem;
-            }
+        .heart {
+            color: var(--color-primary);
+            font-size: clamp(2rem, 8vw, 3rem);
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
 
-            /* --- Lightbox / Modal Styles --- */
-            .lightbox-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.85);
-                backdrop-filter: blur(5px);
-                display: none;
-                justify-content: center;
-                align-items: center;
-                z-index: 2000;
-                opacity: 0;
-                transition: opacity 0.4s ease;
-            }
+        .login-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--shadow-strong);
+            backdrop-filter: blur(10px);
+            width: 90vw;
+            max-width: 450px;
+            margin: 0 auto;
+        }
 
-            .lightbox-overlay.show {
-                display: flex;
-                opacity: 1;
-            }
+        .subtitle {
+            font-size: 1.5rem;
+            color: var(--color-primary);
+            margin-bottom: 0.75rem;
+            font-weight: 300;
+        }
 
-            .lightbox-content {
-                max-width: 90%;
-                max-height: 85%;
-                border-radius: 10px;
-                box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-                animation: zoomIn 0.4s ease-out;
-            }
+        .heart-small {
+            color: var(--color-primary-dark);
+            font-size: 1.5rem;
+            margin: 1.5rem 0;
+            animation: pulse 2s infinite;
+        }
 
-            .lightbox-close {
-                position: absolute;
-                top: 20px;
-                right: 35px;
-                color: #fff;
-                font-size: 45px;
-                font-weight: bold;
-                cursor: pointer;
-                transition: transform 0.2s ease, color 0.2s ease;
-            }
+        .code-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: var(--border-radius-medium);
+            background: rgba(253, 121, 168, 0.1);
+            color: var(--color-text);
+            text-align: center;
+            letter-spacing: 0.2rem;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            margin-top: 1rem;
+        }
+        .code-input:focus {
+            background: rgba(253, 121, 168, 0.2);
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(253, 121, 168, 0.3);
+        }
 
-            .lightbox-close:hover {
-                color: #ddd;
-                transform: scale(1.1);
-            }
+        .submit-btn {
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: var(--border-radius-large);
+            color: var(--color-white);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
+            margin-top: 1.5rem;
+        }
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
+        }
 
-            /* --- Map Styles --- */
-            .map-title {
-                font-size: 1.8rem;
-                color: #e84393;
-                margin-bottom: 1.5rem;
-                text-align: center;
-            }
-            #map-container {
-                height: 500px;
-                width: 100%;
-                border-radius: 15px;
-                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-                z-index: 1;
-            }
-            .leaflet-popup-content-wrapper {
-                border-radius: 12px;
-                box-shadow: 0 3px 15px rgba(0,0,0,0.2);
-                background: #fdfdfd;
-            }
-            .leaflet-popup-content {
-                margin: 0;
-                width: 250px !important;
-            }
-            .popup-gallery-image-wrapper {
-                position: relative;
-                width: 100%;
-                height: 180px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                border-top-left-radius: 12px;
-                border-top-right-radius: 12px;
-                overflow: hidden;
-                background-size: cover;
-                background-position: center;
-                transition: background-image 0.3s ease-in-out;
-            }
-            .popup-gallery-image-wrapper::before {
-                content: '';
-                position: absolute;
-                inset: 0;
-                backdrop-filter: blur(10px) brightness(0.8);
-                z-index: 1;
-            }
-            .popup-gallery-image {
-                position: relative;
-                z-index: 2;
-                max-width: 100%;
-                max-height: 100%;
-                width: auto;
-                height: auto;
-                object-fit: contain;
-                cursor: pointer;
-                display: block;
-            }
-            .popup-gallery-nav {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 100%;
-                display: flex;
-                justify-content: space-between;
-                padding: 0 5px;
-                z-index: 3;
-            }
-            .popup-gallery-btn {
-                background: rgba(0,0,0,0.5);
-                color: white;
-                border: none;
-                border-radius: 50%;
-                width: 30px;
-                height: 30px;
-                font-size: 18px;
-                cursor: pointer;
-                transition: background 0.2s ease;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                line-height: 1;
-            }
-            .popup-gallery-btn:hover { background: rgba(0,0,0,0.8); }
-            .popup-gallery-counter {
-                position: absolute;
-                top: 8px;
-                right: 8px;
-                background: rgba(0,0,0,0.6);
-                color: white;
-                padding: 2px 8px;
-                border-radius: 10px;
-                font-size: 12px;
-                z-index: 3;
-            }
-            .popup-gallery-header {
-                font-size: 1.2rem;
-                margin: 10px 15px 5px 15px;
-                text-align: center;
-                color: #e84393;
-            }
-            .popup-gallery-caption {
-                font-size: 0.9rem;
-                padding: 0 15px 15px 15px;
-                text-align: center;
-                color: #636e72;
-                min-height: 40px;
-                line-height: 1.4;
-            }
-            .custom-map-marker {
-                background-color: #e84393;
-                width: 20px;
-                height: 20px;
-                border-radius: 50%;
-                border: 2px solid white;
-                box-shadow: 0 0 5px rgba(0,0,0,0.3);
-                animation: pulse-marker 2s infinite;
-            }
-    
-            /* Animations */
-            @keyframes pulse-marker {
-                0% { box-shadow: 0 0 0 0 rgba(232, 67, 147, 0.7); }
-                70% { box-shadow: 0 0 0 10px rgba(232, 67, 147, 0); }
-                100% { box-shadow: 0 0 0 0 rgba(232, 67, 147, 0); }
-            }
-            @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
-            @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-            @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.8; } }
-            @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
-            @keyframes fadeInUp {
-                0% { opacity: 0; transform: translateX(-50%) translateY(30px); }
-                100% { opacity: 1; transform: translateX(-50%) translateY(0); }
-            }
-            @keyframes floatUp {
-                0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; }
-                90% { opacity: 1; } 100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-            }
-            @keyframes popupSlideIn {
-                0% { opacity: 0; transform: scale(0.8) translateY(50px); }
-                100% { opacity: 1; transform: scale(1) translateY(0); }
-            }
-            @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-            @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-    
-            /* Responsive design for smaller screens */
-            @media (max-width: 768px) {
-                .title { font-size: 2.5rem; }
-                .login-box { padding: 2rem 1.5rem; }
-                .typewriter-text { font-size: 2rem; min-height: 250px; }
-                .next-section-title { font-size: 2.5rem; }
-                .next-section-text { font-size: 1.3rem; }
-                .gallery-item { width: 320px; }
-                .gallery-image { height: 250px; }
-                .popup-content { padding: 2rem 1.5rem; width: 95%; }
-                #map-container { height: 400px; }
-            }
-            @media (max-width: 480px) {
-                .typewriter-text { font-size: 1.5rem; min-height: 200px; }
-                .popup-content { padding: 2rem 1rem; }
-                .popup-header { font-size: 1.5rem; }
-                .popup-btn { padding: 0.8rem 1rem; font-size: 1rem; min-width: 280px;}
-                .counter-grid { grid-template-columns: repeat(2, 1fr); }
-                .gallery-item { width: 280px; }
-                .gallery-image { height: 220px; }
-                #map-container { height: 350px; }
-            }
+        .error-message {
+            color: var(--color-error);
+            font-size: 1rem;
+            margin-top: 1rem;
+            height: 1.2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .error-message.show {
+            opacity: 1;
+        }
 
-            /* --- Skalering for større PC-skjermer --- */
-            @media (min-width: 1200px) {
-                html {
-                    /* Øker grunnstørrelsen til 110%. 
-                    Dette gjør at 1rem blir 1.1 * 16px = 17.6px.
-                    Hele designet blir 10% større. Juster prosentandelen ved behov. */
-                    font-size: 110%;
-                }
-            }
+        /* --- 4. Hovedside (Success Page) --- */
+        .main-page {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            overflow-y: auto;
+            scroll-snap-type: y mandatory;
+        }
+        .main-page.show {
+            display: block;
+        }
 
-            @media (min-width: 1600px) {
-                html {
-                    /* Øker den enda mer for ekstra brede skjermer.
-                    Her blir 1rem = 1.2 * 16px = 19.2px.
-                    Hele designet blir 20% større enn originalt. */
-                    font-size: 120%;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <div class="floating-hearts" id="floating-hearts"></div>
-    
-        <div class="container" id="login-container">
+        .page-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            scroll-snap-align: start;
+            position: relative;
+        }
+
+        .first-section { background: linear-gradient(180deg, #e3f2fd 0%, #f8bbd9 40%, #fce4ec 100%); }
+        .second-section { background: linear-gradient(180deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%); }
+        .third-section { background: linear-gradient(135deg, #e3f2fd 0%, #f8bbd9 40%, #fce4ec 100%); }
+
+        .typewriter-container {
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .typewriter-text {
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+            line-height: 1.6;
+            font-weight: 300;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+        }
+        .cursor {
+            display: inline-block;
+            background-color: var(--color-text);
+            margin-left: 3px;
+            width: 3px;
+            height: 1.2em;
+            animation: blink 1s infinite;
+        }
+
+        .scroll-arrow {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(253, 121, 168, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 6s forwards;
+        }
+        .scroll-arrow:hover {
+            background: var(--color-primary);
+            transform: translateX(-50%) translateY(-5px);
+        }
+        .arrow-down {
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 18px solid var(--color-white);
+        }
+        .back-arrow {
+            position: absolute;
+            top: 3rem;
+            left: 3rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(253, 121, 168, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
+        }
+        .back-arrow:hover {
+            background: var(--color-primary);
+            transform: translateY(-2px);
+        }
+        .arrow-left {
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 15px solid var(--color-white);
+        }
+
+        .content-box {
+            text-align: center;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: var(--border-radius-large);
+            box-shadow: var(--shadow-strong);
+            backdrop-filter: blur(10px);
+        }
+        .content-title {
+            font-size: clamp(2rem, 8vw, 3rem);
+            color: var(--color-primary-dark);
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+        .content-text {
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
+            line-height: 1.8;
+        }
+        .content-box-clickable {
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .content-box-clickable:hover {
+            transform: scale(1.03);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        /* --- 5. Popups & Modals --- */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            padding: 1rem;
+        }
+        .popup-overlay.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .popup-content {
+            background: rgba(255, 255, 255, 0.95);
+            padding: clamp(1.5rem, 5vw, 3rem);
+            border-radius: var(--border-radius-large);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+            animation: popupSlideIn 0.5s ease-out;
+            max-height: 95vh;
+            overflow-y: auto;
+        }
+
+        .popup-close, .popup-back {
+            position: absolute;
+            top: 1rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: var(--color-primary);
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        .popup-close { right: 1rem; }
+        .popup-back { left: 1rem; }
+        .popup-close:hover, .popup-back:hover {
+            background: rgba(253, 121, 168, 0.1);
+            transform: scale(1.1);
+        }
+
+        .popup-view {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+        .popup-view.show {
+            display: block;
+        }
+        
+        /* --- 6. Spesifikke Popup-visninger --- */
+        
+        /* Hovedmeny */
+        .popup-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .popup-btn {
+            background: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
+            border: none;
+            padding: 1.2rem 2rem;
+            border-radius: var(--border-radius-medium);
+            color: var(--color-white);
+            font-size: 1.3rem;
+            font-family: var(--font-main);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-light);
+            width: 100%;
+            max-width: 350px;
+        }
+        .popup-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(253, 121, 168, 0.4);
+        }
+        .popup-btn-subtitle {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-top: 0.2rem;
+            font-weight: 300;
+        }
+        .popup-title {
+            font-size: 1.8rem;
+            color: var(--color-primary-dark);
+            margin-bottom: 2rem;
+        }
+
+        /* Timeglass */
+        .counter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .counter-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem 0.5rem;
+            border-radius: var(--border-radius-medium);
+            box-shadow: var(--shadow-light);
+        }
+        .counter-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--color-primary);
+        }
+        .counter-label {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            margin-top: 0.5rem;
+        }
+
+        /* Galleri */
+        .gallery-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            scroll-behavior: smooth;
+            min-height: 400px;
+            margin: 0 -1.5rem;
+        }
+        .gallery-item {
+            flex: 0 0 320px;
+            max-width: 80vw;
+            background: var(--color-white);
+            border-radius: var(--border-radius-medium);
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+        }
+        .gallery-item[data-type="image"] {
+            cursor: pointer;
+        }
+        .gallery-item[data-type="video"] .gallery-caption {
+            cursor: pointer;
+        }
+
+        .gallery-image {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            background-color: #f0f0f0;
+        }
+        .gallery-image img,
+        .gallery-image video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-caption {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            min-height: 80px;
+        }
+
+        .gallery-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: 0.25rem;
+        }
+
+        .gallery-description {
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            line-height: 1.4;
+        }
+
+        /* Spotify */
+        .spotify-embed iframe {
+            border-radius: 12px;
+            box-shadow: var(--shadow-strong);
+        }
+        
+        /* Kart */
+        #map-container {
+            height: 500px;
+            width: 100%;
+            border-radius: var(--border-radius-medium);
+            box-shadow: var(--shadow-light);
+            z-index: 1;
+        }
+        .custom-map-marker {
+            background-color: var(--color-primary-dark);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--color-white);
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+            animation: pulse-marker 2s infinite;
+        }
+        .leaflet-popup-content-wrapper {
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+            background: #fdfdfd;
+        }
+        .leaflet-popup-content {
+            margin: 0 !important;
+            width: 250px !important;
+        }
+        .popup-gallery-image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+        .popup-gallery-image-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            backdrop-filter: blur(10px) brightness(0.8);
+            z-index: 1;
+        }
+        .popup-gallery-image {
+            position: relative; z-index: 2; max-width: 95%; max-height: 95%; object-fit: contain; cursor: pointer;
+        }
+        .popup-gallery-nav {
+            position: absolute; top: 50%; transform: translateY(-50%); width: 100%; display: flex; justify-content: space-between; padding: 0 5px; z-index: 3;
+        }
+        .popup-gallery-btn {
+            background: rgba(0,0,0,0.5); color: white; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 18px; cursor: pointer; transition: background 0.2s ease; display: flex; align-items: center; justify-content: center;
+        }
+        .popup-gallery-btn:hover { background: rgba(0,0,0,0.8); }
+        .popup-gallery-counter {
+            position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.6); color: white; padding: 2px 8px; border-radius: 10px; font-size: 12px; z-index: 3;
+        }
+        .popup-gallery-header { font-size: 1.2rem; margin: 10px 15px 5px; text-align: center; color: var(--color-primary-dark); }
+        .popup-gallery-caption { font-size: 0.9rem; padding: 0 15px 15px; text-align: center; color: var(--color-text-light); min-height: 40px; line-height: 1.4; }
+
+        /* Lightbox for bilder og videoer */
+        .lightbox-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); display: none; justify-content: center; align-items: center; z-index: 2000; opacity: 0; transition: opacity 0.4s ease;
+        }
+        .lightbox-overlay.show { display: flex; opacity: 1; }
+        .lightbox-content-wrapper {
+            position: relative;
+            width: 90%;
+            height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox-content-wrapper img,
+        .lightbox-content-wrapper video {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            animation: zoomIn 0.4s ease-out;
+            object-fit: contain; /* Nøkkelen til korrekt størrelsesforhold */
+        }
+        .lightbox-close { 
+            position: absolute; top: 20px; right: 35px; color: #fff; font-size: 45px; font-weight: bold; cursor: pointer; transition: transform 0.2s ease, color 0.2s ease; z-index: 2001;
+        }
+        .lightbox-close:hover { color: #ddd; transform: scale(1.1); }
+        
+        /* svevende hjerter */
+        .floating-hearts {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 999;
+        }
+        .floating-heart {
+            position: absolute; color: rgba(253, 121, 168, 0.7); font-size: 1.5rem; animation: floatUp 4s linear infinite;
+        }
+
+    </style>
+</head>
+<body>
+
+    <main id="login-page" class="login-page">
+        <div class="login-container">
             <h1 class="title">Til Sebastian<span class="heart">♡</span></h1>
             <div class="login-box">
                 <h2 class="subtitle">Skriv inn koden</h2>
                 <div class="heart-small">❤️</div>
-                <div class="input-group">
-                    <input type="password" class="code-input" id="codeInput" placeholder="Passord" maxlength="20">
-                    <div class="error-message" id="errorMessage">Feil kode, prøv igjen ♡</div>
-                </div>
-                <button class="submit-btn" onclick="checkCode()">→</button>
+                <input type="password" class="code-input" id="code-input" placeholder="Passord" maxlength="20">
+                <div class="error-message" id="error-message">Feil kode, prøv igjen ♡</div>
+                <button class="submit-btn" id="submit-code-btn">→</button>
             </div>
         </div>
-    
-        <div class="success-page" id="success-page">
-            <div class="section first-section">
-                <div class="section-header">Hjemside etter kode</div>
-                <div class="typewriter-container">
-                    <div class="typewriter-text" id="typewriter-text"><span class="cursor" id="cursor">|</span></div>
-                </div>
-                <div class="scroll-arrow" id="scroll-arrow" onclick="scrollToNextSection()"><div class="arrow-down"></div></div>
+    </main>
+
+    <div class="main-page" id="main-page">
+        <div class="floating-hearts" id="floating-hearts"></div>
+
+        <section id="first-section" class="page-section first-section">
+            <div class="typewriter-container">
+                <p class="typewriter-text" id="typewriter-text"><span class="cursor" id="cursor">|</span></p>
             </div>
-            <div class="section second-section">
-                <div class="next-section-content">
-                    <h2 class="next-section-title">Fortsettelse følger... ♡</h2>
-                    <div class="next-section-text">Her kan du legge til mer innhold for din kjære Sebastian!<br>Kanskje bilder, minner, eller en annen melding? 💕</div>
-                </div>
+            <div class="scroll-arrow" id="scroll-arrow"><div class="arrow-down"></div></div>
+        </section>
+
+        <section id="second-section" class="page-section second-section">
+            <div class="content-box">
+                <h2 class="content-title">Fortsettelse følger... ♡</h2>
+                <p class="content-text">Her kan du legge til mer innhold for din kjære Sebastian!<br>Kanskje bilder, minner, eller en annen melding? 💕</p>
             </div>
-            <div class="section third-section">
-                <div class="back-arrow" onclick="scrollToPreviousSection()"><div class="arrow-left"></div></div>
-                <div class="next-section-content">
-                    <h2 class="next-section-title">Til deg fra meg ♡</h2>
-                    <div class="next-section-text" style="cursor: pointer;" onclick="showPopup()">Klikk her for å utforske våre minner sammen 💕</div>
-                </div>
+        </section>
+
+        <section id="third-section" class="page-section third-section">
+            <div class="back-arrow" id="back-arrow"><div class="arrow-left"></div></div>
+            <div class="content-box content-box-clickable" id="open-popup-box">
+                <h2 class="content-title">Til deg fra meg ♡</h2>
+                <p class="content-text">Klikk her for å se... 💕</p>
             </div>
-        </div>
-    
-        <div class="popup-overlay" id="popup-overlay">
-            <div class="popup-content">
-                <button class="close-popup" onclick="closePopup()">×</button>
-                <div id="main-popup" class="popup-view show">
-                    <div class="popup-buttons">
-                        <button class="popup-btn" onclick="showView('timeglass-display')">Timeglass<div class="popup-btn-subtitle">Hvor lang tid det har gått siden vi møttes</div></button>
-                        <button class="popup-btn" onclick="showView('gallery-display')">Minnene våre<div class="popup-btn-subtitle">Galleri</div></button>
-                        <button class="popup-btn" onclick="showView('spotify-display')">Spotify<div class="popup-btn-subtitle">Sanger som minner meg om deg</div></button>
-                        <button class="popup-btn" onclick="showView('map-display')">Vårt Norgeskart<div class="popup-btn-subtitle">Viktige steder i vår historie</div></button>
-                    </div>
-                </div>
+        </section>
+    </div>
 
-                <div id="timeglass-display" class="popup-view counter-display">
-                    <button class="close-popup" onclick="showView('main-popup')" style="top: 1rem; left: 1rem;">←</button>
-                    <div class="counter-wrapper">
-                        <h2 class="counter-title">Tiden vi har vært sammen ♡</h2>
-                        <div class="counter-grid">
-                            <div class="counter-item"><div class="counter-number" id="years">0</div><div class="counter-label">År</div></div>
-                            <div class="counter-item"><div class="counter-number" id="months">0</div><div class="counter-label">Måneder</div></div>
-                            <div class="counter-item"><div class="counter-number" id="weeks">0</div><div class="counter-label">Uker</div></div>
-                            <div class="counter-item"><div class="counter-number" id="days">0</div><div class="counter-label">Dager</div></div>
-                            <div class="counter-item"><div class="counter-number" id="hours">0</div><div class="counter-label">Timer</div></div>
-                            <div class="counter-item"><div class="counter-number" id="minutes">0</div><div class="counter-label">Minutter</div></div>
-                            <div class="counter-item"><div class="counter-number" id="seconds">0</div><div class="counter-label">Sekunder</div></div>
-                        </div>
-                    </div>
-                </div>
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup-content">
+            <button class="popup-close" id="popup-close" aria-label="Lukk popup">×</button>
 
-                <div id="gallery-display" class="popup-view gallery-display">
-                    <button class="close-popup" onclick="showView('main-popup')" style="top: 1rem; left: 1rem;">←</button>
-                    <h2 class="gallery-title">Minnene våre ♡</h2>
-                    <div class="gallery-container" id="gallery-container"></div>
-                </div>
+            <div id="main-popup" class="popup-view show">
+                <nav class="popup-menu">
+                    <button class="popup-btn" data-view="timeglass-display">Timeglass<div class="popup-btn-subtitle">Hvor lenge vi har vært sammen</div></button>
+                    <button class="popup-btn" data-view="gallery-display">Minnene våre<div class="popup-btn-subtitle">Galleri</div></button>
+                    <button class="popup-btn" data-view="spotify-display">Spotify<div class="popup-btn-subtitle">Sanger som minner meg om deg</div></button>
+                    <button class="popup-btn" data-view="map-display">Kartet vårt<div class="popup-btn-subtitle">Oss i verden</div></button>
+                </nav>
+            </div>
 
-                <div id="spotify-display" class="popup-view spotify-display">
-                    <button class="close-popup" onclick="showView('main-popup')" style="top: 1rem; left: 1rem;">←</button>
-                    <h2 class="spotify-title">Vår spilleliste ♡</h2>
-                    <div class="spotify-embed">
-                        <iframe src="" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style="border-radius: 12px;"></iframe>
-                    </div>
-                </div>
-
-                <div id="map-display" class="popup-view map-display">
-                    <button class="close-popup" onclick="showView('main-popup')" style="top: 1rem; left: 1rem;">←</button>
-                    <h2 class="map-title">Kart over Vår Historie ♡</h2>
-                    <div id="map-container"></div>
+            <div id="timeglass-display" class="popup-view">
+                <button class="popup-back" data-view="main-popup" aria-label="Tilbake til meny">←</button>
+                <h2 class="popup-title" id="timeglass-title"></h2>
+                <div class="counter-grid">
+                    <div class="counter-item"><div class="counter-number" id="years">0</div><div class="counter-label">År</div></div>
+                    <div class="counter-item"><div class="counter-number" id="months">0</div><div class="counter-label">Måneder</div></div>
+                    <div class="counter-item"><div class="counter-number" id="weeks">0</div><div class="counter-label">Uker</div></div>
+                    <div class="counter-item"><div class="counter-number" id="days">0</div><div class="counter-label">Dager</div></div>
+                    <div class="counter-item"><div class="counter-number" id="hours">0</div><div class="counter-label">Timer</div></div>
+                    <div class="counter-item"><div class="counter-number" id="minutes">0</div><div class="counter-label">Minutter</div></div>
+                    <div class="counter-item"><div class="counter-number" id="seconds">0</div><div class="counter-label">Sekunder</div></div>
                 </div>
             </div>
-        </div>
 
-        <div id="lightbox" class="lightbox-overlay">
-            <span class="lightbox-close" onclick="closeLightbox()">×</span>
-            <img class="lightbox-content" id="lightbox-img">
-        </div>
-    
-        <script>
-            const correctCode = "iloveyou";
-            const typewriterText = "Jeg skulle ønske det fantes ord som kunne beskrive hvor høyt jeg elsker deg... I stedet gir jeg dette, for kun oss to, som et forsøk på å beskrive det som ikke kan beskrives...";
-            let isTyping = false;
-            let timeglassInterval;
-            let map = null;
-            let popupGalleryStates = {}; 
-        
-            // KONFIGURASJON
-            const meetingDate = new Date('2024-08-14T20:30:00');
-            const galleryImages = [
-                { src: 'https://i.imgur.com/iXfC2nm.jpeg', caption: 'hh ♡' },
-                { src: 'https://i.imgur.com/ZEdMp8r.jpeg', caption: 'Minner som varer evig' }
-            ];
-            const spotifyPlaylistURL = "https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M";
-
-            const mapLocations = [
-                {
-                    id: 1,
-                    lat: 59.9139,
-                    lng: 10.7522,
-                    title: 'Oslo',
-                    images: [
-                        { src: 'https://i.imgur.com/iXfC2nm.jpeg', caption: 'Vår første date ved Operaen!' },
-                        { src: 'https://i.imgur.com/ZEdMp8r.jpeg', caption: 'Kveldskos i Frognerparken.' },
-                        { src: 'https://i.imgur.com/kAqpjiS.jpeg', caption: 'Bare oss to.' }
-                    ]
-                },
-                {
-                    id: 2,
-                    lat: 58.1472,
-                    lng: 7.9958,
-                    title: 'Kristiansand',
-                    images: [
-                        { src: 'https://i.imgur.com/QTfigFF.jpeg', caption: 'Sommeren i Dyreparken var magisk.' },
-                        { src: 'https://i.imgur.com/iXfC2nm.jpeg', caption: 'Båttur i den fine skjærgården.' }
-                    ]
-                },
-                {
-                    id: 3,
-                    lat: 63.4305,
-                    lng: 10.3951,
-                    title: 'Trondheim',
-                    images: [
-                        { src: 'https://i.imgur.com/ZEdMp8r.jpeg', caption: 'Utsikten fra Nidarosdomen.' }
-                    ]
-                }
-            ];
-        
-            // EVENT LISTENERS
-            document.getElementById('codeInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') checkCode(); });
-        
-            // GRUNNLEGGENDE FUNKSJONER
-            function checkCode() {
-                const input = document.getElementById('codeInput').value.toLowerCase().trim();
-                const errorMessage = document.getElementById('errorMessage');
-                if (input === correctCode) {
-                    createHearts();
-                    setTimeout(transitionToSuccess, 500);
-                } else {
-                    errorMessage.classList.add('show');
-                    const codeInput = document.getElementById('codeInput');
-                    codeInput.style.animation = 'shake 0.5s';
-                    setTimeout(() => {
-                        errorMessage.classList.remove('show');
-                        codeInput.style.animation = '';
-                    }, 3000);
-                    codeInput.value = '';
-                }
-            }
-            function createHearts() {
-                const container = document.getElementById('floating-hearts');
-                if (!container) return;
-                for (let i = 0; i < 30; i++) {
-                    const heart = document.createElement('div');
-                    heart.className = 'floating-heart';
-                    heart.innerHTML = '❤️';
-                    heart.style.left = Math.random() * 100 + 'vw';
-                    heart.style.fontSize = Math.random() * 2 + 1 + 'rem';
-                    heart.style.animationDuration = (Math.random() * 5 + 3) + 's';
-                    container.appendChild(heart);
-                    setTimeout(() => container.removeChild(heart), 8000);
-                }
-            }
-            function transitionToSuccess() {
-                document.getElementById('login-container').classList.add('fade-out');
-                setTimeout(() => {
-                    document.getElementById('login-container').style.display = 'none';
-                    document.getElementById('success-page').classList.add('show');
-                    startTypewriter();
-                }, 800);
-            }
-            function startTypewriter() {
-                if (isTyping) return;
-                isTyping = true;
-                const el = document.getElementById('typewriter-text');
-                const cursor = document.getElementById('cursor');
-                el.innerHTML = ''; 
-                let i = 0;
-                const interval = setInterval(() => {
-                    if (i < typewriterText.length) {
-                        el.innerHTML += typewriterText.charAt(i);
-                        i++;
-                    } else {
-                        clearInterval(interval);
-                        if (cursor) cursor.style.display = 'none';
-                    }
-                }, 70);
-            }
-            function scrollToNextSection() { document.getElementById('second-section').scrollIntoView({ behavior: 'smooth' }); }
-            function scrollToPreviousSection() { document.getElementById('first-section').scrollIntoView({ behavior: 'smooth' }); }
-        
-            // POPUP FUNKSJONER
-            function showPopup() {
-                document.getElementById('popup-overlay').classList.add('show');
-                showView('main-popup');
-            }
-            function closePopup() {
-                document.getElementById('popup-overlay').classList.remove('show');
-                clearInterval(timeglassInterval);
-            }
-            function showView(viewId) {
-                document.querySelectorAll('.popup-view').forEach(view => view.classList.remove('show'));
-                const viewToShow = document.getElementById(viewId);
-                if (viewToShow) viewToShow.classList.add('show');
-                if (viewId === 'timeglass-display') { startTimglassUpdater(); } 
-                else { clearInterval(timeglassInterval); }
-                if (viewId === 'gallery-display') { populateGallery(); }
-                if (viewId === 'spotify-display') { loadSpotifyPlayer(); }
-                if (viewId === 'map-display') { setTimeout(initMap, 10); }
-            }
-            function startTimglassUpdater() {
-                clearInterval(timeglassInterval);
-                updateTimeglass();
-                timeglassInterval = setInterval(updateTimeglass, 1000);
-            }
+            <div id="gallery-display" class="popup-view">
+                <button class="popup-back" data-view="main-popup" aria-label="Tilbake til meny">←</button>
+                <h2 class="popup-title">Minnene våre ♡</h2>
+                <div class="gallery-container" id="gallery-container"></div>
+            </div>
             
-            function updateTimeglass() {
-                const now = new Date();
-                let tempDate = new Date(meetingDate);
+            <div id="spotify-display" class="popup-view">
+                <button class="popup-back" data-view="main-popup" aria-label="Tilbake til meny">←</button>
+                <h2 class="popup-title">Vår spilleliste ♡</h2>
+                <div class="spotify-embed">
+                    <iframe id="spotify-iframe" width="100%" height="352" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style="border-radius: 12px;"></iframe>
+                </div>
+            </div>
 
-                let years = now.getFullYear() - tempDate.getFullYear();
-                tempDate.setFullYear(tempDate.getFullYear() + years);
-                if (tempDate > now) {
-                    years--;
-                    tempDate.setFullYear(tempDate.getFullYear() - 1);
-                }
+            <div id="map-display" class="popup-view">
+                <button class="popup-back" data-view="main-popup" aria-label="Tilbake til meny">←</button>
+                <h2 class="popup-title">Kart over Vår Historie ♡</h2>
+                <div id="map-container"></div>
+            </div>
+        </div>
+    </div>
 
-                let months = now.getMonth() - tempDate.getMonth();
-                if (months < 0) {
-                    months += 12;
-                }
-                tempDate.setMonth(tempDate.getMonth() + months);
-                if (tempDate > now) {
-                    months--;
-                    tempDate.setMonth(tempDate.getMonth() - 1);
-                }
+    <div id="lightbox" class="lightbox-overlay">
+        <span class="lightbox-close" id="lightbox-close" aria-label="Lukk visning">×</span>
+        <div class="lightbox-content-wrapper" id="lightbox-content-wrapper">
+            </div>
+    </div>
 
-                let days = Math.floor((now - tempDate) / (1000 * 60 * 60 * 24));
-                let weeks = Math.floor(days / 7);
-                days = days % 7;
-                
-                let seconds = Math.floor((now - tempDate) / 1000);
-                let minutes = Math.floor(seconds / 60);
-                let hours = Math.floor(minutes / 60);
-                
-                document.getElementById('seconds').textContent = seconds % 60;
-                document.getElementById('minutes').textContent = minutes % 60;
-                document.getElementById('hours').textContent = hours % 24;
-                document.getElementById('days').textContent = days;
-                document.getElementById('weeks').textContent = weeks;
-                document.getElementById('months').textContent = months;
-                document.getElementById('years').textContent = years;
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- 1. KONFIGURASJON ---
+    const config = {
+        correctCode: "s",
+        typewriterText: "Jeg skulle ønske det fantes ord som kunne beskrive hvor høyt jeg elsker deg... I stedet gir jeg dette, for kun oss to, som et forsøk på å beskrive det som ikke kan beskrives...",
+        meetingDate: new Date('2024-08-14T20:30:00'),
+        galleryItems: [
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751458658/7D74AD4E-B903-40CA-9B86-0A530B0BEAA2_lhkdbs.jpg', title: '17. august 2024', description: 'Da jeg visste at vi kom til å være sammen for alltiddddd ♡' },
+            { 
+              type: 'video', 
+              src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751458792/BC238EF2-85F0-496B-9582-83D5B031934A_lbgxm3.mp4', 
+              title: '9. september 2024',
+              description: 'Vår første hobbit-tur sammen ❤️'
+            },
+            { 
+              type: 'video', 
+              src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751458804/774901E7-B904-4AF2-A724-4D8D31A21A82_ouenb0.mp4', 
+              title: '9. september 2024',
+              description: 'Kanskje begynner den å snakke til meg?....'
+            },
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751457391/IMG_2793_o2oxzl.jpg', title: '22. september 2024', description: 'Nydelige gutten min ♡' },
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751458492/85BAB5AE-58BB-462E-B9D9-109FD61F0B0A_xmjwhz.jpg', title: '22. september 2024', description: 'Litt goofy' },
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751458886/BE342144-FF9E-4F5C-9CC9-64E06AA4162E_tnhdbg.jpg', title: '5. oktober 2024', description: 'Filmkveld!' },
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751457268/IMG_3099_rkgr4g.jpg', title: '15. oktober 2024', description: 'Da du skulle "la meg være i fred" mens jeg gjorde skole...' },
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751447159/IMG_3192_pnfrrh.jpg', title: '20. oktober 2024', description: 'Vi lagde pannekaker sammen for første gang!' },
+            { 
+              type: 'video', 
+              src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751447158/41ABBF41-7048-44BE-A1F7-482D7804E8F0_Copy_j2zwp8.mp4', 
+              title: '22. oktober 2024',
+              description: 'På tuuur og vi er så søte'
+            },
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751458269/IMG_3403_c3woh3.jpg', title: '2. november 2024', description: 'Spiste middag med familien din for første gang' },
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751458400/86E42206-94DB-4502-BA91-CA67CC57CD10_ietxxe.jpg', title: '2. november 2024', description: 'Utforsket bittelitt' },
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751458071/IMG_3610_inr1aj.jpg', title: '18. november 2024', description: 'Spiste grøt sammen' },
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751457868/IMG_3683_kvvfe3.jpg', title: '30. november 2024', description: 'Kunne endelig ta med pakkekalenderen din til deeeg, gledet meg så mye' },
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751459029/45875B9B-1008-4A53-8AE2-61CF777D29CB_ekdffb.jpg', title: '11. desember 2024', description: 'Chiller maks bare' },
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751447163/Skjermbilde_2025_07_01_kl._15.22.15_tpg4s9.jpg', title: '17. desember 2024', description: 'Oss i pysjamas' },
+            { type: 'video', src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751457871/F89A84F7-39D9-479D-A8AA-DED88E4F627E_hfrwua.mp4', title: '28. desember 2024', description: 'Middag hos dere' },
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751459179/B4447FC0-2CD1-44D7-A75D-30CFBBF14948_x0tkr1.jpg', title: '17. desember 2024', description: 'Gjorde oss klar til første nyttår sammen' },
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751447159/IMG_4008_VSCO_20Copy_VSCO_rd2igz.jpg', title: '17. desember 2024', description: 'Gjorde oss klar til første nyttår sammen' },
+            { type: 'video', src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751459138/4E506490-0947-4A31-925E-343DB4CE9830_o9kfdb.mp4', title: '17. desember 2024', description: 'Du møtte Charlie og Louie for første gang (+ de andre)' },
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751447161/IMG_6389_mexxva.jpg', title: '9. januar 2025', description: 'Elsker deg' },
+
+
+
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751378494/IMG_6395_xwi7bc.jpg', title: 'Test', description: 'Et fint minne sammen ♡' },
+            { type: 'image', src: 'https://i.imgur.com/ZEdMp8r.jpeg', title: 'Evige Minner', description: 'Dette er et bilde som varer evig.' },
+            { 
+              type: 'video', 
+              src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751459245/90945CCC-73C4-4EF0-A255-F1D4E10B6D60_atdhro.mp4', 
+              title: 'Vår Video',
+              description: 'En spesiell video av oss sammen ❤️'
+            }
+        ],
+        spotifyPlaylistId: "0Cf23I3pGMAy2My3Yg18eE", 
+        mapLocations: [
+            {
+                id: 1, lat: 59.5661111, lng: 10.2608556, title: 'Sande',
+                images: [
+                    { src: 'https://i.imgur.com/Q0RFYVi.jpeg', caption: 'Første nyttår sammen.' },
+                    { src: 'https://i.imgur.com/dMKqN7u.jpeg', caption: 'Første nyttår sammen.' }
+                ]
+            },
+            {
+                id: 2, lat: 58.11084088695374, lng: 7.9718192702116015, title: 'Andøybakken 43',
+                images: [
+                    { src: 'https://i.imgur.com/BFKqIwt.jpeg', caption: 'Vi feiret 17. mai sammen.' },
+                    { src: 'https://i.imgur.com/NDzlOEl.jpeg', caption: 'Favorittbildet mitt.' },
+                    { src: 'https://i.imgur.com/MOhlqb2.jpeg', caption: 'Meg og deg før vi utforsket Tangvall.' },
+                    { src: 'https://i.imgur.com/kAqpjiS.jpeg', caption: 'Kjærester.' },
+                    { src: 'https://i.imgur.com/T3oR4Vl.jpeg', caption: 'LEGO.' }
+                ]
+            },
+            {
+                id: 3, lat: 58.14409946202579, lng: 7.992199683706953, title: 'Heidis Bier Bar',
+                images: [{ src: 'https://i.imgur.com/GL7kM7l.jpeg', caption: 'Dagen vi møttes.' }]
+            }
+        ]
+    };
+
+    // --- 2. HENTING AV DOM-ELEMENTER ---
+    const elements = {
+        loginPage: document.getElementById('login-page'),
+        mainPage: document.getElementById('main-page'),
+        codeInput: document.getElementById('code-input'),
+        submitCodeBtn: document.getElementById('submit-code-btn'),
+        errorMessage: document.getElementById('error-message'),
+        floatingHeartsContainer: document.getElementById('floating-hearts'),
+        typewriterText: document.getElementById('typewriter-text'),
+        cursor: document.getElementById('cursor'),
+        scrollArrow: document.getElementById('scroll-arrow'),
+        backArrow: document.getElementById('back-arrow'),
+        openPopupBox: document.getElementById('open-popup-box'),
+        popupOverlay: document.getElementById('popup-overlay'),
+        popupCloseBtn: document.getElementById('popup-close'),
+        popupViews: document.querySelectorAll('.popup-view'),
+        popupMenuBtns: document.querySelectorAll('.popup-btn[data-view]'),
+        popupBackBtns: document.querySelectorAll('.popup-back[data-view]'),
+        timeglass: {
+            title: document.getElementById('timeglass-title'),
+            years: document.getElementById('years'),
+            months: document.getElementById('months'),
+            weeks: document.getElementById('weeks'),
+            days: document.getElementById('days'),
+            hours: document.getElementById('hours'),
+            minutes: document.getElementById('minutes'),
+            seconds: document.getElementById('seconds'),
+        },
+        galleryContainer: document.getElementById('gallery-container'),
+        spotifyIframe: document.getElementById('spotify-iframe'),
+        mapContainer: document.getElementById('map-container'),
+        lightbox: {
+            overlay: document.getElementById('lightbox'),
+            closeBtn: document.getElementById('lightbox-close'),
+            contentWrapper: document.getElementById('lightbox-content-wrapper'),
+        }
+    };
+
+    // --- 3. VARIABLER & TILSTAND ---
+    let timeglassInterval;
+    let map = null;
+    let popupGalleryStates = {};
+
+    // --- 4. FUNKSJONER ---
+
+    function checkCode() {
+        const input = elements.codeInput.value.toLowerCase().trim();
+        if (input === config.correctCode) {
+            createHearts(30);
+            setTimeout(transitionToMainPage, 500);
+        } else {
+            elements.errorMessage.classList.add('show');
+            elements.codeInput.style.animation = 'shake 0.5s';
+            setTimeout(() => {
+                elements.errorMessage.classList.remove('show');
+                elements.codeInput.style.animation = '';
+            }, 3000);
+            elements.codeInput.value = '';
+        }
+    }
+
+    function transitionToMainPage() {
+        elements.loginPage.classList.add('fade-out');
+        setTimeout(() => {
+            elements.loginPage.style.display = 'none';
+            elements.mainPage.classList.add('show');
+            startTypewriter();
+        }, 800);
+    }
+
+    function createHearts(count) {
+        for (let i = 0; i < count; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = `${Math.random() * 100}vw`;
+            heart.style.fontSize = `${Math.random() * 2 + 1}rem`;
+            heart.style.animationDuration = `${Math.random() * 5 + 4}s`;
+            elements.floatingHeartsContainer.appendChild(heart);
+            setTimeout(() => heart.remove(), 8000);
+        }
+    }
+
+    function startTypewriter() {
+        if (elements.typewriterText.dataset.typing) return;
+        elements.typewriterText.dataset.typing = 'true';
+        elements.cursor.style.display = 'inline-block';
+        let i = 0;
+        const interval = setInterval(() => {
+            if (i < config.typewriterText.length) {
+                elements.typewriterText.textContent = config.typewriterText.slice(0, i + 1);
+                i++;
+            } else {
+                clearInterval(interval);
+                elements.cursor.style.display = 'none';
+            }
+        }, 70);
+    }
+
+    function scrollToSection(selector) {
+        document.querySelector(selector).scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showPopup() {
+        elements.popupOverlay.classList.add('show');
+        showView('main-popup');
+    }
+
+    function closePopup() {
+        elements.popupOverlay.classList.remove('show');
+        clearInterval(timeglassInterval);
+        if (map) {
+            map.invalidateSize();
+        }
+    }
+
+    function showView(viewId) {
+        elements.popupViews.forEach(view => view.classList.remove('show'));
+        const viewToShow = document.getElementById(viewId);
+        if (viewToShow) {
+            viewToShow.classList.add('show');
+        }
+
+        switch (viewId) {
+            case 'timeglass-display': startTimglassUpdater(); break;
+            case 'gallery-display': populateGallery(); break;
+            case 'spotify-display': loadSpotifyPlayer(); break;
+            case 'map-display': setTimeout(initMap, 10); break;
+        }
+        if (viewId !== 'timeglass-display') {
+             clearInterval(timeglassInterval);
+        }
+    }
+
+    function startTimglassUpdater() {
+        const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = config.meetingDate.toLocaleDateString('nb-NO', dateOptions);
+        elements.timeglass.title.textContent = `${formattedDate} til nå ♡`;
+
+        clearInterval(timeglassInterval);
+        updateTimeglass();
+        timeglassInterval = setInterval(updateTimeglass, 1000);
+    }
+    
+    function updateTimeglass() {
+        const now = new Date();
+        const diff = now - config.meetingDate;
+
+        const s = Math.floor(diff / 1000);
+        const m = Math.floor(s / 60);
+        const h = Math.floor(m / 60);
+
+        elements.timeglass.seconds.textContent = s % 60;
+        elements.timeglass.minutes.textContent = m % 60;
+        elements.timeglass.hours.textContent = h % 24;
+
+        let tempDate = new Date(config.meetingDate);
+        let years = now.getFullYear() - tempDate.getFullYear();
+        tempDate.setFullYear(tempDate.getFullYear() + years);
+        if (tempDate > now) {
+            years--;
+            tempDate.setFullYear(tempDate.getFullYear() - 1);
+        }
+
+        let months = now.getMonth() - tempDate.getMonth();
+        if (months < 0) {
+            months = 12 + months;
+        }
+        tempDate.setMonth(tempDate.getMonth() + months);
+         if (tempDate > now) {
+            months--;
+            tempDate.setMonth(tempDate.getMonth() - 1);
+        }
+
+        const daysSinceLastMonth = Math.floor((now - tempDate) / (1000 * 60 * 60 * 24));
+        const weeks = Math.floor(daysSinceLastMonth / 7);
+        const days = daysSinceLastMonth % 7;
+
+        elements.timeglass.years.textContent = years;
+        elements.timeglass.months.textContent = months;
+        elements.timeglass.weeks.textContent = weeks;
+        elements.timeglass.days.textContent = days;
+    }
+
+    function populateGallery() {
+        if (elements.galleryContainer.children.length > 0) return;
+        
+        config.galleryItems.forEach(mediaItem => {
+            const item = document.createElement('figure');
+            item.className = 'gallery-item';
+            item.dataset.type = mediaItem.type;
+
+            let mediaElementHtml;
+            const titleForMedia = mediaItem.title || 'Vårt minne';
+            const descriptionForMedia = mediaItem.description || '';
+
+            if (mediaItem.type === 'video') {
+                mediaElementHtml = `
+                    <video 
+                        src="${mediaItem.src}" 
+                        controls 
+                        controlslist="nodownload nofullscreen"
+                        muted 
+                        playsinline 
+                        preload="metadata" 
+                        title="${titleForMedia}">
+                    </video>
+                `;
+            } else { // 'image'
+                mediaElementHtml = `<img src="${mediaItem.src}" alt="${descriptionForMedia}" loading="lazy">`;
             }
 
-            function populateGallery() {
-                const gallery = document.getElementById('gallery-container');
-                if (!gallery || gallery.children.length > 0) return; 
-                gallery.innerHTML = '';
-                galleryImages.forEach(img => {
-                    const item = document.createElement('div');
-                    item.className = 'gallery-item';
-                    item.innerHTML = `<div class="gallery-image"><img src="${img.src}" alt="${img.caption}" loading="lazy"></div><div class="gallery-caption">${img.caption}</div>`;
-                    item.onclick = () => openLightbox(img.src);
-                    gallery.appendChild(item);
-                });
-            }
-            function loadSpotifyPlayer() {
-                const spotifyEmbed = document.querySelector('.spotify-embed iframe');
-                if (spotifyEmbed && spotifyEmbed.src !== spotifyPlaylistURL) spotifyEmbed.src = spotifyPlaylistURL;
-            }
-
-            // LIGHTBOX FUNKSJONER
-            function openLightbox(src) {
-                const lightbox = document.getElementById('lightbox');
-                const lightboxImg = document.getElementById('lightbox-img');
-                lightboxImg.src = src;
-                lightbox.classList.add('show');
-                lightbox.onclick = function(event) { if (event.target === lightbox) closeLightbox(); };
-            }
-            function closeLightbox() { document.getElementById('lightbox').classList.remove('show'); }
-
-            // KART FUNKSJONER MED LEAFLET
-            function initMap() {
-                if (map) { map.invalidateSize(); return; }
-
-                const customIcon = L.divIcon({
-                    className: 'custom-map-marker',
-                    iconSize: [20, 20],
-                    iconAnchor: [10, 10]
-                });
-                
-                map = L.map('map-container').setView([62, 10.5], 5);
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(map);
-
-                mapLocations.forEach(location => {
-                    const marker = L.marker([location.lat, location.lng], { icon: customIcon }).addTo(map);
-                    
-                    marker.on('popupopen', () => {
-                        popupGalleryStates[location.id] = { currentIndex: 0 };
-                        updatePopupGallery(location.id);
-                    });
-                    
-                    const popupContent = `
-                        <div id="popup-wrapper-${location.id}" class="popup-gallery-image-wrapper">
-                            <img id="popup-img-${location.id}" class="popup-gallery-image" src="" onclick="openLightbox(this.src)">
-                            <div class="popup-gallery-nav">
-                                <button class="popup-gallery-btn" onclick="navigatePopupGallery(${location.id}, -1)">‹</button>
-                                <button class="popup-gallery-btn" onclick="navigatePopupGallery(${location.id}, 1)">›</button>
-                            </div>
-                            <div id="popup-counter-${location.id}" class="popup-gallery-counter"></div>
-                        </div>
-                        <h3 class="popup-gallery-header">${location.title}</h3>
-                        <div id="popup-caption-${location.id}" class="popup-gallery-caption"></div>
-                    `;
-                    marker.bindPopup(popupContent, { minWidth: 250 });
-                });
-            }
-
-            function navigatePopupGallery(locationId, direction) {
-                const location = mapLocations.find(loc => loc.id === locationId);
-                const state = popupGalleryStates[locationId];
-                if (!location || !state) return;
-                
-                const newIndex = (state.currentIndex + direction + location.images.length) % location.images.length;
-                state.currentIndex = newIndex;
-                updatePopupGallery(locationId);
-            }
-
-            function updatePopupGallery(locationId) {
-                const location = mapLocations.find(loc => loc.id === locationId);
-                const state = popupGalleryStates[locationId];
-                if (!location || !state) return;
-
-                const currentImage = location.images[state.currentIndex];
-                
-                const wrapperElement = document.getElementById(`popup-wrapper-${location.id}`);
-                const imgElement = document.getElementById(`popup-img-${location.id}`);
-                const counterElement = document.getElementById(`popup-counter-${location.id}`);
-                const captionElement = document.getElementById(`popup-caption-${location.id}`);
-
-                if(wrapperElement) {
-                    wrapperElement.style.backgroundImage = `url(${currentImage.src})`;
-                }
-                if (imgElement) imgElement.src = currentImage.src;
-                if (captionElement) captionElement.textContent = currentImage.caption;
-                
-                if (counterElement) {
-                    if (location.images.length > 1) {
-                        counterElement.style.display = 'block';
-                        counterElement.textContent = `${state.currentIndex + 1} / ${location.images.length}`;
-                    } else {
-                        counterElement.style.display = 'none';
+            item.innerHTML = `
+                <div class="gallery-image">
+                    ${mediaElementHtml}
+                </div>
+                <figcaption class="gallery-caption">
+                    <h4 class="gallery-title">${titleForMedia}</h4>
+                    <p class="gallery-description">${descriptionForMedia}</p>
+                </figcaption>
+            `;
+            
+            item.addEventListener('click', (event) => {
+                if (mediaItem.type === 'video') {
+                    if (event.target.tagName !== 'VIDEO') {
+                        openLightbox(mediaItem.src, 'video');
                     }
+                } else {
+                    openLightbox(mediaItem.src, 'image');
                 }
-            }
-        </script>
-    </body>
+            });
+            
+            elements.galleryContainer.appendChild(item);
+        });
+    }
+
+    function loadSpotifyPlayer() {
+        const spotifyURL = `https://open.spotify.com/embed/playlist/${config.spotifyPlaylistId}`;
+        if (elements.spotifyIframe.src !== spotifyURL) {
+            elements.spotifyIframe.src = spotifyURL;
+        }
+    }
+
+    function initMap() {
+        if (map) {
+            map.invalidateSize();
+            return;
+        }
+
+        const customIcon = L.divIcon({
+            className: 'custom-map-marker',
+            iconSize: [20, 20],
+            iconAnchor: [10, 10]
+        });
+        
+        map = L.map(elements.mapContainer).setView([62, 10.5], 5);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
+            maxZoom: 19, 
+            attribution: '© OpenStreetMap bidragsytere' 
+        }).addTo(map);
+
+        config.mapLocations.forEach(location => {
+            const marker = L.marker([location.lat, location.lng], { icon: customIcon }).addTo(map);
+            
+            marker.on('popupopen', () => {
+                popupGalleryStates[location.id] = { currentIndex: 0 };
+                updatePopupGallery(location.id);
+                setTimeout(() => { 
+                    document.querySelector(`#popup-wrapper-${location.id} .prev-btn`).addEventListener('click', () => navigatePopupGallery(location.id, -1));
+                    document.querySelector(`#popup-wrapper-${location.id} .next-btn`).addEventListener('click', () => navigatePopupGallery(location.id, 1));
+                    const imgElement = document.querySelector(`#popup-img-${location.id}`);
+                    if (imgElement) {
+                        imgElement.addEventListener('click', (e) => openLightbox(e.target.src, 'image'));
+                    }
+                }, 0);
+            });
+            
+            const popupContent = `
+                <div id="popup-wrapper-${location.id}" class="popup-gallery-image-wrapper">
+                    <img id="popup-img-${location.id}" class="popup-gallery-image" src="" alt="Bilde fra ${location.title}">
+                    <div class="popup-gallery-nav">
+                        <button class="popup-gallery-btn prev-btn" aria-label="Forrige bilde">‹</button>
+                        <button class="popup-gallery-btn next-btn" aria-label="Neste bilde">›</button>
+                    </div>
+                    <div id="popup-counter-${location.id}" class="popup-gallery-counter"></div>
+                </div>
+                <h3 class="popup-gallery-header">${location.title}</h3>
+                <div id="popup-caption-${location.id}" class="popup-gallery-caption"></div>
+            `;
+            marker.bindPopup(popupContent, { minWidth: 250 });
+        });
+    }
+
+    function navigatePopupGallery(locationId, direction) {
+        const location = config.mapLocations.find(loc => loc.id === locationId);
+        const state = popupGalleryStates[locationId];
+        if (!location || !state) return;
+        
+        const newIndex = (state.currentIndex + direction + location.images.length) % location.images.length;
+        state.currentIndex = newIndex;
+        updatePopupGallery(locationId);
+    }
+
+    function updatePopupGallery(locationId) {
+        const location = config.mapLocations.find(loc => loc.id === locationId);
+        const state = popupGalleryStates[locationId];
+        if (!location || !state || !document.getElementById(`popup-wrapper-${location.id}`)) return;
+
+        const currentImage = location.images[state.currentIndex];
+        
+        document.getElementById(`popup-wrapper-${location.id}`).style.backgroundImage = `url(${currentImage.src})`;
+        document.getElementById(`popup-img-${location.id}`).src = currentImage.src;
+        document.getElementById(`popup-caption-${location.id}`).textContent = currentImage.caption;
+        
+        const counterElement = document.getElementById(`popup-counter-${location.id}`);
+        if (location.images.length > 1) {
+            counterElement.style.display = 'block';
+            counterElement.textContent = `${state.currentIndex + 1} / ${location.images.length}`;
+        } else {
+            counterElement.style.display = 'none';
+        }
+    }
+
+    function openLightbox(src, type) {
+        const wrapper = elements.lightbox.contentWrapper;
+        wrapper.innerHTML = ''; 
+
+        if (type === 'video') {
+            const video = document.createElement('video');
+            video.src = src;
+            video.controls = true;
+            video.autoplay = true;
+            wrapper.appendChild(video);
+        } else {
+            const img = document.createElement('img');
+            img.src = src;
+            wrapper.appendChild(img);
+        }
+        elements.lightbox.overlay.classList.add('show');
+    }
+
+    function closeLightbox() {
+        elements.lightbox.overlay.classList.remove('show');
+        elements.lightbox.contentWrapper.innerHTML = ''; 
+    }
+
+    function init() {
+        elements.submitCodeBtn.addEventListener('click', checkCode);
+        elements.codeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkCode();
+        });
+
+        elements.scrollArrow.addEventListener('click', () => scrollToSection('#second-section'));
+        elements.backArrow.addEventListener('click', () => scrollToSection('#first-section'));
+        
+        elements.openPopupBox.addEventListener('click', showPopup);
+        elements.popupCloseBtn.addEventListener('click', closePopup);
+        elements.popupOverlay.addEventListener('click', (e) => {
+            if (e.target === elements.popupOverlay) closePopup();
+        });
+
+        elements.popupMenuBtns.forEach(btn => {
+            btn.addEventListener('click', () => showView(btn.dataset.view));
+        });
+        elements.popupBackBtns.forEach(btn => {
+            btn.addEventListener('click', () => showView(btn.dataset.view));
+        });
+
+        elements.lightbox.closeBtn.addEventListener('click', closeLightbox);
+        elements.lightbox.overlay.addEventListener('click', (e) => {
+            if (e.target === elements.lightbox.overlay) closeLightbox();
+        });
+    }
+
+    init();
+
+});
+</script>
+
+</body>
 </html>
