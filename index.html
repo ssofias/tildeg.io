@@ -777,7 +777,7 @@
 
             <div id="main-popup" class="popup-view show">
                 <nav class="popup-menu">
-                    <button class="popup-btn" data-view="timeglass-display">Timeglass<div class="popup-btn-subtitle">Hvor lenge vi har vært sammen</div></button>
+                    <button class="popup-btn" data-view="timeglass-display">Timeglass<div class="popup-btn-subtitle">Hvor lang tid det har gått siden vi møttes for første gang</div></button>
                     <button class="popup-btn" data-view="gallery-display">Minnene våre<div class="popup-btn-subtitle">Galleri</div></button>
                     <button class="popup-btn" data-view="spotify-display">Spotify<div class="popup-btn-subtitle">Sanger som minner meg om deg</div></button>
                     <button class="popup-btn" data-view="map-display">Kartet vårt<div class="popup-btn-subtitle">Oss i verden</div></button>
@@ -831,7 +831,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. KONFIGURASJON ---
     const config = {
-        correctCode: "s",
+        correctCode: "KTATOMES01360NG9",
         typewriterText: "Jeg skulle ønske det fantes ord som kunne beskrive hvor høyt jeg elsker deg... I stedet gir jeg dette, for kun oss to, som et forsøk på å beskrive det som ikke kan beskrives...",
         meetingDate: new Date('2024-08-14T20:30:00'),
         galleryItems: [
@@ -1126,7 +1126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function startTimglassUpdater() {
         const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
         const formattedDate = config.meetingDate.toLocaleDateString('nb-NO', dateOptions);
-        elements.timeglass.title.textContent = `${formattedDate} til nå ♡`;
+        elements.timeglass.title.textContent = `Fra ${formattedDate} til nå ♡`;
 
         clearInterval(timeglassInterval);
         updateTimeglass();
