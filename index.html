@@ -745,7 +745,7 @@
             <div class="login-box">
                 <h2 class="subtitle">Skriv inn koden</h2>
                 <div class="heart-small">❤️</div>
-                <input type="password" class="code-input" id="code-input" placeholder="Passord" maxlength="20">
+                <input type="password" class="code-input" id="code-input" placeholder="Passord" maxlength="50">
                 <div class="error-message" id="error-message">Feil kode, prøv igjen ♡</div>
                 <button class="submit-btn" id="submit-code-btn">→</button>
             </div>
@@ -1126,7 +1126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function startTimglassUpdater() {
         const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
         const formattedDate = config.meetingDate.toLocaleDateString('nb-NO', dateOptions);
-        elements.timeglass.title.textContent = `Fra ${formattedDate} til nå ♡`;
+        elements.timeglass.title.textContent = `Fra${formattedDate} til nå ♡`;
 
         clearInterval(timeglassInterval);
         updateTimeglass();
