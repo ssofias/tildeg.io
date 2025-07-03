@@ -810,6 +810,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { type: 'video', src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751459245/90945CCC-73C4-4EF0-A255-F1D4E10B6D60_atdhro.mp4', title: '15. januar 2025', description: 'Du er så flink til å lage dumplings, og de smakte SÅ godt!!' },
             { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751457870/4A1A85AF-96E4-448A-A32F-DF3F66B3ABC2-COLLAGE_cqserj.jpg', title: '10. januar 2025', description: 'Collage' },
             { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751457500/IMG_4268_m8xfuc.png', title: '13. februar 2025', description: 'Gledet meg så mye til å gi deg kaken din og måtte fortelle Marit også' },
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751535830/139C434C-BD93-43F2-BA15-C61C794020AC_cexlcd.jpg', title: '15. februar 2025', description: 'Sebastian fyller 22 år' }
         ],
         spotifyPlaylistId: "0Cf23I3pGMAy2My3Yg18eE", 
         mapLocations: [
@@ -1183,10 +1184,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById(`popup-media-container-${locationId}`);
         const captionEl = document.getElementById(`popup-caption-${locationId}`);
         const counterElement = document.getElementById(`popup-counter-${locationId}`);
-        
         if (!wrapper || !container || !captionEl || !counterElement) return;
 
-        container.innerHTML = '';
+        // Clone container to remove its old click listeners for video playback
+        const newContainer = container.cloneNode(false);
+        container.parentNode.replaceChild(newContainer, container);
 
         const currentMedia = location.media[state.currentIndex];
         
@@ -1197,29 +1199,41 @@ document.addEventListener('DOMContentLoaded', () => {
             video.muted = true;
             video.playsinline = true;
             video.controlslist = "nodownload nofullscreen";
-            container.appendChild(video);
+            newContainer.appendChild(video);
             wrapper.dataset.hasBgImage = 'false';
             wrapper.style.setProperty('--bg-image', 'none');
+
+            // Add listener to the container for play/pause on video click
+            newContainer.addEventListener('click', (event) => {
+                if (event.target.tagName === 'VIDEO') {
+                    const videoElement = event.target;
+                    if (videoElement.paused) {
+                        videoElement.play();
+                    } else {
+                        videoElement.pause();
+                    }
+                }
+            });
         } else { // image
             const img = document.createElement('img');
             img.src = currentMedia.src;
             img.alt = currentMedia.caption;
-            container.appendChild(img);
+            newContainer.appendChild(img);
             wrapper.dataset.hasBgImage = 'true';
             wrapper.style.setProperty('--bg-image', `url(${currentMedia.src})`);
         }
 
-        // Clone the caption element to remove old listeners, then add the new one
+        // Clone the caption element to remove old listeners, then add the new one for lightbox
         const newCaptionEl = captionEl.cloneNode(true);
-        newCaptionEl.textContent = currentMedia.caption; // Set text on the new element
+        newCaptionEl.textContent = currentMedia.caption;
         captionEl.parentNode.replaceChild(newCaptionEl, captionEl);
         
-        // Add cursor and listener for opening the lightbox
         newCaptionEl.style.cursor = 'pointer';
         newCaptionEl.addEventListener('click', () => {
             openLightbox(currentMedia.src, currentMedia.type);
         });
         
+        // Update counter
         if (location.media.length > 1) {
             counterElement.style.display = 'block';
             counterElement.textContent = `${state.currentIndex + 1} / ${location.media.length}`;
