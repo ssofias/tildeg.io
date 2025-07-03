@@ -603,36 +603,6 @@
         .popup-gallery-header { font-size: 1.2rem; margin: 10px 15px 5px; text-align: center; color: var(--color-primary-dark); }
         .popup-gallery-caption { font-size: 0.9rem; padding: 0 15px 15px; text-align: center; color: var(--color-text-light); min-height: 40px; line-height: 1.4; }
 
-        /* Forstørrelses-ikon for Kart */
-        .enlarge-icon {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            z-index: 4;
-            width: 30px;
-            height: 30px;
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            opacity: 0;
-        }
-        .popup-gallery-media-wrapper:hover .enlarge-icon {
-            opacity: 1;
-        }
-        .enlarge-icon:hover {
-            background: rgba(0,0,0,0.8);
-            transform: scale(1.1);
-        }
-        .enlarge-icon svg {
-            width: 16px;
-            height: 16px;
-        }
-
 
         /* Lightbox for bilder og videoer */
         .lightbox-overlay {
@@ -818,6 +788,12 @@ document.addEventListener('DOMContentLoaded', () => {
               title: '22. oktober 2024',
               description: 'På tuuur og vi er så søte'
             },
+            { 
+              type: 'video', 
+              src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751537152/9D109ACC-A543-4938-8BA4-D13FBE34F34F_eoiyb9.mp4', 
+              title: '27. oktober 2024',
+              description: 'Hvordan ser du alltid så sexy ut highkey'
+            },
             { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751458269/IMG_3403_c3woh3.jpg', title: '2. november 2024', description: 'Spiste middag med familien din for første gang' },
             { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751458400/86E42206-94DB-4502-BA91-CA67CC57CD10_ietxxe.jpg', title: '2. november 2024', description: 'Utforsket bittelitt' },
             { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751458071/IMG_3610_inr1aj.jpg', title: '18. november 2024', description: 'Spiste grøt sammen' },
@@ -825,33 +801,39 @@ document.addEventListener('DOMContentLoaded', () => {
             { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751459029/45875B9B-1008-4A53-8AE2-61CF777D29CB_ekdffb.jpg', title: '11. desember 2024', description: 'Chiller maks bare' },
             { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751447163/Skjermbilde_2025_07_01_kl._15.22.15_tpg4s9.jpg', title: '17. desember 2024', description: 'Oss i pysjamas' },
             { type: 'video', src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751457871/F89A84F7-39D9-479D-A8AA-DED88E4F627E_hfrwua.mp4', title: '28. desember 2024', description: 'Middag hos dere' },
-            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751459179/B4447FC0-2CD1-44D7-A75D-30CFBBF14948_x0tkr1.jpg', title: '17. desember 2024', description: 'Gjorde oss klar til første nyttår sammen' },
-            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751447159/IMG_4008_VSCO_20Copy_VSCO_rd2igz.jpg', title: '17. desember 2024', description: 'Gjorde oss klar til første nyttår sammen' },
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751459179/B4447FC0-2CD1-44D7-A75D-30CFBBF14948_x0tkr1.jpg', title: '31. desember 2024', description: 'Gjorde oss klar til første nyttår sammen' },
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751447159/IMG_4008_VSCO_20Copy_VSCO_rd2igz.jpg', title: '31. desember 2024', description: 'Elsket å feire med deg <3' },
             { type: 'video', src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751459138/4E506490-0947-4A31-925E-343DB4CE9830_o9kfdb.mp4', title: '17. desember 2024', description: 'Du møtte Charlie og Louie for første gang (+ de andre)' },
             { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751447161/IMG_6389_mexxva.jpg', title: '9. januar 2025', description: 'Elsker deg' },
             { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751457869/IMG_4091_dlb3vs.jpg', title: '10. januar 2025', description: 'Kjøpte potte til sebastian' },
             { type: 'video', src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751457873/FED7F238-3690-4F76-BFCD-A806F8F63325_yny3ih.mov', title: '15. januar 2025', description: 'Dør for deg' },
             { type: 'video', src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751459245/90945CCC-73C4-4EF0-A255-F1D4E10B6D60_atdhro.mp4', title: '15. januar 2025', description: 'Du er så flink til å lage dumplings, og de smakte SÅ godt!!' },
             { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751457870/4A1A85AF-96E4-448A-A32F-DF3F66B3ABC2-COLLAGE_cqserj.jpg', title: '10. januar 2025', description: 'Collage' },
-            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751457500/IMG_4268_m8xfuc.png', title: '13. februar 2025', description: 'Gledet meg så mye til å gi deg kaken din og måtte fortelle Marit også' }
+            { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751457500/IMG_4268_m8xfuc.png', title: '13. februar 2025', description: 'Gledet meg så mye til å gi deg kaken din og måtte fortelle Marit også' },
         ],
         spotifyPlaylistId: "0Cf23I3pGMAy2My3Yg18eE", 
         mapLocations: [
             {
                 id: 1, lat: 59.5661111, lng: 10.2608556, title: 'Sande',
                 media: [
-                    { type: 'image', src: 'https://i.imgur.com/Q0RFYVi.jpeg', caption: 'Første nyttår sammen.' },
-                    { type: 'image', src: 'https://i.imgur.com/dMKqN7u.jpeg', caption: 'Første nyttår sammen.' }
+                    { type: 'video', src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751538322/9D9B8D13-BCDD-4EED-B60C-4CFA9EAAF15E_ygrenf.mp4', caption: 'Blir så glad av denne videoen' },
+                    { type: 'video', src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751538319/3234021A-1F3F-4E4E-A699-AE37073B8F09_uzvnpx.mp4', caption: 'Da jeg smakte eple gløgg for FØRSTE GANG!!' },
+                    { type: 'video', src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751538316/459676E0-C5F9-4913-BD32-CBF7A1431DB7_ovv0gw.mp4', caption: 'Vi lagde verdens beste lasagne' },
+                    { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751538313/678190F5-570D-4B8D-BF7E-826B2FD50564_q21bex.jpg', caption: 'Du er så flink til å rydde king' }
                 ]
             },
             {
                 id: 2, lat: 58.11084088695374, lng: 7.9718192702116015, title: 'Andøybakken 43',
                 media: [
                     { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751464723/IMG_5883_2_rsvejc.jpg', caption: 'Vi feiret 17. mai sammen.' },
-                    { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751447162/kode_vokgwk.jpg', caption: 'Favorittbildet mitt.' },
-                    { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751464599/IMG_6237_cztrf1.jpg', caption: 'Meg og deg før vi utforsket Tangvall.' },
-                    { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751459314/IMG_3150_whfrnd.jpg', caption: 'Kjærester.' },
-                    { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751458598/ADE27054-7803-4E06-BE0D-5E9F19EB3EA5_nscciy.jpg', caption: 'LEGO.' }
+                    { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751447162/kode_vokgwk.jpg', caption: 'Favorittbildet mitt' },
+                    { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751464599/IMG_6237_cztrf1.jpg', caption: 'Meg og deg før vi utforsket Tangvall' },
+                    { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751459314/IMG_3150_whfrnd.jpg', caption: 'Kjærester' },
+                    { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751458598/ADE27054-7803-4E06-BE0D-5E9F19EB3EA5_nscciy.jpg', caption: 'LEGO' },
+                    { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751535820/0415AEB3-AE74-426E-A254-CD87903B6331_galwuw.jpg', caption: 'Elsket valentinsgaven din... <3' },
+                    { type: 'video', src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751465645/A09DEC96-B4F6-44BB-A99A-16CED42577F8_lxi4xw.mp4', caption: 'Du er så snill med meg' },
+                    { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751535838/48B374E5-2471-4FC1-8C0C-D11FB2951C5C_k7aigi.jpg', caption: '<3' },
+                    { type: 'video', src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751537104/367135E2-6C24-47C5-B8BC-BB6D0BBEFDF2_zksvek.mp4', caption: 'Jøss' },
                 ]
             },
             {
@@ -864,6 +846,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 id: 4, lat: 58.1507174695897, lng: 8.006672858944375, title: 'Kristiansand, Rådhuskafeen',
                 media: [
                     { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751447158/DB466EF1-87B8-468F-AA3B-85E2F9BB6061_prhvda.jpg', caption: 'Vår første kaffedateeee' }
+                ]
+            },
+            {
+                id: 4, lat: 58.1507174695897, lng: 8.006672858944375, title: 'Kristiansand, Rådhuskafeen',
+                media: [
+                    { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751447158/DB466EF1-87B8-468F-AA3B-85E2F9BB6061_prhvda.jpg', caption: 'Vår første kaffedateeee' }
+                ]
+            },
+            {
+                id: 5, lat: 58.10972270988863, lng: 7.9676903643342145, title: 'Jokeren vår',
+                media: [
+                    { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751535875/0B943CE4-6B65-4F8D-855A-BA32CEF8CE2F_ssr4mw.jpg', caption: 'Så selvfølgelig verdens peneste regnbue med DEG, men ikke like nydelig som DEG' }
+                ]
+            },
+            {
+                id: 6, lat: 58.1458372119169, lng: 7.990620506657857, title: 'Lille hybelen min',
+                media: [
+                    { type: 'image', src: 'https://res.cloudinary.com/da2s1lb52/image/upload/v1751535860/7D74AD4E-B903-40CA-9B86-0A530B0BEAA2_iq8msa.jpg', caption: 'Visste at du 100% var for meg' }
+                ]
+            },
+            {
+                id: 7, lat: 58.1041944, lng: 7.9770000, title: 'Andøya',
+                media: [
+                    { type: 'video', src: 'https://res.cloudinary.com/da2s1lb52/video/upload/v1751536822/813D5E2E-12B0-4771-9936-3B7EF2EB227F_ot0jsu.mp4', caption: 'Tuuuur' }
                 ]
             }
         ]
@@ -1175,16 +1181,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const wrapper = document.getElementById(`popup-wrapper-${locationId}`);
         const container = document.getElementById(`popup-media-container-${locationId}`);
-        if (!container || !wrapper) return;
+        const captionEl = document.getElementById(`popup-caption-${locationId}`);
+        const counterElement = document.getElementById(`popup-counter-${locationId}`);
+        
+        if (!wrapper || !container || !captionEl || !counterElement) return;
 
-        container.innerHTML = ''; 
+        container.innerHTML = '';
 
         const currentMedia = location.media[state.currentIndex];
-        
-        const enlargeIcon = document.createElement('div');
-        enlargeIcon.className = 'enlarge-icon';
-        enlargeIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10 5C10 4.44772 10.4477 4 11 4H20C20.5523 4 21 4.44772 21 5V13C21 13.5523 20.5523 14 20 14C19.4477 14 19 13.5523 19 13V7.41421L11.7071 14.7071C11.3166 15.0976 10.6834 15.0976 10.2929 14.7071C9.90237 14.3166 9.90237 13.6834 10.2929 13.2929L17.5858 6H11C10.4477 6 10 5.55228 10 5Z"/><path d="M4 6C4 4.89543 4.89543 4 6 4H8C8.55228 4 9 4.44772 9 5C9 5.55228 8.55228 6 8 6H6V8C6 8.55228 5.55228 9 5 9C4.44772 9 4 8.55228 4 8V6Z"/><path d="M4 18C4 18.5523 4.44772 19 5 19C5.55228 19 6 18.5523 6 18V16H8C8.55228 16 9 15.5523 9 15C9 14.4477 8.55228 14 8 14H6C4.89543 14 4 14.8954 4 16V18Z"/><path d="M16 18C16 18.5523 15.5523 19 15 19C14.4477 19 14 18.5523 14 18V16H12C11.4477 16 11 15.5523 11 15C11 14.4477 11.4477 14 12 14H14C15.1046 14 16 14.8954 16 16V18Z"/></svg>`;
-        enlargeIcon.addEventListener('click', () => openLightbox(currentMedia.src, currentMedia.type));
         
         if (currentMedia.type === 'video') {
             const video = document.createElement('video');
@@ -1204,12 +1208,18 @@ document.addEventListener('DOMContentLoaded', () => {
             wrapper.dataset.hasBgImage = 'true';
             wrapper.style.setProperty('--bg-image', `url(${currentMedia.src})`);
         }
-        
-        container.appendChild(enlargeIcon);
 
-        document.getElementById(`popup-caption-${locationId}`).textContent = currentMedia.caption;
+        // Clone the caption element to remove old listeners, then add the new one
+        const newCaptionEl = captionEl.cloneNode(true);
+        newCaptionEl.textContent = currentMedia.caption; // Set text on the new element
+        captionEl.parentNode.replaceChild(newCaptionEl, captionEl);
         
-        const counterElement = document.getElementById(`popup-counter-${locationId}`);
+        // Add cursor and listener for opening the lightbox
+        newCaptionEl.style.cursor = 'pointer';
+        newCaptionEl.addEventListener('click', () => {
+            openLightbox(currentMedia.src, currentMedia.type);
+        });
+        
         if (location.media.length > 1) {
             counterElement.style.display = 'block';
             counterElement.textContent = `${state.currentIndex + 1} / ${location.media.length}`;
