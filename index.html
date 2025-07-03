@@ -55,18 +55,80 @@
         }
 
         /* --- 2. Animasjoner --- */
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         @keyframes heartbeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
         @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.1); opacity: 0.8; } }
         @keyframes blink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
         @keyframes fadeInUp { from { opacity: 0; transform: translate(-50%, 20px); } to { opacity: 1; transform: translate(-50%, 0); } }
-        @keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(-100px) rotate(360deg); opacity: 0; } }
+        
+        @keyframes gentleRiseAndFade {
+            0% {
+                transform: translateY(10px) scale(0.9);
+                opacity: 0;
+            }
+            30% {
+                transform: translateY(0) scale(1.1);
+                opacity: 0.9;
+            }
+            60% {
+                transform: translateY(-20px) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-90px) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        /* NYTT: Kombinert rolig animasjon */
+        @keyframes roligHjertebank {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            25% {
+                transform: scale(1.05);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(0.95);
+                opacity: 0.2;
+            }
+            75% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
         @keyframes popupSlideIn { from { opacity: 0; transform: scale(0.9) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         @keyframes pulse-marker { 0% { box-shadow: 0 0 0 0 rgba(232, 67, 147, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(232, 67, 147, 0); } 100% { box-shadow: 0 0 0 0 rgba(232, 67, 147, 0); } }
 
-        /* --- 3. Login-side --- */
+        /* --- 3. Login-side & Bakgrunnsdekor --- */
+        
+        .background-decor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .background-heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 1rem;
+            animation: float 25s ease-in-out infinite;
+        }
+
         .login-page {
             min-height: 100vh;
             display: flex;
@@ -74,6 +136,8 @@
             align-items: center;
             padding: 1rem;
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 2;
         }
         .login-page.fade-out {
             opacity: 0;
@@ -88,10 +152,10 @@
 
         .title {
             font-size: clamp(2.5rem, 10vw, 3.5rem);
-            color: var(--color-tertiary);
+            color: var(--color-white);
             margin-bottom: 2rem;
-            font-weight: 300;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            font-weight: 400;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.15);
             animation: float 3s ease-in-out infinite;
         }
 
@@ -99,6 +163,7 @@
             color: var(--color-primary);
             font-size: clamp(2rem, 8vw, 3rem);
             animation: heartbeat 1.5s ease-in-out infinite;
+            display: inline-block; /* Forbedrer animasjon */
         }
 
         .login-box {
@@ -107,6 +172,7 @@
             border-radius: var(--border-radius-large);
             box-shadow: var(--shadow-strong);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             width: 90vw;
             max-width: 450px;
             margin: 0 auto;
@@ -123,7 +189,8 @@
             color: var(--color-primary-dark);
             font-size: 1.5rem;
             margin: 1.5rem 0;
-            animation: pulse 2s infinite;
+            /* ENDRET: Bruker den nye, rolige animasjonen */
+            animation: roligHjertebank 8s infinite ease-in-out;
         }
 
         .code-input {
@@ -203,7 +270,6 @@
         }
 
         .first-section { background: linear-gradient(180deg, #e3f2fd 0%, #f8bbd9 40%, #fce4ec 100%); }
-        .second-section { background: linear-gradient(180deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%); }
         .third-section { background: linear-gradient(135deg, #e3f2fd 0%, #f8bbd9 40%, #fce4ec 100%); }
 
         .typewriter-container {
@@ -649,17 +715,29 @@
         }
         .lightbox-close:hover { color: #ddd; transform: scale(1.1); }
         
-        /* svevende hjerter */
+        /* MODIFISERT: CSS for hjerteanimasjon ved korrekt kode */
         .floating-hearts {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 999;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 999;
         }
         .floating-heart {
-            position: absolute; color: rgba(253, 121, 168, 0.7); font-size: 1.5rem; animation: floatUp 4s linear infinite;
+            position: absolute;
+            color: rgba(232, 67, 147, 0.9);
+            animation: gentleRiseAndFade 4s ease-out forwards;
+            will-change: transform, opacity;
         }
 
     </style>
 </head>
 <body>
+
+    <div class="background-decor" id="background-decor"></div>
 
     <main id="login-page" class="login-page">
         <div class="login-container">
@@ -682,13 +760,6 @@
                 <p class="typewriter-text" id="typewriter-text"><span class="cursor" id="cursor">|</span></p>
             </div>
             <div class="scroll-arrow" id="scroll-arrow"><div class="arrow-down"></div></div>
-        </section>
-
-        <section id="second-section" class="page-section second-section">
-            <div class="content-box">
-                <h2 class="content-title">Fortsettelse følger... ♡</h2>
-                <p class="content-text">Her kan du legge til mer innhold for din kjære Sebastian!<br>Kanskje bilder, minner, eller en annen melding? 💕</p>
-            </div>
         </section>
 
         <section id="third-section" class="page-section third-section">
@@ -884,6 +955,7 @@ document.addEventListener('DOMContentLoaded', () => {
         submitCodeBtn: document.getElementById('submit-code-btn'),
         errorMessage: document.getElementById('error-message'),
         floatingHeartsContainer: document.getElementById('floating-hearts'),
+        backgroundDecor: document.getElementById('background-decor'), // NYTT
         typewriterText: document.getElementById('typewriter-text'),
         cursor: document.getElementById('cursor'),
         scrollArrow: document.getElementById('scroll-arrow'),
@@ -945,19 +1017,60 @@ document.addEventListener('DOMContentLoaded', () => {
             startTypewriter();
         }, 800);
     }
-
+    
+    // MODIFISERT: Funksjon for hjerteanimasjon ved korrekt kode.
     function createHearts(count) {
+        const heartsContainer = elements.floatingHeartsContainer;
+        if (!heartsContainer) return;
+        heartsContainer.innerHTML = '';
+
         for (let i = 0; i < count; i++) {
             const heart = document.createElement('div');
             heart.className = 'floating-heart';
-            heart.innerHTML = '❤️';
-            heart.style.left = `${Math.random() * 100}vw`;
-            heart.style.fontSize = `${Math.random() * 2 + 1}rem`;
-            heart.style.animationDuration = `${Math.random() * 5 + 4}s`;
-            elements.floatingHeartsContainer.appendChild(heart);
-            setTimeout(() => heart.remove(), 8000);
+            heart.innerHTML = '♡';
+            heart.style.left = `${Math.random() * 95}vw`;
+            heart.style.top = `${Math.random() * 90 + 10}vh`;
+            heart.style.fontSize = `${Math.random() * 1.5 + 0.75}rem`;
+            const duration = Math.random() * 5 + 5; // ENDRET: Varighet 5s til 10s for en saktere bevegelse
+            const delay = Math.random() * 2;
+            heart.style.animationDuration = `${duration}s`;
+            heart.style.animationDelay = `${delay}s`;
+            heartsContainer.appendChild(heart);
+            setTimeout(() => heart.remove(), (duration + delay) * 1000);
         }
     }
+    
+    // NYTT: Funksjon for å lage bakgrunnsdekor på innloggingssiden.
+    function createBackgroundDecor(count) {
+        const container = elements.backgroundDecor;
+        if (!container) return;
+
+        for (let i = 0; i < count; i++) {
+            const heart = document.createElement('span');
+            heart.className = 'background-heart';
+            heart.innerHTML = '♡';
+            
+            // Tilfeldig posisjon
+            heart.style.left = `${Math.random() * 100}vw`;
+            heart.style.top = `${Math.random() * 100}vh`;
+
+            // Tilfeldig størrelse
+            const size = Math.random() * 20 + 10; // 10px to 30px
+            heart.style.fontSize = `${size}px`;
+
+            // Tilfeldig animasjonsforsinkelse og varighet for en organisk følelse
+            const duration = Math.random() * 20 + 20; // 20s to 40s
+            const delay = Math.random() * 20;
+            heart.style.animationDuration = `${duration}s`;
+            heart.style.animationDelay = `-${delay}s`; // Negativ forsinkelse starter animasjonen midt i syklusen
+
+            // Tilfeldig opacity
+            heart.style.opacity = Math.random() * 0.2 + 0.1; // 0.1 to 0.3
+
+            container.appendChild(heart);
+        }
+    }
+
 
     function startTypewriter() {
         if (elements.typewriterText.dataset.typing) return;
@@ -1113,7 +1226,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadSpotifyPlayer() {
-        const spotifyURL = `https://open.spotify.com/embed/playlist/${config.spotifyPlaylistId}`;
+        const spotifyURL = `https://open.spotify.com/embed/playlist/5kDyn5qItEbCuA8fROjEKq?utm_source=generator{config.spotifyPlaylistId}`;
         if (elements.spotifyIframe.src !== spotifyURL) {
             elements.spotifyIframe.src = spotifyURL;
         }
@@ -1274,12 +1387,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function init() {
+        // Kaller den nye funksjonen for bakgrunnsdekor
+        createBackgroundDecor(25);
+
         elements.submitCodeBtn.addEventListener('click', checkCode);
         elements.codeInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') checkCode();
         });
 
-        elements.scrollArrow.addEventListener('click', () => scrollToSection('#second-section'));
+        elements.scrollArrow.addEventListener('click', () => scrollToSection('#third-section'));
         elements.backArrow.addEventListener('click', () => scrollToSection('#first-section'));
         
         elements.openPopupBox.addEventListener('click', showPopup);
