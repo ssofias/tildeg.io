@@ -995,7 +995,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkCode() {
         const input = elements.codeInput.value.toLowerCase().trim();
-        if (input === config.correctCode) {
+        if (input === config.correctCode.toLowerCase()) {
             createHearts(30);
             setTimeout(transitionToMainPage, 500);
         } else {
